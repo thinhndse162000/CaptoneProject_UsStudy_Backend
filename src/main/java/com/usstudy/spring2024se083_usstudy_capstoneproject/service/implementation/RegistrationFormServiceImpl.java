@@ -1,7 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormCreateRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.CustomerCreatRegistrationFormRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.RegistrationFormRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationFormService;
@@ -18,7 +17,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     }
 
     @Override
-    public void CreateRegistrationForm(RegistrationFormCreateRequest request) {
+    public void CreateRegistrationForm(CustomerCreatRegistrationFormRequest request) {
         RegistrationForm registrationForm = new RegistrationForm();
 
         registrationForm.setArea(request.getArea());
@@ -31,25 +30,6 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setPriorityOfStudyProgram(request.getPriorityOfStudyAbroad());
         registrationForm.setBudget(request.getBudget());
 
-        registrationFormRepository.save(registrationForm);
-    }
-
-    @Override
-    public Iterable<RegistrationForm> getRegistrationFormByCustomer(Integer customerId) {
-        return registrationFormRepository.findByCustomerId(customerId);
-    }
-
-    @Override
-    public Iterable<RegistrationForm> getAll() {
-        return registrationFormRepository.findAll();
-    }
-
-    @Override
-    public void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request) {
-        RegistrationForm registrationForm = registrationFormRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("Registration not found - " + id));
-
-        registrationForm.setConsultantId(registrationForm.getConsultantId());
         registrationFormRepository.save(registrationForm);
     }
 }

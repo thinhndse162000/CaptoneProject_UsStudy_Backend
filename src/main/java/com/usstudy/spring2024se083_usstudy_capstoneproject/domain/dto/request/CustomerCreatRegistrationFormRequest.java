@@ -1,23 +1,15 @@
-package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
+package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Entity
-public class RegistrationForm {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int registrationFormId;
+public class CustomerCreatRegistrationFormRequest {
     private String area;
     private String moreInformation;
     private String studyAbroadReason;
@@ -26,7 +18,6 @@ public class RegistrationForm {
     private String majorChoose;
     private String majorChooseReason;
     private String universityChooseReason;
-    private String priorityOfStudyProgram;
+    private String priorityOfStudyAbroad;
     private String budget;
-
 }

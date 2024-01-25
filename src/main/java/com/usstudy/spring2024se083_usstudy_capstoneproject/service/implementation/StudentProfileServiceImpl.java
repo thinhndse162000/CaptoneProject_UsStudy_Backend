@@ -21,22 +21,15 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void CreateStudentProfile(StudentProfileCreateRequest request) {
-        
+    public void CreateStudentProfile(StudentProfileCreateRequest studentProfileCreateRequest) {
+        studentProfileCreateRequest.setStudyProcess(studentProfileCreateRequest.getStudyProcess().trim());
+
         StudentProfile studentProfile= new StudentProfile();
 
         studentProfile.setStudentProfileId(0);
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
-        studentProfile.setNationalId(request.getNationalId());
-        studentProfile.setPlaceOfBirth(request.getPlaceOfBirth());
-        studentProfile.setFullName(request.getFullName());
-        studentProfile.setEmail(request.getEmail());
-        studentProfile.setPhone(request.getPhone());
-        studentProfile.setAddress(request.getAddress());
-        studentProfile.setDateOfBirth(request.getDateOfBirth());
-        studentProfile.setGender(request.getGender());
-        studentProfile.setStudyProcess(request.getStudyProcess().trim());
-        studentProfile.setCustomerId(2);
+        studentProfile.setNationalId(studentProfileCreateRequest.getNationalId());
+        studentProfile.setPlaceOfBirth(studentProfileCreateRequest.getPlaceOfBirth());
 
         studentProfileRepository.save(studentProfile);
     }
@@ -44,9 +37,10 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     @Override
     public void UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request) {
         StudentProfile studentProfile = studentProfileRepository.findById(studentProfileId)
-                .orElseThrow(() -> new NullPointerException("Student Profile not found - " + studentProfileId));
+                .orElseThrow(() -> new NullPointerException("Account not found - " + studentProfileId));
 
         studentProfile.setEmail(request.getEmail());
+        studentProfile.setNational(request.getNational());
         studentProfile.setAddress(request.getAddress());
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess());
@@ -55,6 +49,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setNationalId(request.getNationalId());
         studentProfile.setFullName(request.getFullName());
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
+
         studentProfileRepository.save(studentProfile);
     }
 
