@@ -17,7 +17,6 @@ public class Major implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MajorId")
     private Integer majorId;
     private String majorName;
     private String description;
