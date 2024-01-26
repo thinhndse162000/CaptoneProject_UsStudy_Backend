@@ -50,4 +50,5 @@ public class StudentProfileApi {
         studentProfileService.UpdateStudentProfile(id, request);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
+
 }
