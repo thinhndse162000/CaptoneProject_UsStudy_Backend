@@ -21,15 +21,22 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void CreateStudentProfile(StudentProfileCreateRequest studentProfileCreateRequest) {
-        studentProfileCreateRequest.setStudyProcess(studentProfileCreateRequest.getStudyProcess().trim());
-
+    public void CreateStudentProfile(StudentProfileCreateRequest request) {
+        
         StudentProfile studentProfile= new StudentProfile();
 
         studentProfile.setStudentProfileId(0);
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
-        studentProfile.setNationalId(studentProfileCreateRequest.getNationalId());
-        studentProfile.setPlaceOfBirth(studentProfileCreateRequest.getPlaceOfBirth());
+        studentProfile.setNationalId(request.getNationalId());
+        studentProfile.setPlaceOfBirth(request.getPlaceOfBirth());
+        studentProfile.setFullName(request.getFullName());
+        studentProfile.setEmail(request.getEmail());
+        studentProfile.setPhone(request.getPhone());
+        studentProfile.setAddress(request.getAddress());
+        studentProfile.setDateOfBirth(request.getDateOfBirth());
+        studentProfile.setGender(request.getGender());
+        studentProfile.setStudyProcess(request.getStudyProcess().trim());
+        studentProfile.setCustomerId(2);
 
         studentProfileRepository.save(studentProfile);
     }
@@ -40,7 +47,6 @@ public class StudentProfileServiceImpl implements StudentProfileService {
                 .orElseThrow(() -> new NullPointerException("Account not found - " + studentProfileId));
 
         studentProfile.setEmail(request.getEmail());
-        studentProfile.setNational(request.getNational());
         studentProfile.setAddress(request.getAddress());
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess());
@@ -49,7 +55,6 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setNationalId(request.getNationalId());
         studentProfile.setFullName(request.getFullName());
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
-
         studentProfileRepository.save(studentProfile);
     }
 
