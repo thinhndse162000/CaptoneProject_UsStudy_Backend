@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,5 +23,16 @@ public class MajorService implements IMajorService {
     @Override
     public List<Major> getAllMajor() {
         return majorRepository.findAllByOrderByMajorIdDesc();
+    }
+
+    @Override
+    public Major saveMajor(Major major) {
+        majorRepository.save(major);
+        return major;
+    }
+
+    @Override
+    public Optional<?> findById(int id) {
+        return  majorRepository.findById(id);
     }
 }
