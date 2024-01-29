@@ -5,7 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IMajorService {
     List<Major> getAllMajor();
+    Major saveMajor(Major major);
+    Optional findById(int id);
 }

@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,31 @@ public class MajorApi {
     {
         List<Major> result=majorService.getAllMajor();
         return ResponseEntity.ok(result);
+    }
+    @PostMapping("")
+    public ResponseEntity<?> postMajor(@RequestBody Major major){
+        try {
+            Major result= majorService.saveMajor(major);
+            return  ResponseEntity.ok(result);
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
+    }
+    @PutMapping("")
+    public ResponseEntity<?> putMajor(@RequestBody Major major){
+        try {
+            if (major.getMajorId()!=null && !majorService.findById(major.getMajorId()).isEmpty())
+            {
+                Major result= majorService.saveMajor(major);
+                return  ResponseEntity.ok(result);
+            }
+            else {
+                return ResponseEntity.badRequest().body("No major with id "+major.getMajorId()+" found!");
+            }
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
     }
 }
