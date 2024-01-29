@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "UniversityType")
-@Table(name = "UniversityType")
+@Entity(name = "Universitytype")
+@Table(name = "Universitytype")
 public class UniversityType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
