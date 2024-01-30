@@ -1,6 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.CustomerCreatRegistrationFormRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.RegistrationFormRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationFormService;
@@ -17,7 +17,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     }
 
     @Override
-    public void CreateRegistrationForm(CustomerCreatRegistrationFormRequest request) {
+    public void CreateRegistrationForm(RegistrationFormCreateRequest request) {
         RegistrationForm registrationForm = new RegistrationForm();
 
         registrationForm.setArea(request.getArea());

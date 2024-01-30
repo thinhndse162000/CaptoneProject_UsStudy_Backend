@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RegistrationFormRepository extends CrudRepository<RegistrationForm,Integer> {
 
+
 }

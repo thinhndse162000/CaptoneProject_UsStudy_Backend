@@ -1,7 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.CustomerCreatRegistrationFormRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormCreateRequest;
 
 public interface RegistrationFormService {
-    void CreateRegistrationForm(CustomerCreatRegistrationFormRequest request);
+    void CreateRegistrationForm(RegistrationFormCreateRequest request);
 }

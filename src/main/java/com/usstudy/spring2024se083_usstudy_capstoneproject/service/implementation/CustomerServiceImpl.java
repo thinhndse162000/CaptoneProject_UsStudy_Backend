@@ -1,6 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.CustomerRegisterAccountRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegisterAccountRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void CustomerRegistedAccount(CustomerRegisterAccountRequest request) {
+    public void CustomerRegistedAccount(RegisterAccountRequest request) {
         Customer customer = new Customer();
 
         customer.setFullName(request.getFullName());
