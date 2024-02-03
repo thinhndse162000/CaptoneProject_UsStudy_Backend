@@ -38,4 +38,20 @@ public class UniversityApi {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
+    @PutMapping("")
+    public ResponseEntity<?> putUniversity(@RequestBody University university){
+        try {
+            if (university.getUniversityId()!=null && !universityService.getUniversityById(university.getUniversityId()).isEmpty())
+            {
+                University result= universityService.saveUniversity(university);
+                return  ResponseEntity.ok(result);
+            }
+            else {
+                return ResponseEntity.badRequest().body("No major with id "+university.getUniversityId()+" found!");
+            }
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
+    }
 }
