@@ -1,14 +1,12 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IUniversityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,16 @@ public class UniversityApi {
         else {
             List<University> result=universityService.getAllUniversity();
             return ResponseEntity.ok(result);
+        }
+    }
+    @PostMapping("")
+    public ResponseEntity<?> postUniversity(@RequestBody University university){
+        try {
+            University result= universityService.saveUniversity(university);
+            return  ResponseEntity.ok(result);
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
 }
