@@ -19,9 +19,10 @@ public class University {
     private Integer universityId;
     private Float tuition;
     private String description;
-
     //FK university type here
-
+    @Column(name = "university_type_id")
+    private Integer universityTypeId;
     //Fk state here
-
+    @Column(name = "state_id")
+    private Integer stateId;
 }
