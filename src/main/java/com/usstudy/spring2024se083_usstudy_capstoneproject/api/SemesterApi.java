@@ -1,6 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.service.interfaces.ISemesterService;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ISemesterService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

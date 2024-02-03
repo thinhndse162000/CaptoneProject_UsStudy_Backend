@@ -17,7 +17,10 @@ import java.time.LocalDate;
 public class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "semester_id")
     private Integer semesterId;
+    @Column(name = "start_date")
     private LocalDate startDate;
+    @Column(name = "end_date")
     private LocalDate endDate;
 }

@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class University {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "university_id")
     private Integer universityId;
     private Float tuition;
     private String description;

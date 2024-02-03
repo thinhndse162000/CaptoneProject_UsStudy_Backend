@@ -1,8 +1,8 @@
-package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.service;
+package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UniversityType;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.repository.UniversityTypeRepository;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.service.interfaces.IUniversityTypeService;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.UniversityTypeRepository;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IUniversityTypeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 public class UniversityType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "university_type_id")
     private Integer universityTypeId;
+    @Column(name = "type_name")
     private String typeName;
     private String description;
 }

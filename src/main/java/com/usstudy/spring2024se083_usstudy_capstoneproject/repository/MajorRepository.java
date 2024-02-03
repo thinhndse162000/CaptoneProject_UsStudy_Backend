@@ -1,4 +1,4 @@
-package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.repository;
+package com.usstudy.spring2024se083_usstudy_capstoneproject.repository;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import org.springframework.data.domain.Page;
