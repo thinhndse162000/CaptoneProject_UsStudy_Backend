@@ -24,11 +24,11 @@ public class Program {
     private LocalDate createDate;
     @Column(name = "modified_date")
     private LocalDate modifiedDate;
-    //private Integer modifier;
+    private Integer modifier;
     private String duration; //in days or months?
     private String description;
     private float tuition;
-    //private String level;
+    private String level;
 
     //FK university here
     @Column(name = "university_id")
