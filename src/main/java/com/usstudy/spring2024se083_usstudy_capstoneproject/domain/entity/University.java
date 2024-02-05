@@ -17,6 +17,8 @@ public class University {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "university_id")
     private Integer universityId;
+    @Column(name = "university_name")
+    private String universityName;
     private Float tuition;
     private String description;
     //FK university type here
