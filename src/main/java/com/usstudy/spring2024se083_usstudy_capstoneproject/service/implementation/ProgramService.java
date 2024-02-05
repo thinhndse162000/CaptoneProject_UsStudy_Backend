@@ -25,4 +25,10 @@ public class ProgramService implements IProgramService {
     public Optional<Program> getProgramById(int id) {
         return programRepository.findById(id);
     }
+
+    @Override
+    public Program saveProgram(Program program) {
+        programRepository.save(program);
+        return program;
+    }
 }

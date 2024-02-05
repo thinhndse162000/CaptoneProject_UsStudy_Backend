@@ -1,16 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,6 +26,40 @@ public class ProgramApi {
         else {
             List<Program> result=programService.getAllProgram();
             return ResponseEntity.ok(result);
+        }
+    }
+    @PostMapping("")
+    public ResponseEntity<?> postProgram(@RequestBody Program program,
+                                         @RequestParam(required = false,defaultValue ="false") Boolean useServerTime){
+        try {
+            if (useServerTime==true){
+                program.setCreateDate(LocalDate.now());
+            }
+            Program result= programService.saveProgram(program);
+            return  ResponseEntity.ok(result);
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
+    }
+    @PutMapping("")
+    public ResponseEntity<?> putProgram(@RequestBody Program program,
+                                        @RequestParam(required = false,defaultValue ="false") Boolean useServerTime){
+        try {
+            if (program.getProgramId()!=null && !programService.getProgramById(program.getProgramId()).isEmpty())
+            {
+                if (useServerTime==true){
+                    program.setModifiedDate(LocalDate.now());
+                }
+                Program result= programService.saveProgram(program);
+                return  ResponseEntity.ok(result);
+            }
+            else {
+                return ResponseEntity.badRequest().body("No major with id "+program.getProgramId()+" found!");
+            }
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
 }

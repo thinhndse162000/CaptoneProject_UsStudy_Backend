@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface IProgramService {
     List<Program> getAllProgram();
     Optional<Program> getProgramById(int id);
+    Program saveProgram(Program program);
 }
