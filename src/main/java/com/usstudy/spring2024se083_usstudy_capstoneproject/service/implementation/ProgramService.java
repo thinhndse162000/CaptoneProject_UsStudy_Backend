@@ -31,4 +31,9 @@ public class ProgramService implements IProgramService {
         programRepository.save(program);
         return program;
     }
+
+    @Override
+    public List<Program> getProgramsByUniversityId(int id) {
+        return programRepository.getProgramsByUniversityId(id);
+    }
 }
