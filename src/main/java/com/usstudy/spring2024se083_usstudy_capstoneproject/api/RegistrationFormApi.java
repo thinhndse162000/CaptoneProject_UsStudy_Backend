@@ -22,9 +22,14 @@ public class RegistrationFormApi {
         service.CreateRegistrationForm(request);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/customer/{id}")
     public Iterable<RegistrationForm> getRegistrationFormByCustomer(@PathVariable Integer id){
         return service.getRegistrationFormByCustomer(id);
+    }
+
+    @GetMapping("/consultant/{id}")
+    public Iterable<RegistrationForm> getRegistrationFormByConsultant(@PathVariable Integer id){
+        return service.getRegistrationFormByConsultant(id);
     }
 
     @GetMapping("/get-all")

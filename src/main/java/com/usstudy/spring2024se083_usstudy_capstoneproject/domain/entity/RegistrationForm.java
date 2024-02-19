@@ -28,5 +28,6 @@ public class RegistrationForm {
     private String universityChooseReason;
     private String priorityOfStudyProgram;
     private String budget;
-
+    private Integer customerId;
+    private Integer consultantId;
 }

@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormCreateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.RegistrationFormRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationFormService;
@@ -32,4 +33,27 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
 
         registrationFormRepository.save(registrationForm);
     }
+
+    @Override
+    public Iterable<RegistrationForm> getRegistrationFormByCustomer(Integer id) {
+        return registrationFormRepository.findByCustomerId(id);
+    }
+
+    @Override
+    public Iterable<RegistrationForm> getRegistrationFormByConsultant(Integer id) {
+        return registrationFormRepository.findByConsultantId(id);
+    }
+
+    @Override
+    public Iterable<RegistrationForm> getAll() {
+        return registrationFormRepository.findAll();
+    }
+
+    @Override
+    public void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request) {
+        RegistrationForm registrationForm = registrationFormRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Form not found - " + id));
+        registrationForm.setConsultantId(registrationForm.getConsultantId());
+    }
+
 }

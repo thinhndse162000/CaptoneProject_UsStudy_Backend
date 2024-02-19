@@ -2,7 +2,9 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FileUpload;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FileUploadRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.StudentProfileRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +16,19 @@ import java.sql.Date;
 public class StudentProfileServiceImpl implements StudentProfileService {
 
     private final StudentProfileRepository studentProfileRepository;
+    private final FileUploadRepository fileUploadRepository;
 
     @Autowired
-    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository){
+    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, FileUploadRepository fileUploadRepository){
         this.studentProfileRepository = studentProfileRepository;
+        this.fileUploadRepository = fileUploadRepository;
     }
 
     @Override
     public void CreateStudentProfile(StudentProfileCreateRequest request) {
         
         StudentProfile studentProfile= new StudentProfile();
+        FileUpload fileUpload = new FileUpload();
 
         studentProfile.setStudentProfileId(0);
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
@@ -37,7 +42,12 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
         studentProfile.setCustomerId(2);
-
+        for (String file : request.getFileString()){
+            fileUpload.setUploadFileId(0);
+            fileUpload.setStudentProfileId(studentProfile.getStudentProfileId());
+            fileUpload.setFileAttach(file);
+            fileUploadRepository.save(fileUpload);
+        }
         studentProfileRepository.save(studentProfile);
     }
 
