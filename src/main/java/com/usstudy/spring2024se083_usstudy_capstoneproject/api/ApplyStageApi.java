@@ -3,6 +3,8 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ApplyStageService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,13 +17,15 @@ public class ApplyStageApi {
     }
 
     @PostMapping("/submit")
-    public void submitApplyStage(@RequestBody ApplyStageSubmitRequest request){
+    public ResponseEntity<?> submitApplyStage(@RequestBody ApplyStageSubmitRequest request) {
         service.submitApplyStage(request);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update/{id}")
-    public void updateApplyStage(@PathVariable Integer id, ApplyStageUpdateRequest request){
+    public ResponseEntity<?> updateApplyStage(@PathVariable Integer id, ApplyStageUpdateRequest request) {
         service.updateApplyStage(id, request);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
 

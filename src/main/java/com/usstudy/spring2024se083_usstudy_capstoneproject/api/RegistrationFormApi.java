@@ -5,6 +5,8 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.Re
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationFormService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,27 +20,28 @@ public class RegistrationFormApi {
     }
 
     @PostMapping("/submit")
-    public void submitRegistrationForm(RegistrationFormCreateRequest request){
+    public void submitRegistrationForm(RegistrationFormCreateRequest request) {
         service.CreateRegistrationForm(request);
     }
 
     @GetMapping("/customer/{id}")
-    public Iterable<RegistrationForm> getRegistrationFormByCustomer(@PathVariable Integer id){
-        return service.getRegistrationFormByCustomer(id);
+    public ResponseEntity<Iterable<RegistrationForm>> getRegistrationFormByCustomer(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getRegistrationFormByCustomer(id));
     }
 
     @GetMapping("/consultant/{id}")
-    public Iterable<RegistrationForm> getRegistrationFormByConsultant(@PathVariable Integer id){
-        return service.getRegistrationFormByConsultant(id);
+    public ResponseEntity<Iterable<RegistrationForm>> getRegistrationFormByConsultant(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getRegistrationFormByConsultant(id));
     }
 
     @GetMapping("/get-all")
-    public Iterable<RegistrationForm> getAllRegistrationForm(){
-        return service.getAll();
+    public ResponseEntity<Iterable<RegistrationForm>> getAllRegistrationForm() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @PutMapping("/update/{id}")
-    public void updateRegistrationForm(@PathVariable Integer id, @RequestBody RegistrationFormUpdateRequest request){
-        service.updateRegistrationForm(id,request);
+    public ResponseEntity<?> updateRegistrationForm(@PathVariable Integer id, @RequestBody RegistrationFormUpdateRequest request) {
+        service.updateRegistrationForm(id, request);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 }
