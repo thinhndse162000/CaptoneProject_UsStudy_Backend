@@ -35,8 +35,13 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     }
 
     @Override
-    public Iterable<RegistrationForm> getRegistrationFormByCustomer(Integer customerId) {
-        return registrationFormRepository.findByCustomerId(customerId);
+    public Iterable<RegistrationForm> getRegistrationFormByCustomer(Integer id) {
+        return registrationFormRepository.findByCustomerId(id);
+    }
+
+    @Override
+    public Iterable<RegistrationForm> getRegistrationFormByConsultant(Integer id) {
+        return registrationFormRepository.findByConsultantId(id);
     }
 
     @Override
@@ -47,9 +52,8 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request) {
         RegistrationForm registrationForm = registrationFormRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("Registration not found - " + id));
-
+                .orElseThrow(() -> new NullPointerException("Form not found - " + id));
         registrationForm.setConsultantId(registrationForm.getConsultantId());
-        registrationFormRepository.save(registrationForm);
     }
+
 }
