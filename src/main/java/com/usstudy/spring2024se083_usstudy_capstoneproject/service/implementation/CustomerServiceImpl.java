@@ -30,4 +30,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.save(customer);
     }
+
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return customerRepository.getCustomerByEmail(email);
+    }
 }
