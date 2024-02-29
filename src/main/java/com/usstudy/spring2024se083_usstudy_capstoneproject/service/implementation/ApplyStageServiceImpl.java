@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Service
 public class ApplyStageServiceImpl implements ApplyStageService {
@@ -42,6 +43,16 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         applyStage.setProgramStageId(request.getProgramStageId());
 
         applyStageRepository.save(applyStage);
+    }
+
+    @Override
+    public Iterable<ApplyStage> getAllApplyStage() {
+        return applyStageRepository.findAll();
+    }
+
+    @Override
+    public Optional<ApplyStage> getById(Integer id) {
+        return applyStageRepository.findById(id);
     }
 
 

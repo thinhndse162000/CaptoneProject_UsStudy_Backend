@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
@@ -43,7 +44,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
         studentProfile.setCustomerId(2);
         studentProfileRepository.save(studentProfile);
-        
+
         if (!(request.getFileString() == null)) {
             for (String file : request.getFileString()) {
                 fileUpload.setUploadFileId(0);
@@ -74,5 +75,10 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     @Override
     public Iterable<StudentProfile> getAllByCustomerId(Integer customerId) {
         return studentProfileRepository.findByCustomerId(customerId);
+    }
+
+    @Override
+    public Optional<StudentProfile> getById(Integer id) {
+        return studentProfileRepository.findById(id);
     }
 }
