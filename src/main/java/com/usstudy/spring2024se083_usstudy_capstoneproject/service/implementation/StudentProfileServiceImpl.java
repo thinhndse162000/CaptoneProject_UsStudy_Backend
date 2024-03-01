@@ -3,27 +3,33 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FileUploadRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.StudentProfileRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
     private final StudentProfileRepository studentProfileRepository;
+    private final FileUploadRepository fileUploadRepository;
 
     @Autowired
-    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository){
+    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, FileUploadRepository fileUploadRepository) {
         this.studentProfileRepository = studentProfileRepository;
+        this.fileUploadRepository = fileUploadRepository;
     }
 
     @Override
     public void CreateStudentProfile(StudentProfileCreateRequest request) {
-        
-        StudentProfile studentProfile= new StudentProfile();
+
+        StudentProfile studentProfile = new StudentProfile();
+        UploadFile fileUpload = new UploadFile();
 
         studentProfile.setStudentProfileId(0);
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
@@ -37,14 +43,22 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
         studentProfile.setCustomerId(2);
-
         studentProfileRepository.save(studentProfile);
+
+        if (!(request.getFileString() == null)) {
+            for (String file : request.getFileString()) {
+                fileUpload.setUploadFileId(0);
+                fileUpload.setStudentProfileId(studentProfile.getStudentProfileId());
+                fileUpload.setFileAttach(file);
+                fileUploadRepository.save(fileUpload);
+            }
+        }
     }
 
     @Override
     public void UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request) {
         StudentProfile studentProfile = studentProfileRepository.findById(studentProfileId)
-                .orElseThrow(() -> new NullPointerException("Student Profile not found - " + studentProfileId));
+                .orElseThrow(() -> new NullPointerException("Account not found - " + studentProfileId));
 
         studentProfile.setEmail(request.getEmail());
         studentProfile.setAddress(request.getAddress());
@@ -61,5 +75,10 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     @Override
     public Iterable<StudentProfile> getAllByCustomerId(Integer customerId) {
         return studentProfileRepository.findByCustomerId(customerId);
+    }
+
+    @Override
+    public Optional<StudentProfile> getById(Integer id) {
+        return studentProfileRepository.findById(id);
     }
 }

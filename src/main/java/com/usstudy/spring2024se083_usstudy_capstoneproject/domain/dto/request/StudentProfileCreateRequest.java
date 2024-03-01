@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +33,5 @@ public class StudentProfileCreateRequest {
     @NotBlank(message = "National Id Not Blank")
     private String nationalId;
     private String studyProcess;
+    private List<String> fileString;
 }

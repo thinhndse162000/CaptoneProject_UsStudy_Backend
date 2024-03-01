@@ -1,6 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FileUpload;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -37,5 +37,5 @@ public class StudentProfileUpdateRequest {
     private String nationalId;
     @NotBlank(message = "Study Proccess number must not be blank")
     private String studyProcess;
-    ArrayList<FileUpload> fileUploads;
+    ArrayList<UploadFile> fileUploads;
 }
