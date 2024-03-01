@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v3/program-types")
@@ -19,11 +16,12 @@ public class ProgramTypeApi {
 
     @Operation(summary = "Get all ProgramType", description = "Returns all ProgramType")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer programTypeId) {
-        if (programTypeId != null) {
-            return ResponseEntity.ok(programTypeService.getProgramTypeById(programTypeId));
-        } else {
-            return ResponseEntity.ok(programTypeService.getAllProgramType());
-        }
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(programTypeService.getAllProgramType());
+    }
+    @Operation(summary = "Get a ProgramType by id", description = "Return a ProgramType")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(programTypeService.getProgramTypeById(id));
     }
 }
