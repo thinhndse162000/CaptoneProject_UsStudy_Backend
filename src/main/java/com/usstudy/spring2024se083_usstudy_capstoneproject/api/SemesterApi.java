@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v3/semesters")
@@ -17,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class SemesterApi {
     private final ISemesterService semesterService;
 
-    @Operation(summary = "Get all semester", description = "Returns all Semester")
+    @Operation(summary = "Get all semester", description = "Return all Semesters")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer semesterId) {
-        if (semesterId != null) {
-            return ResponseEntity.ok(semesterService.findSemesterById(semesterId));
-        } else {
-            return ResponseEntity.ok(semesterService.getAllSemester());
-        }
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(semesterService.getAllSemester());
+    }
+    @Operation(summary = "Get a semester by id", description = "Return a Semester")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(semesterService.findSemesterById(id));
     }
 }

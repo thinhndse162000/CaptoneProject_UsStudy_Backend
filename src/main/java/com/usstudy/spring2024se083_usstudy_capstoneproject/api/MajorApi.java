@@ -18,11 +18,16 @@ public class MajorApi {
 
     private final IMajorService majorService;
 
-    @Operation(summary = "Get All Major", description = "Returns All Major")
+    @Operation(summary = "Get All Majors", description = "Return All Majors")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<Major> result = majorService.getAllMajor();
         return ResponseEntity.ok(result);
+    }
+    @Operation(summary = "Get a Major by major id", description = "Return a Major")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getByMajorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(majorService.findById(id));
     }
 
     @Operation(summary = "Create New Major", description = "Create a new Major")
