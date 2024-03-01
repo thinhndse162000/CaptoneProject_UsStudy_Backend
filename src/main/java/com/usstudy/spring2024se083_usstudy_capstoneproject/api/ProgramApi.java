@@ -17,6 +17,7 @@ import java.util.List;
 public class ProgramApi {
     private final IProgramService programService;
     @GetMapping("")
+<<<<<<< Updated upstream
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer programId,
                                     @RequestParam(required = false) Integer universityId)
     {
@@ -25,6 +26,10 @@ public class ProgramApi {
             return ResponseEntity.ok(programService.getProgramById(programId));
         }
         if (universityId!=null){
+=======
+    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
+        if (universityId != null) {
+>>>>>>> Stashed changes
             return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
         }
         else {
@@ -32,6 +37,16 @@ public class ProgramApi {
             return ResponseEntity.ok(result);
         }
     }
+<<<<<<< Updated upstream
+=======
+    @Operation(summary = "Get a Program by program id", description = "Return a program")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getByProgramId(@PathVariable Integer id){
+        return ResponseEntity.ok(programService.getProgramById(id));
+    }
+
+    @Operation(summary = "Create new Program", description = "Create new Program")
+>>>>>>> Stashed changes
     @PostMapping("")
     public ResponseEntity<?> postProgram(@RequestBody Program program,
                                          @RequestParam(required = false,defaultValue ="false") Boolean useServerTime){

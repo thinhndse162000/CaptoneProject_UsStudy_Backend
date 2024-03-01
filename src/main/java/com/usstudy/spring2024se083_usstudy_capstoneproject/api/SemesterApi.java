@@ -4,10 +4,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ISemesterServ
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/semesters")
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Semester-API")
 public class SemesterApi {
     private final ISemesterService semesterService;
+<<<<<<< Updated upstream
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false)Integer semesterId)
     {
@@ -23,5 +21,17 @@ public class SemesterApi {
         }else {
             return ResponseEntity.ok(semesterService.getAllSemester());
         }
+=======
+
+    @Operation(summary = "Get all semester", description = "Return all Semesters")
+    @GetMapping("")
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(semesterService.getAllSemester());
+    }
+    @Operation(summary = "Get a semester by id", description = "Return a Semester")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(semesterService.findSemesterById(id));
+>>>>>>> Stashed changes
     }
 }
