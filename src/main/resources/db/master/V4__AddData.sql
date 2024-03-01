@@ -21,6 +21,9 @@ VALUES
 --Note: assume that FK in [State] and [UniversityType] start at 1
 --Template for table below
 --(1,22,57410,'', '')
+ALTER TABLE University
+ALTER COLUMN [description] nvarchar(700);
+
 INSERT INTO University
 VALUES
 (1,22,62142,N'Đại học Michigan (U-M, UMich, hay đơn giản là Michigan) là một trường đại học nghiên cứu công lập ở Ann Arbor, Michigan. Được thành lập vào năm 1817, đây là tổ chức giáo dục đại học lâu đời nhất trong tiểu bang. Michigan là một trong những trường đại học nghiên cứu sớm nhất của Mỹ và là thành viên sáng lập của Hiệp hội các trường đại học Mỹ.', N'University of Michigan'),
