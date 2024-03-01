@@ -22,16 +22,6 @@ public class MajorApi {
         List<Major> result=majorService.getAllMajor();
         return ResponseEntity.ok(result);
     }
-<<<<<<< Updated upstream
-=======
-    @Operation(summary = "Get a Major by major id", description = "Returns All Major")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getByMajorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(majorService.findById(id));
-    }
-
-    @Operation(summary = "Create New Major", description = "Create a new Major")
->>>>>>> Stashed changes
     @PostMapping("")
     public ResponseEntity<?> postMajor(@RequestBody Major major){
         try {

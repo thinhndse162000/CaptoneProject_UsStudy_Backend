@@ -17,7 +17,6 @@ import java.util.List;
 public class UniversityApi {
     private final IUniversityService universityService;
     @GetMapping("")
-<<<<<<< Updated upstream
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId)
     {
         if (universityId!=null)
@@ -28,16 +27,6 @@ public class UniversityApi {
             List<University> result=universityService.getAllUniversity();
             return ResponseEntity.ok(result);
         }
-=======
-    public ResponseEntity<?> getAll() {
-        List<University> result = universityService.getAllUniversity();
-        return ResponseEntity.ok(result);
-    }
-    @Operation(summary = "Get an University by university id", description = "Return a University")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getByUniversityId(@PathVariable Integer id) {
-        return ResponseEntity.ok(universityService.getUniversityById(id));
->>>>>>> Stashed changes
     }
     @PostMapping("")
     public ResponseEntity<?> postUniversity(@RequestBody University university){

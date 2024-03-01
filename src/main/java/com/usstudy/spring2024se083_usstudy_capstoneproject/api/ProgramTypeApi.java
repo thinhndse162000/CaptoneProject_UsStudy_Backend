@@ -4,7 +4,10 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramTypeS
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/program-types")
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class ProgramTypeApi {
     private final IProgramTypeService programTypeService;
     @GetMapping("")
-<<<<<<< Updated upstream
     public ResponseEntity<?> getAll(@RequestParam(required = false)Integer programTypeId)
     {
         if (programTypeId!=null){
@@ -21,14 +23,5 @@ public class ProgramTypeApi {
         }else {
             return ResponseEntity.ok(programTypeService.getAllProgramType());
         }
-=======
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(programTypeService.getAllProgramType());
-    }
-    @Operation(summary = "Get a ProgramType by id", description = "Return a ProgramType")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(programTypeService.getProgramTypeById(id));
->>>>>>> Stashed changes
     }
 }
