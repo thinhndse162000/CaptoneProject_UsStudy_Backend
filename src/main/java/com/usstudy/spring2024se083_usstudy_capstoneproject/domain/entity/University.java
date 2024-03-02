@@ -27,4 +27,5 @@ public class University {
     //Fk state here
     @Column(name = "state_id")
     private Integer stateId;
+    private String img;
 }
