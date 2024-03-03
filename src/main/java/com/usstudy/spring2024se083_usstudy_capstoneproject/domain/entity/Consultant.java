@@ -1,9 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,9 @@ import lombok.Setter;
 public class Consultant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "consultant_id")
     private Integer consultantId;
+    @Column(name = "username")
     private String userName;
     private String email;
     private String password;

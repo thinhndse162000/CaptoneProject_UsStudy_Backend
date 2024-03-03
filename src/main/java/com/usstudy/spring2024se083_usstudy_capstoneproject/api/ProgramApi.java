@@ -17,10 +17,11 @@ import java.util.List;
 @Tag(name = "Program-API")
 public class ProgramApi {
     private final IProgramService programService;
-
+  
     @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
+
         if (universityId != null) {
             return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
         } else {

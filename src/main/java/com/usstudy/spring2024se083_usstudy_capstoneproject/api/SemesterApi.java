@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class SemesterApi {
     private final ISemesterService semesterService;
 
+
     @Operation(summary = "Get all semester", description = "Return all Semesters")
     @GetMapping("")
     public ResponseEntity<?> getAll() {

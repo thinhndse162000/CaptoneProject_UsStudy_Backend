@@ -17,6 +17,7 @@ import java.util.List;
 public class UniversityApi {
     private final IUniversityService universityService;
 
+
     @Operation(summary = "Get all Universities", description = "Return all Universities")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
