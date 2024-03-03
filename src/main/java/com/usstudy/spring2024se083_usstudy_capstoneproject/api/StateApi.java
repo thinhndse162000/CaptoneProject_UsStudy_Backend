@@ -19,15 +19,16 @@ import java.util.List;
 @Tag(name = "State-API")
 public class StateApi {
     private final IStateService stateService;
-
-    @Operation(summary = "Get all State", description = "Returns all State")
+  
+    @Operation(summary = "Get all State", description = "Return all States")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer stateId) {
-        if (stateId != null) {
-            return ResponseEntity.ok(stateService.getStateById(stateId));
-        } else {
-            List<State> result = stateService.getAllState();
-            return ResponseEntity.ok(result);
-        }
+    public ResponseEntity<?> getAll() {
+        List<State> result = stateService.getAllState();
+        return ResponseEntity.ok(result);
+    }
+    @Operation(summary = "Get a State by id", description = "Return a State")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(stateService.getStateById(id));
     }
 }

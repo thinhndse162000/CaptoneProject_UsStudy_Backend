@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v3/university-types")
@@ -17,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UniversityTypeApi {
     private final IUniversityTypeService universityTypeService;
 
-    @Operation(summary = "Get UniversityType ", description = "Update UniversityType ")
+    @Operation(summary = "Get all UniversityTypes ", description = "Return all UniversityTypes ")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityTypeId) {
-        if (universityTypeId != null) {
-            return ResponseEntity.ok(universityTypeService.getUniversityTypeById(universityTypeId));
-        } else {
-            return ResponseEntity.ok(universityTypeService.getAllUniversityType());
-        }
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(universityTypeService.getAllUniversityType());
+    }
+    @Operation(summary = "Get a UniversityType by id", description = "Return a UniversityType ")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(universityTypeService.getUniversityTypeById(id));
     }
 }

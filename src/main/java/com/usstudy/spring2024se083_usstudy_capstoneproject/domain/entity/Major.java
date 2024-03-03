@@ -23,4 +23,5 @@ public class Major implements Serializable {
     private String majorName;
 //    @Column(name = "description")
     private String description;
+    private String img;
 }

@@ -17,20 +17,22 @@ import java.util.List;
 @Tag(name = "Program-API")
 public class ProgramApi {
     private final IProgramService programService;
-
-    @Operation(summary = "Get All Program", description = "Returns all program")
+  
+    @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer programId,
-                                    @RequestParam(required = false) Integer universityId) {
-        if (programId != null) {
-            return ResponseEntity.ok(programService.getProgramById(programId));
-        }
+    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
+
         if (universityId != null) {
             return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
         } else {
             List<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
+    }
+    @Operation(summary = "Get a Program by program id", description = "Return a program")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getByProgramId(@PathVariable Integer id){
+        return ResponseEntity.ok(programService.getProgramById(id));
     }
 
     @Operation(summary = "Create new Program", description = "Create new Program")

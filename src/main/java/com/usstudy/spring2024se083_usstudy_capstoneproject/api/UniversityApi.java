@@ -17,15 +17,17 @@ import java.util.List;
 public class UniversityApi {
     private final IUniversityService universityService;
 
-    @Operation(summary = "Get all Universities", description = "Returns all Universities")
+
+    @Operation(summary = "Get all Universities", description = "Return all Universities")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
-        if (universityId != null) {
-            return ResponseEntity.ok(universityService.getUniversityById(universityId));
-        } else {
-            List<University> result = universityService.getAllUniversity();
-            return ResponseEntity.ok(result);
-        }
+    public ResponseEntity<?> getAll() {
+        List<University> result = universityService.getAllUniversity();
+        return ResponseEntity.ok(result);
+    }
+    @Operation(summary = "Get an University by university id", description = "Return a University")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getByUniversityId(@PathVariable Integer id) {
+        return ResponseEntity.ok(universityService.getUniversityById(id));
     }
 
     @Operation(summary = "Create University ", description = "Create University ")
