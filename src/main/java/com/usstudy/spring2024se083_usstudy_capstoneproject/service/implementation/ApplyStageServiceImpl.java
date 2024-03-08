@@ -25,10 +25,9 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         ApplyStage applyStage = new ApplyStage();
 
         applyStage.setApplyStageId(0);
-        applyStage.setStudentProfileId(request.getStudentProfileId());
         applyStage.setProgramStageId(request.getProgramStageId());
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-        applyStage.setStatus(request.getStatus());
+        applyStage.setPaymentStatus(request.getStatus());
 
         applyStageRepository.save(applyStage);
     }
@@ -39,7 +38,7 @@ public class ApplyStageServiceImpl implements ApplyStageService {
                 .orElseThrow(() -> new NullPointerException("Student Profile not found - " + applyStageId));
 
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-        applyStage.setStatus(request.getStatus());
+        applyStage.setPaymentStatus(request.getStatus());
         applyStage.setProgramStageId(request.getProgramStageId());
 
         applyStageRepository.save(applyStage);

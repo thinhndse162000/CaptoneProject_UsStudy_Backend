@@ -13,8 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplyStageSubmitRequest {
-    private Integer studentProfileId;
     private Integer programStageId;
     private Date updateDate;
-    private String status;
+    private int status;
 }
