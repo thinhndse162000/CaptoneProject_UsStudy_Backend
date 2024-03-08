@@ -8,21 +8,22 @@ import lombok.Setter;
 
 import java.sql.Date;
 
+@Entity
 @Setter
 @Getter
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
-public class ApplyStage {
+@NoArgsConstructor
+public class ProgramApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "program_application_id")
+    private Integer programApplicationId;
+    @Column(name = "student_profile_id")
+    private Integer studentProfileId;
+    @Column(name = "program_id")
+    private Integer programId;
     @Column(name = "apply_stage_id")
     private Integer applyStageId;
-    @Column(name = "program_stage_id")
-    private Integer programStageId;
     @Column(name = "update_date")
     private Date updateDate;
-    @Column(name = "payment_status")
-    private int paymentStatus;
-
 }
