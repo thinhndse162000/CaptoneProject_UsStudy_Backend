@@ -18,7 +18,7 @@ public class Spring2024Se083UsStudyCapstoneProjectApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/v3").allowedOrigins("http://usstudy-be:8080");
+                registry.addMapping("/v3").allowedOrigins("http://usstudy-be:8080", "192.168.1.13");
             }
         };
     }
