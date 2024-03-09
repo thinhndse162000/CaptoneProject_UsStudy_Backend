@@ -1,0 +1,18 @@
+# Ignore Maven build artifacts
+target/
+
+# Ignore Maven wrapper files
+.mvn/
+
+# Ignore IDE-specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Ignore test directories
+src/test/
+
+# Ignore version control files
+.git/
+.gitignore
