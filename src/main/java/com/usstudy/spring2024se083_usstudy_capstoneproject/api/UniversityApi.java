@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/v3/universities")
 @RequiredArgsConstructor
 @Tag(name = "University-API")
+@CrossOrigin("http://usstudy-be:8080/")
 public class UniversityApi {
     private final IUniversityService universityService;
 
@@ -24,6 +25,7 @@ public class UniversityApi {
         List<University> result = universityService.getAllUniversity();
         return ResponseEntity.ok(result);
     }
+
     @Operation(summary = "Get an University by university id", description = "Return a University")
     @GetMapping("/{id}")
     public ResponseEntity<?> getByUniversityId(@PathVariable Integer id) {
