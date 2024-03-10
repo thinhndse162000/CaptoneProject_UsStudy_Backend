@@ -18,7 +18,9 @@ public class Spring2024Se083UsStudyCapstoneProjectApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("v3/**").allowedOrigins("http://usstudy-be:8080", "https://usstudy.monoinfinity.net/swagger-ui/index.html");
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET","POST","DELETE","PUT","PATCH","OPTIONS","HEAD");
             }
         };
     }
