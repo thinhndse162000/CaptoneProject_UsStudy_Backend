@@ -18,13 +18,20 @@ import java.util.List;
 public class ProgramApi {
     private final IProgramService programService;
   
-    @Operation(summary = "Get All Programs", description = "Return all programs")
+    @Operation(summary = "Get a list of Programs", description = "Return a list of programs base on some condition")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
+    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
+                                    @RequestParam(required = false) Integer majorId) {
 
-        if (universityId != null) {
-            return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
+        if (universityId != null && majorId!=null) {
+            return ResponseEntity.ok(programService.getProgramsByUniversityIdAndMajorId(universityId,majorId));
         } else {
+            if (universityId!=null){
+                return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
+            }
+            if (majorId!=null){
+                return ResponseEntity.ok(programService.getProgramsByMajorId(majorId));
+            }
             List<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }

@@ -10,4 +10,6 @@ public interface IProgramService {
     Optional<Program> getProgramById(int id);
     Program saveProgram(Program program);
     List<Program> getProgramsByUniversityId(int id);
+    List<Program> getProgramsByMajorId(int id);
+    List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId);
 }
