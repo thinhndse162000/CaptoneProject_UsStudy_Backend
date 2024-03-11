@@ -23,6 +23,8 @@ public class JwtTokenProvider {
         // create string token put in information of customer
         return Jwts.builder()
                 .setSubject(Integer.toString(customer.getCustomerId()))
+                .claim("Role", customer)
+                .claim("UserId", customer.getCustomerId())
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)

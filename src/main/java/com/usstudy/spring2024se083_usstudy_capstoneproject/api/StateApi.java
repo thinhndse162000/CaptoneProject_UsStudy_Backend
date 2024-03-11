@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,13 +19,14 @@ import java.util.List;
 @Tag(name = "State-API")
 public class StateApi {
     private final IStateService stateService;
-  
+
     @Operation(summary = "Get all State", description = "Return all States")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<State> result = stateService.getAllState();
         return ResponseEntity.ok(result);
     }
+
     @Operation(summary = "Get a State by id", description = "Return a State")
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
