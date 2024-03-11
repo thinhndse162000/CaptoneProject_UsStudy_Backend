@@ -26,7 +26,7 @@ public class Spring2024Se083UsStudyCapstoneProjectApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://usstudy-be:8080", "https://usstudy.monoinfinity.net/swagger-ui/index.html")
+                        .allowedOrigins("http://usstudy-be:8080", "https://usstudy.monoinfinity.net/swagger-ui/index.html", "http://localhost:3000")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowedOrigins("*")
