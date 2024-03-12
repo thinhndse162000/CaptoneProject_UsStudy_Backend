@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/v3/programs")
@@ -18,14 +17,24 @@ import java.util.List;
 public class ProgramApi {
     private final IProgramService programService;
   
-    @Operation(summary = "Get All Programs", description = "Return all programs")
+    @Operation(summary = "Get a list of Programs", description = "Return a list of programs base on some condition")
     @GetMapping("")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
-
-        if (universityId != null) {
-            return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
+    public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
+                                    @RequestParam(required = false) Integer majorId,
+                                    @RequestParam(required = false) String programName) {
+        if (programName!=null){
+            return ResponseEntity.ok(programService.getProgramsByProgramName(programName));
+        }
+        if (universityId != null && majorId!=null) {
+            return ResponseEntity.ok(programService.getProgramsByUniversityIdAndMajorId(universityId,majorId));
         } else {
-            List<Program> result = programService.getAllProgram();
+            if (universityId!=null){
+                return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
+            }
+            if (majorId!=null){
+                return ResponseEntity.ok(programService.getProgramsByMajorId(majorId));
+            }
+            Iterable<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
     }

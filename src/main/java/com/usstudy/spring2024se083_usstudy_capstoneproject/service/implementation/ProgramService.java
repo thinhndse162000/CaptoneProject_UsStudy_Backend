@@ -17,7 +17,7 @@ public class ProgramService implements IProgramService {
     private final ProgramRepository programRepository;
 
     @Override
-    public List<Program> getAllProgram() {
+    public Iterable<Program> getAllProgram() {
         return programRepository.findAll();
     }
 
@@ -35,5 +35,20 @@ public class ProgramService implements IProgramService {
     @Override
     public List<Program> getProgramsByUniversityId(int id) {
         return programRepository.getProgramsByUniversityId(id);
+    }
+
+    @Override
+    public List<Program> getProgramsByMajorId(int id) {
+        return programRepository.getProgramsByMajorId(id);
+    }
+
+    @Override
+    public List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
+        return programRepository.getProgramsByUniversityIdAndMajorId(universityId,majorId);
+    }
+
+    @Override
+    public List<Program> getProgramsByProgramName(String programName) {
+        return programRepository.getProgramsByNameProgramContains(programName);
     }
 }
