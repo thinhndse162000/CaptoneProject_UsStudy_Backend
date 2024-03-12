@@ -21,10 +21,9 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
         // create string token put in information of customer
-        String role = "USER";
         return Jwts.builder()
                 .setSubject(Integer.toString(customer.getCustomerId()))
-                .claim("Role", role)
+                .claim("Role", customer)
                 .claim("UserId", customer.getCustomerId())
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)

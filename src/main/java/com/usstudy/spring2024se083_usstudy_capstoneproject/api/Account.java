@@ -30,7 +30,7 @@ public class Account {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         Customer customer = service.getCustomerByEmail(request.getEmail());
-        if (customer != null && customer.getPassword().equals(request.getPassword())) {
+        if (customer != null && customer.getPassword() == request.getPassword()) {
             return ResponseEntity.ok(tokenProvider.generateToken(customer));
         } else
             return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
