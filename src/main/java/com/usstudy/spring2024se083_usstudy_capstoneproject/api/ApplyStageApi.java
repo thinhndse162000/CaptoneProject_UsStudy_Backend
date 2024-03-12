@@ -6,6 +6,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplySt
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ApplyStageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ApplyStageApi {
     private final ApplyStageService service;
 
+    @Autowired
     public ApplyStageApi(ApplyStageService service) {
         this.service = service;
     }
