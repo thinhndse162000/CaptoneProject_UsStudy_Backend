@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/v3/universities")
 @RequiredArgsConstructor
 @Tag(name = "University-API")
-@CrossOrigin("https://usstudy.monoinfinity.net/swagger-ui/index.html")
 public class UniversityApi {
     private final IUniversityService universityService;
 
