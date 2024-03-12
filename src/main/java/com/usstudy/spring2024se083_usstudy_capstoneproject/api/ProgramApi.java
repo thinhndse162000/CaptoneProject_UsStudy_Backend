@@ -35,7 +35,7 @@ public class ProgramApi {
             if (majorId!=null){
                 return ResponseEntity.ok(programService.getProgramsByMajorId(majorId));
             }
-            List<Program> result = programService.getAllProgram();
+            Iterable<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
     }

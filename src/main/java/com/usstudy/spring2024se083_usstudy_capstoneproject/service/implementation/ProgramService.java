@@ -17,7 +17,7 @@ public class ProgramService implements IProgramService {
     private final ProgramRepository programRepository;
 
     @Override
-    public List<Program> getAllProgram() {
+    public Iterable<Program> getAllProgram() {
         return programRepository.findAll();
     }
 

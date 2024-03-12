@@ -1,10 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,6 +9,8 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity(name = "Program")
 @Table(name = "Program")
 public class Program {
@@ -19,7 +18,7 @@ public class Program {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_id")
     private Integer programId;
-    @Column(name = "ProgramName")
+    @Column(name = "program_name")
     private String programName;
     private String status;
     @Column(name = "create_date")
