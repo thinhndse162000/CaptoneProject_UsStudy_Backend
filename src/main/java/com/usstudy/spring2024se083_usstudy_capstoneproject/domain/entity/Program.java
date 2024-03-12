@@ -1,25 +1,24 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "Program")
-@Table(name = "Program")
-public class Program {
+@Entity
+public class Program implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_id")
     private Integer programId;
-    @Column(name = "program_name")
-    private String programName;
+    @Column(name = "name_program")
+    private String nameProgram;
     private String status;
     @Column(name = "create_date")
     private LocalDate createDate;

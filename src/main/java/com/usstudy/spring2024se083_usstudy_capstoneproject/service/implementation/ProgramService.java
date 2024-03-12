@@ -49,6 +49,6 @@ public class ProgramService implements IProgramService {
 
     @Override
     public List<Program> getProgramsByProgramName(String programName) {
-        return programRepository.getProgramsByProgramNameContains(programName);
+        return programRepository.getProgramsByNameProgramContains(programName);
     }
 }
