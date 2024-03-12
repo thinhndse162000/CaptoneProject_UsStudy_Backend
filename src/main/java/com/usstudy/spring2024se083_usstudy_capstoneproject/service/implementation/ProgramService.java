@@ -46,4 +46,9 @@ public class ProgramService implements IProgramService {
     public List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
         return programRepository.getProgramsByUniversityIdAndMajorId(universityId,majorId);
     }
+
+    @Override
+    public List<Program> getProgramsByProgramName(String programName) {
+        return programRepository.getProgramsByProgramNameContains(programName);
+    }
 }

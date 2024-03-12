@@ -19,6 +19,8 @@ public class Program {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_id")
     private Integer programId;
+    @Column(name = "ProgramName")
+    private String programName;
     private String status;
     @Column(name = "create_date")
     private LocalDate createDate;

@@ -12,4 +12,5 @@ public interface IProgramService {
     List<Program> getProgramsByUniversityId(int id);
     List<Program> getProgramsByMajorId(int id);
     List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId);
+    List<Program> getProgramsByProgramName(String programName);
 }

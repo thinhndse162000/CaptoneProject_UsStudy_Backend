@@ -11,4 +11,5 @@ public interface ProgramRepository extends JpaRepository<Program, Integer> {
     List<Program> getProgramsByUniversityId(int universityId);
     List<Program> getProgramsByMajorId(int majorId);
     List<Program> getProgramsByUniversityIdAndMajorId(int universityId,int majorId);
+    List<Program> getProgramsByProgramNameContains(String programName);
 }

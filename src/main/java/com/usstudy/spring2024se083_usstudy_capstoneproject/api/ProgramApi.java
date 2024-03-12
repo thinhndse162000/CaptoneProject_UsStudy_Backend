@@ -21,8 +21,11 @@ public class ProgramApi {
     @Operation(summary = "Get a list of Programs", description = "Return a list of programs base on some condition")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
-                                    @RequestParam(required = false) Integer majorId) {
-
+                                    @RequestParam(required = false) Integer majorId,
+                                    @RequestParam(required = false) String programName) {
+        if (programName!=null){
+            return ResponseEntity.ok(programService.getProgramsByProgramName(programName));
+        }
         if (universityId != null && majorId!=null) {
             return ResponseEntity.ok(programService.getProgramsByUniversityIdAndMajorId(universityId,majorId));
         } else {
