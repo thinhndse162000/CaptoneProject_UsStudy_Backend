@@ -7,10 +7,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -29,20 +31,20 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("http://usstudy-be:8080"
-//                        , "https://usstudy.monoinfinity.net/swagger-ui/index.html"
-//                        , "http://localhost:3000"
-//                        , "http://localhost:8080"
-//                        , "https://usstudy.monoinfinity.net"
-//                )
-//
-//                .allowedMethods("*")
-//                .allowedHeaders("*")
-//                .allowedOrigins("*")
-//                .maxAge(-1);
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://usstudy-be:8080"
+                        , "https://usstudy.monoinfinity.net/swagger-ui/index.html"
+                        , "http://localhost:3000"
+                        , "http://localhost:8080"
+                        , "https://usstudy.monoinfinity.net"
+                )
+
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowedOrigins("*")
+                .maxAge(-1);
+    }
 
 }
