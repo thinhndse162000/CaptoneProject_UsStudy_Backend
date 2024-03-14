@@ -3,9 +3,11 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,9 +17,12 @@ import java.util.List;
 @RequestMapping("/v3/programs")
 @RequiredArgsConstructor
 @Tag(name = "Program-API")
+@SecurityRequirement(name = "Authorization")
 public class ProgramApi {
     private final IProgramService programService;
-  
+    private static final String Role = "CONSULTANT";
+
+    @Secured("ROLE_CONSULTANT")
     @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId) {
@@ -29,9 +34,10 @@ public class ProgramApi {
             return ResponseEntity.ok(result);
         }
     }
+
     @Operation(summary = "Get a Program by program id", description = "Return a program")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getByProgramId(@PathVariable Integer id){
+    public ResponseEntity<?> getByProgramId(@PathVariable Integer id) {
         return ResponseEntity.ok(programService.getProgramById(id));
     }
 
