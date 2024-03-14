@@ -45,7 +45,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         .requestMatchers("/swagger-ui/**"
                                 , "v3/api-docs/**"
                                 , "v3/api-docs"
-                                , "v3/account/**").permitAll()
+                                , "v3/account/**"
+                                , "/v3/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "v3/account/login").permitAll()
                         .anyRequest().authenticated()
                 ).formLogin(form -> form.disable())

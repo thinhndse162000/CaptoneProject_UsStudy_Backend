@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v3/apply-stage")
 @Tag(name = "Apply-Stage-API")
+//@CrossOrigin("http://usstudy-be:8080/")
 public class ApplyStageApi {
     private final ApplyStageService service;
 

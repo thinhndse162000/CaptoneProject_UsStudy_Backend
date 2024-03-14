@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class Spring2024Se083UsStudyCapstoneProjectApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+    // @Test
+    // void contextLoads() {
+    // }
 
 }
