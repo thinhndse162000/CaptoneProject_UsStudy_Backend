@@ -1,9 +1,12 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -21,11 +24,26 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
         // create string token put in information of customer
-        String role = "USER";
         return Jwts.builder()
                 .setSubject(Integer.toString(customer.getCustomerId()))
-                .claim("Role", role)
                 .claim("UserId", customer.getCustomerId())
+                .claim("email", customer.getEmail())
+                .claim("Role", "ROLE_CUSTOMER")
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .compact();
+    }
+
+    public String generateTokenConsultant(Consultant consultant) {
+        Date now = new Date();
+        Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
+        // create string token put in information of customer
+        return Jwts.builder()
+                .setSubject(Integer.toString(consultant.getConsultantId()))
+                .claim("UserId", consultant.getConsultantId())
+                .claim("email", consultant.getEmail())
+                .claim("Role", "CONSULTANT")
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
@@ -33,12 +51,20 @@ public class JwtTokenProvider {
     }
 
     // get inforatiom in jwt token
-    public Integer getUserIdFromJwt(String token) {
+    public String getUserEmailFromJwt(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
-        return Integer.parseInt(claims.getSubject());
+        return claims.get("email").toString();
+    }
+
+    public String getRole(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("Role").toString();
     }
 
     // check tokem valid or not
@@ -56,5 +82,13 @@ public class JwtTokenProvider {
             log.error("JWT claims string is empty.");
         }
         return false;
+    }
+
+    public String getToken(HttpServletRequest httpServletRequest) {
+        final String bearerToken = httpServletRequest.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        } // The part after "Bearer "
+        return null;
     }
 }

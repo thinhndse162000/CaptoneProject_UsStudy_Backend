@@ -3,9 +3,11 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,33 +16,37 @@ import java.time.LocalDate;
 @RequestMapping("/v3/programs")
 @RequiredArgsConstructor
 @Tag(name = "Program-API")
+@SecurityRequirement(name = "Authorization")
 public class ProgramApi {
     private final IProgramService programService;
-  
-    @Operation(summary = "Get a list of Programs", description = "Return a list of programs base on some condition")
+
+
+    @Secured("ROLE_CONSULTANT")
+    @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
                                     @RequestParam(required = false) Integer majorId,
                                     @RequestParam(required = false) String programName) {
-        if (programName!=null){
+        if (programName != null) {
             return ResponseEntity.ok(programService.getProgramsByProgramName(programName));
         }
-        if (universityId != null && majorId!=null) {
-            return ResponseEntity.ok(programService.getProgramsByUniversityIdAndMajorId(universityId,majorId));
+        if (universityId != null && majorId != null) {
+            return ResponseEntity.ok(programService.getProgramsByUniversityIdAndMajorId(universityId, majorId));
         } else {
-            if (universityId!=null){
+            if (universityId != null) {
                 return ResponseEntity.ok(programService.getProgramsByUniversityId(universityId));
             }
-            if (majorId!=null){
+            if (majorId != null) {
                 return ResponseEntity.ok(programService.getProgramsByMajorId(majorId));
             }
             Iterable<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
     }
+
     @Operation(summary = "Get a Program by program id", description = "Return a program")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getByProgramId(@PathVariable Integer id){
+    public ResponseEntity<?> getByProgramId(@PathVariable Integer id) {
         return ResponseEntity.ok(programService.getProgramById(id));
     }
 
