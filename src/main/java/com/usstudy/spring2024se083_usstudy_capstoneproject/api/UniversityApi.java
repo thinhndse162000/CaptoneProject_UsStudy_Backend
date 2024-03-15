@@ -53,7 +53,7 @@ public class UniversityApi {
                 University result = universityService.saveUniversity(university);
                 return ResponseEntity.ok(result);
             } else {
-                return ResponseEntity.badRequest().body("No major with id " + university.getUniversityId() + " found!");
+                return ResponseEntity.badRequest().body("No University with id " + university.getUniversityId() + " found!");
             }
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());

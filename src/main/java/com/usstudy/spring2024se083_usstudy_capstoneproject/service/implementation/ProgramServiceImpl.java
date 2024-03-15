@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProgramService implements IProgramService {
+public class ProgramServiceImpl implements IProgramService {
     private final ProgramRepository programRepository;
 
     @Override
