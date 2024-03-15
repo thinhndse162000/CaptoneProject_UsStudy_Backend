@@ -43,7 +43,7 @@ public class JwtTokenProvider {
                 .setSubject(Integer.toString(consultant.getConsultantId()))
                 .claim("UserId", consultant.getConsultantId())
                 .claim("email", consultant.getEmail())
-                .claim("Role", "CONSULTANT")
+                .claim("Role", "ROLE_CONSULTANT")
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
