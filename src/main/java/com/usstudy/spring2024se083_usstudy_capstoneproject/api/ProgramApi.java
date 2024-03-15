@@ -21,7 +21,7 @@ public class ProgramApi {
     private final IProgramService programService;
 
 
-    @Secured("ROLE_CONSULTANT")
+    @Secured({"ROLE_CONSULTANT","ROLE_CUSTOMER"})
     @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
