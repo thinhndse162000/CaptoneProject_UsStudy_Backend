@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,10 +30,21 @@ public class Consultant implements UserDetails {
     private String password;
     private String description;
 
+    @Transient
+    private String role;
+    @Transient
+    Set<GrantedAuthority> authoritySet;
+
+    public Consultant(String fullName, Set<GrantedAuthority> authoritySet, String role) {
+        this.userName = fullName;
+        this.authoritySet = authoritySet;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("CONSULTANT"));
+        authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 
