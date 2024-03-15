@@ -1,7 +1,9 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.CustomerDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.CustomerMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +15,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService, UserDetailsService {
     private final CustomerRepository customerRepository;
 
+    private final CustomerMapper customerMapper;
+
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
     }
 
     @Override
@@ -42,6 +49,13 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     public Customer getCustomerByEmail(String email) {
         return customerRepository.getCustomerByEmail(email);
+    }
+
+    @Override
+    public List<CustomerDto> getAllCustomer() {
+        return customerRepository.findAll()
+                .stream()
+                .map(customerMapper::customerToCustomerDto).collect(Collectors.toList());
     }
 
     @Override

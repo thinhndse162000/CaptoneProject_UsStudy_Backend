@@ -3,6 +3,8 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.LoginRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.CustomerDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
@@ -12,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/v3/account/")
 @RestController
@@ -55,5 +56,15 @@ public class AccountApi {
     public ResponseEntity<?> sigup(@RequestBody SignupRequest sigupRequest) {
         service.CustomerRegistedAccount(sigupRequest);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/customer")
+    public ResponseEntity<List<CustomerDto>> getAllAccountCustomer() {
+        return ResponseEntity.ok(service.getAllCustomer());
+    }
+
+    @GetMapping("/consultant")
+    public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
+        return ResponseEntity.ok(consultantService.getAllConsultant());
     }
 }
