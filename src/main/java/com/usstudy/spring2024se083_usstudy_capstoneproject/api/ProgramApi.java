@@ -77,7 +77,7 @@ public class ProgramApi {
                 Program result = programService.saveProgram(program);
                 return ResponseEntity.ok(result);
             } else {
-                return ResponseEntity.badRequest().body("No major with id " + program.getProgramId() + " found!");
+                return ResponseEntity.badRequest().body("No program with id " + program.getProgramId() + " found!");
             }
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());

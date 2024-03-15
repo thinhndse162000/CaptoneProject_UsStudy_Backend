@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StateService implements IStateService {
+public class StateServiceImpl implements IStateService {
     private final StateRepository stateRepository;
 
     @Override

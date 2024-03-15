@@ -16,5 +16,6 @@ public class FeeType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fee_type_id")
     private Integer feeTypeId;
+    @Column(name = "type_name")
     private String typeName;
 }

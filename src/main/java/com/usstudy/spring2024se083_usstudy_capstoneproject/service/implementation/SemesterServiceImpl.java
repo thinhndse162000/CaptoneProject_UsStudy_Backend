@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SemesterService implements ISemesterService {
+public class SemesterServiceImpl implements ISemesterService {
     private final SemesterRepository semesterRepository;
 
     @Override

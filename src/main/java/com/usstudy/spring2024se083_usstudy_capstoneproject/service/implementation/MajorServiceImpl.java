@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MajorService implements IMajorService {
+public class MajorServiceImpl implements IMajorService {
     private final MajorRepository majorRepository;
 
     @Override

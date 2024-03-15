@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UniversityService implements IUniversityService {
+public class UniversityServiceImpl implements IUniversityService {
     private final UniversityRepository universityRepository;
 
     @Override
