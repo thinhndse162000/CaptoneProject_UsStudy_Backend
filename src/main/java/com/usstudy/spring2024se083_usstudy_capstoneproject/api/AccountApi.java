@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/v3/account/")
@@ -66,5 +67,15 @@ public class AccountApi {
     @GetMapping("/consultant")
     public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
         return ResponseEntity.ok(consultantService.getAllConsultant());
+    }
+
+    @GetMapping("/mix")
+    public ResponseEntity<List<Object>> getAllAccount() {
+        List<Object> accountList = new ArrayList<>();
+        List<CustomerDto> customerList = service.getAllCustomer();
+        List<ConsultantDto> consultantDtoList = consultantService.getAllConsultant();
+        accountList.addAll(customerList);
+        accountList.addAll(consultantDtoList);
+        return ResponseEntity.ok(accountList);
     }
 }
