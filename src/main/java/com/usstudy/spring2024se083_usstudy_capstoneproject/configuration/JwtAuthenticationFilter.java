@@ -1,7 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.ConsultantServiceImpl;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.CustomerServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private CustomerServiceImpl service;
     @Autowired
-    private ConsultantService consultantService;
+    private ConsultantServiceImpl consultantService;
 
 
     @Override
@@ -38,22 +38,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = tokenProvider.getToken(request);
             if (token != null && tokenProvider.validateToken(token)) {
                 String email = tokenProvider.getUserEmailFromJwt(token);
-                UserDetails customer = service.loadUserByUsername(email);
                 String role = tokenProvider.getRole(token);
-
-                if (customer != null) {
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                            new UsernamePasswordAuthenticationToken(customer.getUsername(), null, customer.getAuthorities());
-                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    log.info("authenticated user with email :{}", email);
-                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                if (role.equals("ROLE_CUSTOMER")) {
+                    UserDetails customer = service.loadUserByUsername(email);
+                    if (customer != null) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(customer.getUsername(), null, customer.getAuthorities());
+                        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        log.info("authenticated user with email :{}", email);
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
+                } else if (role.equals("ROLE_CONSULTANT")) {
+                    UserDetails consultant = consultantService.loadUserByUsername(email);
+                    if (consultant != null) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(consultant.getUsername(), null, consultant.getAuthorities());
+                        log.info("authenticated user with email :{}", email);
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
                 }
-//            else if (consultant != null) {
-//                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-//                        new UsernamePasswordAuthenticationToken(consultant.getUsername(), null, consultant.getAuthorities());
-//                log.info("authenticated user with email :{}", email);
-//                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//            }
+
             }
         } catch (Exception ex) {
             logger.error("failed on set user authentication", ex);

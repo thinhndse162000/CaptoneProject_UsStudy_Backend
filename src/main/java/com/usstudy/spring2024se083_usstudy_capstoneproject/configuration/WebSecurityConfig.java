@@ -1,7 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration;
 
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.CustomerServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,16 +25,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebSecurityConfig implements WebMvcConfigurer {
 
 
-    private final CustomerServiceImpl customerService;
-
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
 
-    public WebSecurityConfig(CustomerServiceImpl customerService) {
-        this.customerService = customerService;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
