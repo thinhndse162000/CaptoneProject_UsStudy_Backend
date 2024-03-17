@@ -16,12 +16,12 @@ import java.time.LocalDate;
 @RequestMapping("/v3/programs")
 @RequiredArgsConstructor
 @Tag(name = "Program-API")
-@SecurityRequirement(name = "Authorization")
+//@SecurityRequirement(name = "Authorization")
 public class ProgramApi {
     private final IProgramService programService;
 
 
-    @Secured({"ROLE_CONSULTANT","ROLE_CUSTOMER"})
+    //@Secured({"ROLE_CONSULTANT","ROLE_CUSTOMER"})
     @Operation(summary = "Get All Programs", description = "Return all programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,

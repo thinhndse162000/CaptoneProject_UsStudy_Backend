@@ -16,11 +16,11 @@ import java.util.List;
 @RequestMapping("/v3/universities")
 @RequiredArgsConstructor
 @Tag(name = "University-API")
-@SecurityRequirement(name = "Authorization")
+//@SecurityRequirement(name = "Authorization")
 public class UniversityApi {
     private final IUniversityService universityService;
 
-    @Secured("ROLE_CUSTOMER")
+    //@Secured("ROLE_CUSTOMER")
     @Operation(summary = "Get all Universities", description = "Return all Universities")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
