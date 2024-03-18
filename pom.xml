@@ -122,7 +122,6 @@
                         </compilerArg>
                     </compilerArgs>
                 </configuration>
-
             </plugin>
 
         </plugins>
