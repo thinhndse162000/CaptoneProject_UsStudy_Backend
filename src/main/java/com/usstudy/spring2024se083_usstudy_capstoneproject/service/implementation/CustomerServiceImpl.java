@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
