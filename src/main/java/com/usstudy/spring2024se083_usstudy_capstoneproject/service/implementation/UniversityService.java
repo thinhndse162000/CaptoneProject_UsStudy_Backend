@@ -31,4 +31,14 @@ public class UniversityService implements IUniversityService {
         universityRepository.save(university);
         return university;
     }
+
+    @Override
+    public List<University> getUniversityByTypeId(Integer typeid) {
+        return universityRepository.getUniversityByUniversityTypeId(typeid);
+    }
+
+    @Override
+    public List<University> getUniversityByStateId(Integer stateId) {
+        return universityRepository.getUniversityByStateId(stateId);
+    }
 }

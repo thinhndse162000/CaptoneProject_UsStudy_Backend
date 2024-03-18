@@ -44,11 +44,21 @@ public class ProgramService implements IProgramService {
 
     @Override
     public List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
-        return programRepository.getProgramsByUniversityIdAndMajorId(universityId,majorId);
+        return programRepository.getProgramsByUniversityIdAndMajorId(universityId, majorId);
     }
 
     @Override
     public List<Program> getProgramsByProgramName(String programName) {
         return programRepository.getProgramsByNameProgramContains(programName);
+    }
+
+    @Override
+    public List<Program> getProgramsByProgramTypeId(Integer programTypeId) {
+        return programRepository.getProgramByProgramTypeId(programTypeId);
+    }
+
+    @Override
+    public List<Program> getProgrramsBySemesterId(Integer semesterId) {
+        return programRepository.getProgramBySemesterId(semesterId);
     }
 }
