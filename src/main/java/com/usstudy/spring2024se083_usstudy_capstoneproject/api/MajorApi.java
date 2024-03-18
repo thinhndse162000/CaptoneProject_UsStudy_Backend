@@ -20,7 +20,7 @@ public class MajorApi {
     private final IMajorService majorService;
 
 
-    @Operation(summary = "Get All Majors", description = "Return All Majors")
+    @Operation(summary = "Get a list of Majors", description = "Return a list of Majors")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(majorService.getAllMajor());

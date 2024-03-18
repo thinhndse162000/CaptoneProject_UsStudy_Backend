@@ -19,7 +19,7 @@ public class ProgramApi {
 
 
     //@Secured({"ROLE_CONSULTANT","ROLE_CUSTOMER"})
-    @Operation(summary = "Get All Programs", description = "Return all programs")
+    @Operation(summary = "Get a list of Programs", description = "Return a list of programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
                                     @RequestParam(required = false) Integer majorId,

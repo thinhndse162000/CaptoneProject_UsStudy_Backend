@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProgramTypeApi {
     private final IProgramTypeService programTypeService;
 
-    @Operation(summary = "Get all ProgramType", description = "Returns all ProgramType")
+    @Operation(summary = "Get a list of ProgramType", description = "Returns a list ProgramType")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(programTypeService.getAllProgramType());

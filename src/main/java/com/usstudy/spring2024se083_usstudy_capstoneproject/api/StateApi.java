@@ -21,7 +21,7 @@ import java.util.List;
 public class StateApi {
     private final IStateService stateService;
 
-    @Operation(summary = "Get all State", description = "Return all States")
+    @Operation(summary = "Get a list of State", description = "Return a list of States")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<StateDto> result = stateService.getAllState();
