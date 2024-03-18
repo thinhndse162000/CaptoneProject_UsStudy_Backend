@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -23,9 +24,9 @@ public class Program implements Serializable {
     private String nameProgram;
     private String status;
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private Date createDate;
     @Column(name = "modified_date")
-    private LocalDate modifiedDate;
+    private Date modifiedDate;
     private Integer modifier;
     private String duration; //in days or months?
     private String description;

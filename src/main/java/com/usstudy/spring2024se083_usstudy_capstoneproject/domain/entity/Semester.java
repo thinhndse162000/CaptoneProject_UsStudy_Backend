@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Data
@@ -20,7 +21,7 @@ public class Semester {
     @Column(name = "semester_id")
     private Integer semesterId;
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private Date startDate;
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private Date endDate;
 }

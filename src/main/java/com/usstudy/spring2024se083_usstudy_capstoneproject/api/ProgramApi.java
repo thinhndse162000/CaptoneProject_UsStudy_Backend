@@ -52,12 +52,8 @@ public class ProgramApi {
 
     @Operation(summary = "Create new Program", description = "Create new Program")
     @PostMapping("")
-    public ResponseEntity<?> postProgram(@RequestBody Program program,
-                                         @RequestParam(required = false, defaultValue = "false") Boolean useServerTime) {
+    public ResponseEntity<?> postProgram(@RequestBody Program program) {
         try {
-            if (useServerTime == true) {
-                program.setCreateDate(LocalDate.now());
-            }
             Program result = programService.saveProgram(program);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
@@ -67,13 +63,9 @@ public class ProgramApi {
 
     @Operation(summary = "Update a Program", description = "Update a program ")
     @PutMapping("")
-    public ResponseEntity<?> putProgram(@RequestBody Program program,
-                                        @RequestParam(required = false, defaultValue = "false") Boolean useServerTime) {
+    public ResponseEntity<?> putProgram(@RequestBody Program program) {
         try {
             if (program.getProgramId() != null && !programService.getProgramById(program.getProgramId()).isEmpty()) {
-                if (useServerTime == true) {
-                    program.setModifiedDate(LocalDate.now());
-                }
                 Program result = programService.saveProgram(program);
                 return ResponseEntity.ok(result);
             } else {
