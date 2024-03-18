@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,4 +26,7 @@ public class Semester {
     private Date startDate;
     @Column(name = "end_date")
     private Date endDate;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "semester")
+    @JsonBackReference
+    private List<Program> programs;
 }

@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,16 +35,30 @@ public class Program implements Serializable {
     private String level;
 
     //FK university here
-    @Column(name = "university_id")
-    private Integer universityId;
+//    @Column(name = "university_id")
+//    private Integer universityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "university_id",nullable = false)
+    @JsonManagedReference
+    private University university;
     //Fk Major here
-    @Column(name = "major_id")
-    private Integer majorId;
+//    @Column(name = "major_id")
+//    private Integer majorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "major_id",nullable = false)
+    @JsonManagedReference
+    private Major major;
     //FK Semester here
-    @Column(name = "semester_id")
-    private Integer semesterId;
+//    @Column(name = "semester_id")
+//    private Integer semesterId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "semester_id",nullable = false)
+    @JsonManagedReference
+    private Semester semester;
     //FK Program Type here
-    @Column(name = "program_type_id")
-    private Integer programTypeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_type_id",nullable = false)
+    @JsonManagedReference
+    private ProgramType programType;
 
 }

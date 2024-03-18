@@ -41,21 +41,21 @@ public class ProgramServiceImpl implements IProgramService {
 
     @Override
     public List<ProgramDto> getProgramsByUniversityId(int id) {
-        return programRepository.getProgramsByUniversityId(id)
+        return programRepository.getProgramsByUniversityUniversityId(id)
                 .stream().map(programMapper::programToProgramDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ProgramDto> getProgramsByMajorId(int id) {
-        return programRepository.getProgramsByMajorId(id)
+        return programRepository.getProgramsByMajorMajorId(id)
                 .stream().map(programMapper::programToProgramDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ProgramDto> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
-        return programRepository.getProgramsByUniversityIdAndMajorId(universityId, majorId)
+        return programRepository.getProgramsByUniversityUniversityIdAndMajorMajorId(universityId, majorId)
                 .stream().map(programMapper::programToProgramDto)
                 .collect(Collectors.toList());
     }

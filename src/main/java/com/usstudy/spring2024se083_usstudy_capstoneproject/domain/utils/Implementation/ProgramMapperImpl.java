@@ -15,16 +15,16 @@ public class ProgramMapperImpl implements ProgramMapper {
         programDto.setProgramId(program.getProgramId());
         programDto.setNameProgram(program.getNameProgram());
         programDto.setDescription(program.getDescription());
-        programDto.setProgramTypeId(program.getProgramTypeId());
+        programDto.setProgramTypeId(program.getProgramType().getProgramTypeId());
         programDto.setDuration(program.getDuration());
         programDto.setLevel(program.getLevel());
         programDto.setModifier(program.getModifier());
         programDto.setStatus(program.getStatus());
         programDto.setCreateDate(program.getCreateDate());
         programDto.setModifiedDate(program.getModifiedDate());
-        programDto.setMajorId(program.getMajorId());
-        programDto.setSemesterId(program.getSemesterId());
-        programDto.setUniversityId(program.getUniversityId());
+        programDto.setMajorId(program.getMajor().getMajorId());
+        programDto.setSemesterId(program.getSemester().getSemesterId());
+        programDto.setUniversityId(program.getUniversity().getUniversityId());
         programDto.setTuition(program.getTuition());
         return programDto;
     }
