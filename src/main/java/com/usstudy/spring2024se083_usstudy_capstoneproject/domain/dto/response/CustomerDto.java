@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.CustomerMapper;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +27,8 @@ public class CustomerDto implements Serializable {
     private Date dateOfBirth;
     private String gender;
     private String phone;
+
+    public static CustomerDto convert(Customer customer) {
+        return CustomerMapper.INSTANT.customerToCustomerDto(customer);
+    }
 }
