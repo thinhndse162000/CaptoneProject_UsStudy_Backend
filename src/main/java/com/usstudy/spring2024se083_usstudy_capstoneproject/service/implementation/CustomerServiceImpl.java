@@ -23,12 +23,10 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService, UserDetailsService {
     private final CustomerRepository customerRepository;
 
-    private final CustomerMapper customerMapper;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
     }
 
     @Override
@@ -55,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     public List<CustomerDto> getAllCustomer() {
         return customerRepository.findAll()
                 .stream()
-                .map(customerMapper::customerToCustomerDto).collect(Collectors.toList());
+                .map(CustomerDto::convert).collect(Collectors.toList());
     }
 
     @Override

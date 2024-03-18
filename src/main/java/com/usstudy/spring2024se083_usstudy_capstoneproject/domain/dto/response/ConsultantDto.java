@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ConsultantMapper;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +21,8 @@ public class ConsultantDto {
     private String email;
     private String password;
     private String description;
+
+    public static ConsultantDto convert(Consultant consultant) {
+        return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);
+    }
 }
