@@ -3,7 +3,6 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.CustomerDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.CustomerMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
