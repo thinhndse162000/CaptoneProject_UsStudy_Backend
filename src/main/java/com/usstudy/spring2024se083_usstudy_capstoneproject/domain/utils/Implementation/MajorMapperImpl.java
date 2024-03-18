@@ -5,7 +5,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.MajorMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class MajorMapperImpl implements MajorMapper {
 
     @Override

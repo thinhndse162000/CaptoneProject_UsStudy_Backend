@@ -5,7 +5,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramTypeMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class ProgramTypeMapperImpl implements ProgramTypeMapper {
     @Override
     public ProgramTypeDto programTypeToProgramTypeDto(ProgramType programType) {

@@ -5,7 +5,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Univers
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.UniversityMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class UniversityMapperImpl implements UniversityMapper {
     @Override
     public UniversityDto universityToUniversityDto(University university) {

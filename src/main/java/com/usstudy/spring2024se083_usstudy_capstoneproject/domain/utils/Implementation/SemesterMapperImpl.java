@@ -5,7 +5,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Semeste
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.SemesterMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class SemesterMapperImpl implements SemesterMapper {
     @Override
     public SemesterDto semesterToSemesterDto(Semester semester) {

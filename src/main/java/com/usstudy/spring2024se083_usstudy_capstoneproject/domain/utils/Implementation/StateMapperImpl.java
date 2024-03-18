@@ -5,7 +5,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.State;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.StateMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class StateMapperImpl implements StateMapper {
     @Override
     public StateDto stateToStateDto(State state) {
