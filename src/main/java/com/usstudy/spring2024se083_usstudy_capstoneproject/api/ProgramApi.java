@@ -26,7 +26,9 @@ public class ProgramApi {
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
                                     @RequestParam(required = false) Integer majorId,
-                                    @RequestParam(required = false) String programName) {
+                                    @RequestParam(required = false) String programName,
+                                    @RequestParam(required = false) Integer programTypeId,
+                                    @RequestParam(required = false) Integer semesterId) {
         if (programName != null) {
             return ResponseEntity.ok(programService.getProgramsByProgramName(programName));
         }
@@ -38,6 +40,12 @@ public class ProgramApi {
             }
             if (majorId != null) {
                 return ResponseEntity.ok(programService.getProgramsByMajorId(majorId));
+            }
+            if (programTypeId != null) {
+                return ResponseEntity.ok(programService.getProgramsByProgramTypeId(programTypeId));
+            }
+            if (semesterId != null) {
+                return ResponseEntity.ok(programService.getProgrramsBySemesterId(semesterId));
             }
             Iterable<Program> result = programService.getAllProgram();
             return ResponseEntity.ok(result);

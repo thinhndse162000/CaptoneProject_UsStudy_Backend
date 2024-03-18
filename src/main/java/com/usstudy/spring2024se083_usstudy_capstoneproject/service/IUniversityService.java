@@ -7,6 +7,12 @@ import java.util.Optional;
 
 public interface IUniversityService {
     List<University> getAllUniversity();
+
     Optional getUniversityById(int id);
+
     University saveUniversity(University university);
+
+    List<University> getUniversityByTypeId(Integer typeid);
+
+    List<University> getUniversityByStateId(Integer stateId);
 }
