@@ -1,26 +1,27 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IProgramService {
-    Iterable<Program> getAllProgram();
+    Iterable<ProgramDto> getAllProgram();
 
-    Optional<Program> getProgramById(int id);
+    Optional getProgramById(int id);
 
-    Program saveProgram(Program program);
+    ProgramDto saveProgram(Program program);
 
-    List<Program> getProgramsByUniversityId(int id);
+    List<ProgramDto> getProgramsByUniversityId(int id);
 
-    List<Program> getProgramsByMajorId(int id);
+    List<ProgramDto> getProgramsByMajorId(int id);
 
-    List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId);
+    List<ProgramDto> getProgramsByUniversityIdAndMajorId(int universityId, int majorId);
 
-    List<Program> getProgramsByProgramName(String programName);
+    List<ProgramDto> getProgramsByProgramName(String programName);
 
-    List<Program> getProgramsByProgramTypeId(Integer programTypeId);
+    List<ProgramDto> getProgramsByProgramTypeId(Integer programTypeId);
 
-    List<Program> getProgrramsBySemesterId(Integer semesterId);
+    List<ProgramDto> getProgramsBySemesterId(Integer semesterId);
 }

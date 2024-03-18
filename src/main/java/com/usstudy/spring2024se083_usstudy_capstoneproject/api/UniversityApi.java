@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IUniversityService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,10 +22,10 @@ public class UniversityApi {
     private final IUniversityService universityService;
 
     //@Secured("ROLE_CUSTOMER")
-    @Operation(summary = "Get all Universities", description = "Return all Universities")
+    @Operation(summary = "Get a list Universities", description = "Return a list Universities")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
-        List<University> result = universityService.getAllUniversity();
+        List<UniversityDto> result = universityService.getAllUniversity();
         return ResponseEntity.ok(result);
     }
 
@@ -38,7 +39,7 @@ public class UniversityApi {
     @PostMapping("")
     public ResponseEntity<?> postUniversity(@RequestBody University university) {
         try {
-            University result = universityService.saveUniversity(university);
+            UniversityDto result = universityService.saveUniversity(university);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -46,12 +47,12 @@ public class UniversityApi {
     }
 
     @GetMapping("/type")
-    public ResponseEntity<List<University>> getUniversityByType(@RequestParam Integer typeId) {
+    public ResponseEntity<?> getUniversityByType(@RequestParam Integer typeId) {
         return ResponseEntity.ok(universityService.getUniversityByTypeId(typeId));
     }
 
     @GetMapping("/state")
-    public ResponseEntity<List<University>> getUniversityByState(@RequestParam Integer stateId) {
+    public ResponseEntity<?> getUniversityByState(@RequestParam Integer stateId) {
         return ResponseEntity.ok(universityService.getUniversityByStateId(stateId));
     }
 
@@ -60,7 +61,7 @@ public class UniversityApi {
     public ResponseEntity<?> putUniversity(@RequestBody University university) {
         try {
             if (university.getUniversityId() != null && !universityService.getUniversityById(university.getUniversityId()).isEmpty()) {
-                University result = universityService.saveUniversity(university);
+                UniversityDto result = universityService.saveUniversity(university);
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.badRequest().body("No University with id " + university.getUniversityId() + " found!");

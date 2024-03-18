@@ -1,16 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/v3/programs")
@@ -45,9 +42,9 @@ public class ProgramApi {
                 return ResponseEntity.ok(programService.getProgramsByProgramTypeId(programTypeId));
             }
             if (semesterId != null) {
-                return ResponseEntity.ok(programService.getProgrramsBySemesterId(semesterId));
+                return ResponseEntity.ok(programService.getProgramsBySemesterId(semesterId));
             }
-            Iterable<Program> result = programService.getAllProgram();
+            Iterable<ProgramDto> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
     }
@@ -62,7 +59,7 @@ public class ProgramApi {
     @PostMapping("")
     public ResponseEntity<?> postProgram(@RequestBody Program program) {
         try {
-            Program result = programService.saveProgram(program);
+            ProgramDto result = programService.saveProgram(program);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -74,7 +71,7 @@ public class ProgramApi {
     public ResponseEntity<?> putProgram(@RequestBody Program program) {
         try {
             if (program.getProgramId() != null && !programService.getProgramById(program.getProgramId()).isEmpty()) {
-                Program result = programService.saveProgram(program);
+                ProgramDto result = programService.saveProgram(program);
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.badRequest().body("No program with id " + program.getProgramId() + " found!");

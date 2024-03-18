@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.MajorDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IMajorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,8 +23,7 @@ public class MajorApi {
     @Operation(summary = "Get All Majors", description = "Return All Majors")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
-        List<Major> result = majorService.getAllMajor();
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(majorService.getAllMajor());
     }
     @Operation(summary = "Get a Major by major id", description = "Return a Major")
     @GetMapping("/{id}")
@@ -35,7 +35,7 @@ public class MajorApi {
     @PostMapping("")
     public ResponseEntity<?> postMajor(@RequestBody Major major) {
         try {
-            Major result = majorService.saveMajor(major);
+            MajorDto result = majorService.saveMajor(major);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -47,7 +47,7 @@ public class MajorApi {
     public ResponseEntity<?> putMajor(@RequestBody Major major) {
         try {
             if (major.getMajorId() != null && !majorService.findById(major.getMajorId()).isEmpty()) {
-                Major result = majorService.saveMajor(major);
+                MajorDto result = majorService.saveMajor(major);
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.badRequest().body("No major with id " + major.getMajorId() + " found!");
