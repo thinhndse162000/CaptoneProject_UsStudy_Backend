@@ -3,7 +3,6 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ConsultantMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ConsultantRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,10 @@ import java.util.stream.Collectors;
 public class ConsultantServiceImpl implements ConsultantService, UserDetailsService {
 
     private final ConsultantRepository repository;
-    private final ConsultantMapper consultantMapper;
 
     @Autowired
-    public ConsultantServiceImpl(ConsultantRepository repository, ConsultantMapper consultantMapper) {
+    public ConsultantServiceImpl(ConsultantRepository repository) {
         this.repository = repository;
-        this.consultantMapper = consultantMapper;
     }
 
     @Override
@@ -40,7 +37,7 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
     public List<ConsultantDto> getAllConsultant() {
         return repository.findAll()
                 .stream()
-                .map(consultantMapper::consultantToConsultantDto).collect(Collectors.toList());
+                .map(ConsultantDto::convert).collect(Collectors.toList());
     }
 
     @Override
