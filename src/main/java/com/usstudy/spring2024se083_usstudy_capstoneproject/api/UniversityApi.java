@@ -45,6 +45,16 @@ public class UniversityApi {
         }
     }
 
+    @GetMapping("/type")
+    public ResponseEntity<List<University>> getUniversityByType(@RequestParam Integer typeId) {
+        return ResponseEntity.ok(universityService.getUniversityByTypeId(typeId));
+    }
+
+    @GetMapping("/state")
+    public ResponseEntity<List<University>> getUniversityByState(@RequestParam Integer stateId) {
+        return ResponseEntity.ok(universityService.getUniversityByStateId(stateId));
+    }
+
     @Operation(summary = "Update University ", description = "Update University ")
     @PutMapping("")
     public ResponseEntity<?> putUniversity(@RequestBody University university) {
