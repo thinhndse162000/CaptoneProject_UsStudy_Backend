@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,4 +63,15 @@ public class Program implements Serializable {
     @JsonManagedReference
     private ProgramType programType;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramFee> programFees;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramStage> programStages;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramApplication> programApplications;
 }
