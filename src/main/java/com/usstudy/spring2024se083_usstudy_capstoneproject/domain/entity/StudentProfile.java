@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -34,6 +37,18 @@ public class StudentProfile {
     private String nationalId;
     @Column(name = "study_process")
     private String studyProcess;
-    @Column(name = "customer_id")
-    private Integer customerId;
+//    @Column(name = "customer_id")
+//    private Integer customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id",nullable = false)
+    @JsonManagedReference
+    private Customer customer;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "studentProfile")
+    @JsonBackReference
+    private List<ProgramApplication> programApplications;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "studentProfile")
+    @JsonBackReference
+    private List<FileUpload> fileUploads;
 }

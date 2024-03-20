@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,14 @@ public class Customer implements Serializable, UserDetails {
     private Date dateOfBirth;
     private String gender;
     private String phone;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    @JsonBackReference
+    private List<RegistrationForm> registrationForms;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    @JsonBackReference
+    private List<StudentProfile> studentProfiles;
     @Transient
     private String role;
     @Transient
