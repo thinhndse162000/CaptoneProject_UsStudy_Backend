@@ -69,6 +69,11 @@ public class AccountApi {
         return ResponseEntity.ok(consultantService.getAllConsultant());
     }
 
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getCustomerById(id));
+    }
+
     @GetMapping("/mix")
     public ResponseEntity<List<Object>> getAllAccount() {
         List<Object> accountList = new ArrayList<>();
