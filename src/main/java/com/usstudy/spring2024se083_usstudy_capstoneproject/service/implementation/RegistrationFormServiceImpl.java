@@ -2,7 +2,9 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.RegistrationFormUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ConsultantRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.RegistrationFormRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationFormService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegistrationFormServiceImpl implements RegistrationFormService {
     private final RegistrationFormRepository registrationFormRepository;
+    private final ConsultantRepository consultantRepository;
 
     @Autowired
-    public RegistrationFormServiceImpl(RegistrationFormRepository registrationFormRepository) {
+    public RegistrationFormServiceImpl(RegistrationFormRepository registrationFormRepository, ConsultantRepository consultantRepository) {
         this.registrationFormRepository = registrationFormRepository;
+        this.consultantRepository = consultantRepository;
     }
 
     @Override
@@ -53,7 +57,9 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     public void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request) {
         RegistrationForm registrationForm = registrationFormRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("Form not found - " + id));
-        registrationForm.setConsultantId(registrationForm.getConsultantId());
+        Consultant consultant = consultantRepository.findById(registrationForm.getRegistrationFormId())
+                .orElseThrow(() -> new NullPointerException("Consultant not found - " + registrationForm.getRegistrationFormId()));
+        registrationForm.setConsultant(consultant);
     }
 
 }
