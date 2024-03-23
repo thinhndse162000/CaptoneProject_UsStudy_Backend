@@ -9,6 +9,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consult
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.EmailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,15 +28,17 @@ public class AccountApi {
     private final CustomerService service;
     private final ConsultantService consultantService;
     private final JwtTokenProvider tokenProvider;
+    private final EmailService emailService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider) {
+    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService) {
         this.service = customerService;
         this.consultantService = consultantService;
         this.tokenProvider = tokenProvider;
+        this.emailService = emailService;
     }
 
     @PostMapping("/login")
@@ -82,5 +85,16 @@ public class AccountApi {
         accountList.addAll(customerList);
         accountList.addAll(consultantDtoList);
         return ResponseEntity.ok(accountList);
+    }
+
+    @GetMapping("/forgot-password")
+    public ResponseEntity<?> getEmail(@RequestParam String email) {
+        try {
+            emailService.sendEmail(email,"forgot password","test token");
+            return ResponseEntity.ok().body("Email send");
+        }
+        catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex);
+        }
     }
 }

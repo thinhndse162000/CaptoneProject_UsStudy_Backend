@@ -16,8 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @SecurityScheme(name = "Authorization", scheme = "Bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class Spring2024Se083UsStudyCapstoneProjectApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(Spring2024Se083UsStudyCapstoneProjectApplication.class, args);
     }
