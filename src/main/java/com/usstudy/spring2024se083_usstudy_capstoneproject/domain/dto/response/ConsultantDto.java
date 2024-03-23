@@ -21,7 +21,7 @@ public class ConsultantDto {
     private String email;
     private String password;
     private String description;
-
+    
     public static ConsultantDto convert(Consultant consultant) {
         return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);
     }
