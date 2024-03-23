@@ -16,10 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
+@Table(name = "studentProfile")
 public class StudentProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "student_profile_id")
+    @Column(name = "student_profile_id")
     private Integer studentProfileId;
     @Column(name = "full_name")
     private String fullName;
@@ -29,7 +30,7 @@ public class StudentProfile {
     private String gender;
     private String phone;
     private String address;
-    @Column(name= "create_date")
+    @Column(name = "create_date")
     private Date createDate;
     @Column(name = "place_of_birth")
     private String placeOfBirth;
@@ -37,18 +38,18 @@ public class StudentProfile {
     private String nationalId;
     @Column(name = "study_process")
     private String studyProcess;
-//    @Column(name = "customer_id")
+    //    @Column(name = "customer_id")
 //    private Integer customerId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id",nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     @JsonManagedReference
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "studentProfile")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
     @JsonBackReference
     private List<ProgramApplication> programApplications;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "studentProfile")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
     @JsonBackReference
-    private List<FileUpload> fileUploads;
+    private List<UploadFile> fileUploads;
 }

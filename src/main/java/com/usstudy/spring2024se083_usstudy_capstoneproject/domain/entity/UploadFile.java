@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,9 @@ public class UploadFile {
     private Integer uploadFileId;
     @Column(name = "file_attach")
     private String fileAttach;
-    @Column(name = "student_profile_id")
-    private Integer studentProfileId;
+    //    @Column(name = "student_profile_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_profile_id", nullable = false)
+    @JsonManagedReference
+    private StudentProfile studentProfile;
 }
