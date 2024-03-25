@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.LoginRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
@@ -89,12 +90,11 @@ public class AccountApi {
 
     @GetMapping("/forgot-password")
     public ResponseEntity<?> getEmail(@RequestParam String email) {
-        try {
-            emailService.sendEmail(email,"forgot password","test token");
-            return ResponseEntity.ok().body("Email send");
-        }
-        catch (Exception ex){
-            return ResponseEntity.badRequest().body(ex);
-        }
+        EmailRequest emailRequest=new EmailRequest();
+        emailRequest.setRecipient(email);
+        emailRequest.setSubject("forgot password");
+        emailRequest.setMessageBody("Here's your password reset token");
+        String result = emailService.sendEmail(emailRequest);
+        return ResponseEntity.ok().body(result);
     }
 }
