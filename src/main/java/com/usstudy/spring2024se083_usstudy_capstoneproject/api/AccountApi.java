@@ -93,7 +93,8 @@ public class AccountApi {
         EmailRequest emailRequest=new EmailRequest();
         emailRequest.setRecipient(email);
         emailRequest.setSubject("forgot password");
-        emailRequest.setMessageBody("Here's your password reset token");
+        emailRequest.setMessageBody("Here's your password reset token," +
+                "Click here to reset your password: http://localhost:3000/forgot-password");
         String result = emailService.sendEmail(emailRequest);
         return ResponseEntity.ok().body(result);
     }
