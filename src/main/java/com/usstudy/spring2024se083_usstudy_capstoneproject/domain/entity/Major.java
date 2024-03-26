@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +23,9 @@ public class Major implements Serializable {
     private Integer majorId;
     @Column(name = "major_name")
     private String majorName;
-//    @Column(name = "description")
     private String description;
     private String img;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "major")
+    @JsonBackReference
+    private List<Program> programs;
 }

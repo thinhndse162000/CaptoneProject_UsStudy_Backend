@@ -1,6 +1,8 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import jakarta.transaction.Transactional;
@@ -9,56 +11,73 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ProgramServiceImpl implements IProgramService {
     private final ProgramRepository programRepository;
+    private final ProgramMapper programMapper;
 
     @Override
-    public Iterable<Program> getAllProgram() {
-        return programRepository.findAll();
+    public Iterable<ProgramDto> getAllProgram() {
+        return programRepository.findAll()
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Program> getProgramById(int id) {
-        return programRepository.findById(id);
+    public Optional getProgramById(int id) {
+        return programRepository.findById(id)
+                .map(programMapper::programToProgramDto);
     }
 
     @Override
-    public Program saveProgram(Program program) {
+    public ProgramDto saveProgram(Program program) {
         programRepository.save(program);
-        return program;
+        return programMapper.programToProgramDto(program);
     }
 
     @Override
-    public List<Program> getProgramsByUniversityId(int id) {
-        return programRepository.getProgramsByUniversityId(id);
+    public List<ProgramDto> getProgramsByUniversityId(int id) {
+        return programRepository.getProgramsByUniversityUniversityId(id)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Program> getProgramsByMajorId(int id) {
-        return programRepository.getProgramsByMajorId(id);
+    public List<ProgramDto> getProgramsByMajorId(int id) {
+        return programRepository.getProgramsByMajorMajorId(id)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
-        return programRepository.getProgramsByUniversityIdAndMajorId(universityId, majorId);
+    public List<ProgramDto> getProgramsByUniversityIdAndMajorId(int universityId, int majorId) {
+        return programRepository.getProgramsByUniversityUniversityIdAndMajorMajorId(universityId, majorId)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Program> getProgramsByProgramName(String programName) {
-        return programRepository.getProgramsByNameProgramContains(programName);
+    public List<ProgramDto> getProgramsByProgramName(String programName) {
+        return programRepository.getProgramsByNameProgramContains(programName)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Program> getProgramsByProgramTypeId(Integer programTypeId) {
-        return programRepository.getProgramByProgramTypeId(programTypeId);
+    public List<ProgramDto> getProgramsByProgramTypeId(Integer programTypeId) {
+        return programRepository.getProgramByProgramTypeId(programTypeId)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Program> getProgrramsBySemesterId(Integer semesterId) {
-        return programRepository.getProgramBySemesterId(semesterId);
+    public List<ProgramDto> getProgramsBySemesterId(Integer semesterId) {
+        return programRepository.getProgramBySemesterId(semesterId)
+                .stream().map(programMapper::programToProgramDto)
+                .collect(Collectors.toList());
     }
 }

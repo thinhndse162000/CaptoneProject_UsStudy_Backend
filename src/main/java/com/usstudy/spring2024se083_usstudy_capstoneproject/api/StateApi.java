@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.State;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IStateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,10 +21,10 @@ import java.util.List;
 public class StateApi {
     private final IStateService stateService;
 
-    @Operation(summary = "Get all State", description = "Return all States")
+    @Operation(summary = "Get a list of State", description = "Return a list of States")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
-        List<State> result = stateService.getAllState();
+        List<StateDto> result = stateService.getAllState();
         return ResponseEntity.ok(result);
     }
 

@@ -1,16 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/v3/programs")
@@ -22,7 +19,7 @@ public class ProgramApi {
 
 
     //@Secured({"ROLE_CONSULTANT","ROLE_CUSTOMER"})
-    @Operation(summary = "Get All Programs", description = "Return all programs")
+    @Operation(summary = "Get a list of Programs", description = "Return a list of programs")
     @GetMapping("")
     public ResponseEntity<?> getAll(@RequestParam(required = false) Integer universityId,
                                     @RequestParam(required = false) Integer majorId,
@@ -45,9 +42,9 @@ public class ProgramApi {
                 return ResponseEntity.ok(programService.getProgramsByProgramTypeId(programTypeId));
             }
             if (semesterId != null) {
-                return ResponseEntity.ok(programService.getProgrramsBySemesterId(semesterId));
+                return ResponseEntity.ok(programService.getProgramsBySemesterId(semesterId));
             }
-            Iterable<Program> result = programService.getAllProgram();
+            Iterable<ProgramDto> result = programService.getAllProgram();
             return ResponseEntity.ok(result);
         }
     }
@@ -60,13 +57,9 @@ public class ProgramApi {
 
     @Operation(summary = "Create new Program", description = "Create new Program")
     @PostMapping("")
-    public ResponseEntity<?> postProgram(@RequestBody Program program,
-                                         @RequestParam(required = false, defaultValue = "false") Boolean useServerTime) {
+    public ResponseEntity<?> postProgram(@RequestBody Program program) {
         try {
-            if (useServerTime == true) {
-                program.setCreateDate(LocalDate.now());
-            }
-            Program result = programService.saveProgram(program);
+            ProgramDto result = programService.saveProgram(program);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -75,14 +68,10 @@ public class ProgramApi {
 
     @Operation(summary = "Update a Program", description = "Update a program ")
     @PutMapping("")
-    public ResponseEntity<?> putProgram(@RequestBody Program program,
-                                        @RequestParam(required = false, defaultValue = "false") Boolean useServerTime) {
+    public ResponseEntity<?> putProgram(@RequestBody Program program) {
         try {
             if (program.getProgramId() != null && !programService.getProgramById(program.getProgramId()).isEmpty()) {
-                if (useServerTime == true) {
-                    program.setModifiedDate(LocalDate.now());
-                }
-                Program result = programService.saveProgram(program);
+                ProgramDto result = programService.saveProgram(program);
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.badRequest().body("No program with id " + program.getProgramId() + " found!");

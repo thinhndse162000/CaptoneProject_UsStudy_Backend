@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,9 +27,9 @@ public class Program implements Serializable {
     private String nameProgram;
     private String status;
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private Date createDate;
     @Column(name = "modified_date")
-    private LocalDate modifiedDate;
+    private Date modifiedDate;
     private Integer modifier;
     private String duration; //in days or months?
     private String description;
@@ -33,16 +37,41 @@ public class Program implements Serializable {
     private String level;
 
     //FK university here
-    @Column(name = "university_id")
-    private Integer universityId;
+//    @Column(name = "university_id")
+//    private Integer universityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "university_id",nullable = false)
+    @JsonManagedReference
+    private University university;
     //Fk Major here
-    @Column(name = "major_id")
-    private Integer majorId;
+//    @Column(name = "major_id")
+//    private Integer majorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "major_id",nullable = false)
+    @JsonManagedReference
+    private Major major;
     //FK Semester here
-    @Column(name = "semester_id")
-    private Integer semesterId;
+//    @Column(name = "semester_id")
+//    private Integer semesterId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "semester_id",nullable = false)
+    @JsonManagedReference
+    private Semester semester;
     //FK Program Type here
-    @Column(name = "program_type_id")
-    private Integer programTypeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_type_id",nullable = false)
+    @JsonManagedReference
+    private ProgramType programType;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramFee> programFees;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramStage> programStages;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @JsonBackReference
+    private List<ProgramApplication> programApplications;
 }

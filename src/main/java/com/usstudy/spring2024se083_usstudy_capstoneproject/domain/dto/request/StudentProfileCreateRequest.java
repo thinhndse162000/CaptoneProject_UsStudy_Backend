@@ -34,4 +34,5 @@ public class StudentProfileCreateRequest {
     private String nationalId;
     private String studyProcess;
     private List<String> fileString;
+    private Integer customerId;
 }

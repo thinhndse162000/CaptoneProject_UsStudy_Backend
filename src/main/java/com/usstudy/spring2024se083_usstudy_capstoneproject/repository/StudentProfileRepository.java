@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface StudentProfileRepository extends CrudRepository<StudentProfile, Integer> {
 
 
-    @Query("select sp from StudentProfile sp where sp.customerId = :customerId")
+    @Query("select sp from StudentProfile sp where sp.customer.customerId = :customerId")
     Iterable<StudentProfile> findByCustomerId(Integer customerId);
 }

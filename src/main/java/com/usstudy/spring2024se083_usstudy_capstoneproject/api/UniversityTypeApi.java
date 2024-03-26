@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UniversityTypeApi {
     private final IUniversityTypeService universityTypeService;
 
-    @Operation(summary = "Get all UniversityTypes ", description = "Return all UniversityTypes ")
+    @Operation(summary = "Get a list of UniversityTypes ", description = "Return a list of UniversityTypes ")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(universityTypeService.getAllUniversityType());

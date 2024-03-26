@@ -2,8 +2,10 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FileUploadRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.StudentProfileRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
@@ -17,11 +19,14 @@ import java.util.Optional;
 public class StudentProfileServiceImpl implements StudentProfileService {
 
     private final StudentProfileRepository studentProfileRepository;
+
+    private final CustomerRepository customerRepository;
     private final FileUploadRepository fileUploadRepository;
 
     @Autowired
-    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, FileUploadRepository fileUploadRepository) {
+    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, CustomerRepository customerRepository, FileUploadRepository fileUploadRepository) {
         this.studentProfileRepository = studentProfileRepository;
+        this.customerRepository = customerRepository;
         this.fileUploadRepository = fileUploadRepository;
     }
 
@@ -30,7 +35,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
 
         StudentProfile studentProfile = new StudentProfile();
         UploadFile fileUpload = new UploadFile();
-
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new NullPointerException("Customer not found - " + request.getCustomerId()));
         studentProfile.setStudentProfileId(0);
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
         studentProfile.setNationalId(request.getNationalId());
@@ -42,13 +48,13 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setDateOfBirth(request.getDateOfBirth());
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
-        studentProfile.setCustomerId(2);
+        studentProfile.setCustomer(customer);
         studentProfileRepository.save(studentProfile);
 
         if (!(request.getFileString() == null)) {
             for (String file : request.getFileString()) {
                 fileUpload.setUploadFileId(0);
-                fileUpload.setStudentProfileId(studentProfile.getStudentProfileId());
+                fileUpload.setStudentProfile(studentProfile);
                 fileUpload.setFileAttach(file);
                 fileUploadRepository.save(fileUpload);
             }

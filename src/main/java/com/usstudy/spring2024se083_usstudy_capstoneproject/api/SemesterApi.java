@@ -15,7 +15,7 @@ public class SemesterApi {
     private final ISemesterService semesterService;
 
 
-    @Operation(summary = "Get all semester", description = "Return all Semesters")
+    @Operation(summary = "Get a list of semester", description = "Return a list of Semesters")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(semesterService.getAllSemester());

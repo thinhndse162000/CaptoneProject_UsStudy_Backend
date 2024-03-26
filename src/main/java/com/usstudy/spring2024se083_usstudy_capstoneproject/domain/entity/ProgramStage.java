@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +26,14 @@ public class ProgramStage {
     private Integer programStageId;
     @Column(name = "stage_name")
     private String StageName;
-    @Column(name = "program_id")
-    private Integer programId;
+//    @Column(name = "program_id")
+//    private Integer programId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id",nullable = false)
+    @JsonManagedReference
+    private Program program;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "programStage")
+    @JsonBackReference
+    private List<ApplyStage> applyStages;
 }

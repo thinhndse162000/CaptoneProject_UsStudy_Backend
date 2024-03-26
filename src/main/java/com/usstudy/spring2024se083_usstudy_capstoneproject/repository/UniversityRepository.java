@@ -11,9 +11,9 @@ import java.util.List;
 public interface UniversityRepository extends JpaRepository<University, Integer> {
 
 
-    @Query("select sp from University sp where sp.universityTypeId = :typeId")
+    @Query("select sp from University sp where sp.universityType.universityTypeId = :typeId")
     List<University> getUniversityByUniversityTypeId(Integer typeId);
 
-    @Query("select sp from University sp where sp.stateId = :typeId")
+    @Query("select sp from University sp where sp.state.stateId = :typeId")
     List<University> getUniversityByStateId(Integer typeId);
 }

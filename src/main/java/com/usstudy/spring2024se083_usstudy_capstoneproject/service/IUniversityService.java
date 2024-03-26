@@ -1,18 +1,19 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IUniversityService {
-    List<University> getAllUniversity();
+    List<UniversityDto> getAllUniversity();
 
     Optional getUniversityById(int id);
 
-    University saveUniversity(University university);
+    UniversityDto saveUniversity(University university);
 
-    List<University> getUniversityByTypeId(Integer typeid);
+    List<UniversityDto> getUniversityByTypeId(Integer typeid);
 
-    List<University> getUniversityByStateId(Integer stateId);
+    List<UniversityDto> getUniversityByStateId(Integer stateId);
 }

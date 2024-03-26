@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,10 @@ public class Consultant implements UserDetails {
     private String email;
     private String password;
     private String description;
+    
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "consultant")
+    @JsonBackReference
+    private List<RegistrationForm> registrationForms;
 
     @Transient
     private String role;

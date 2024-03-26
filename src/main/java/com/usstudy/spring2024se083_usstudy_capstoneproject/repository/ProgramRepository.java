@@ -9,17 +9,17 @@ import java.util.List;
 
 @Repository
 public interface ProgramRepository extends JpaRepository<Program, Integer> {
-    List<Program> getProgramsByUniversityId(int universityId);
+    List<Program> getProgramsByUniversityUniversityId(int universityId);
 
-    List<Program> getProgramsByMajorId(int majorId);
+    List<Program> getProgramsByMajorMajorId(int majorId);
 
-    List<Program> getProgramsByUniversityIdAndMajorId(int universityId, int majorId);
+    List<Program> getProgramsByUniversityUniversityIdAndMajorMajorId(int universityId, int majorId);
 
     List<Program> getProgramsByNameProgramContains(String programName);
 
-    @Query("select sp from Program sp where sp.programTypeId = :programTypeId")
+    @Query("select sp from Program sp where sp.programType.programTypeId = :programTypeId")
     List<Program> getProgramByProgramTypeId(Integer programTypeId);
 
-    @Query("select sp from Program sp where sp.semesterId = :semeserId")
-    List<Program> getProgramBySemesterId(Integer semeserId);
+    @Query("select sp from Program sp where sp.semester.semesterId = :semesterId")
+    List<Program> getProgramBySemesterId(Integer semesterId);
 }
