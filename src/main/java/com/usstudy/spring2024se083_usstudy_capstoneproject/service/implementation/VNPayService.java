@@ -23,7 +23,7 @@ public class VNPayService {
         vnp_Params.put("vnp_TxnRef", VNPayConfig.getRandomNumber(8));
         vnp_Params.put("vnp_OrderInfo", orderInfo);
         //vnp_Params.put("vnp_BankCode", "NCB");
-//        vnp_Params.put("vnp_OrderType", orderType);
+        vnp_Params.put("vnp_OrderType", "other");
 
         String locate = "vn";
         vnp_Params.put("vnp_Locale", locate);
@@ -32,18 +32,18 @@ public class VNPayService {
 //        if (urlReturn!=null)
 //        {
 //            //urlReturn += VNPayConfig.vnp_Returnurl;
-            //vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_Returnurl);
+            vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_Returnurl);
 //        }
-        vnp_Params.put("vnp_IpAddr", VNPayConfig.getIpAddress(request));
-
+//        vnp_Params.put("vnp_IpAddr", VNPayConfig.getIpAddress(request));
+        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
+//        cld.add(Calendar.MINUTE, 15);
+//        String vnp_ExpireDate = formatter.format(cld.getTime());
+//        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 
         List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);
