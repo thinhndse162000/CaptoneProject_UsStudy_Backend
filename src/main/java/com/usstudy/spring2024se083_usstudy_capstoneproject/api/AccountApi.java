@@ -11,6 +11,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Custome
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.EmailService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,12 @@ public class AccountApi {
     @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getCustomerById(id));
+    }
+    @PutMapping("/customer")
+    @Operation(summary = "Update a customer", description = "Return updated customer (note Date of birth don't " +
+            "have time to prevent format error)")
+    public ResponseEntity<?> putCustomer(CustomerDto customerDto){
+        return ResponseEntity.ok(service.updateCustomer(customerDto));
     }
 
     @GetMapping("/mix")

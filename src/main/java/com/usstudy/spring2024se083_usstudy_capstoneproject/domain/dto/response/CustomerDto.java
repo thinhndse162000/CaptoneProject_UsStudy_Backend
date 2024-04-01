@@ -31,4 +31,7 @@ public class CustomerDto implements Serializable {
     public static CustomerDto convert(Customer customer) {
         return CustomerMapper.INSTANT.customerToCustomerDto(customer);
     }
+    public static Customer convert(CustomerDto customerDto) {
+        return CustomerMapper.INSTANT.customerDtoToCustomer(customerDto);
+    }
 }
