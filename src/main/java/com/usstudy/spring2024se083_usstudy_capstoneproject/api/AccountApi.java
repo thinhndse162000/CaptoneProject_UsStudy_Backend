@@ -78,10 +78,11 @@ public class AccountApi {
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getCustomerById(id));
     }
-    @PutMapping("/customer")
-    @Operation(summary = "Update a customer", description = "Return updated customer (note Date of birth don't " +
-            "have time to prevent format error)")
-    public ResponseEntity<?> putCustomer(@RequestBody CustomerDto customerDto){
+    @PutMapping("/customer/{id}")
+    @Operation(summary = "Update a customer", description = "Return updated customer")
+    public ResponseEntity<?> putCustomer(@PathVariable Integer id,
+                                         @RequestBody CustomerDto customerDto){
+        customerDto.setCustomerId(id);
         return ResponseEntity.ok(service.updateCustomer(customerDto));
     }
 
@@ -95,13 +96,13 @@ public class AccountApi {
         return ResponseEntity.ok(accountList);
     }
 
-    @GetMapping("/forgot-password")
+    @GetMapping("/reset-password")
     public ResponseEntity<?> getEmail(@RequestParam String email) {
         EmailRequest emailRequest=new EmailRequest();
         emailRequest.setRecipient(email);
-        emailRequest.setSubject("forgot password");
+        emailRequest.setSubject("Reset password");
         emailRequest.setMessageBody("Here's your password reset token," +
-                "Click here to reset your password: http://localhost:3000/forgot-password");
+                "Click here to reset your password: http://localhost:3000/reset-password");
         String result = emailService.sendEmail(emailRequest);
         return ResponseEntity.ok().body(result);
     }
