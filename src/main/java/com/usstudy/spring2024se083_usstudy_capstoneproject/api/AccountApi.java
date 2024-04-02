@@ -81,7 +81,7 @@ public class AccountApi {
     @PutMapping("/customer")
     @Operation(summary = "Update a customer", description = "Return updated customer (note Date of birth don't " +
             "have time to prevent format error)")
-    public ResponseEntity<?> putCustomer(CustomerDto customerDto){
+    public ResponseEntity<?> putCustomer(@RequestBody CustomerDto customerDto){
         return ResponseEntity.ok(service.updateCustomer(customerDto));
     }
 

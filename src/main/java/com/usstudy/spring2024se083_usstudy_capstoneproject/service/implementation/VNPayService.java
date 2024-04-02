@@ -34,8 +34,8 @@ public class VNPayService {
 //            //urlReturn += VNPayConfig.vnp_Returnurl;
             vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_Returnurl);
 //        }
-//        vnp_Params.put("vnp_IpAddr", VNPayConfig.getIpAddress(request));
-        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
+        vnp_Params.put("vnp_IpAddr", VNPayConfig.getIpAddress(request));
+//        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
