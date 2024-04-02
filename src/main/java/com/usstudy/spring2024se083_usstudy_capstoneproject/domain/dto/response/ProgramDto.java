@@ -24,7 +24,7 @@ public class ProgramDto {
     private String description;
     private float tuition;
     private String level;
-
+    private String img;
     private Integer universityId;
 
     private Integer majorId;

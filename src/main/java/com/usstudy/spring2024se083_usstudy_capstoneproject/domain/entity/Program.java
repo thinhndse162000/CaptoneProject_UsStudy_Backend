@@ -35,6 +35,7 @@ public class Program implements Serializable {
     private String description;
     private float tuition;
     private String level;
+    private String img;
 
     //FK university here
 //    @Column(name = "university_id")
