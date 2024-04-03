@@ -4,10 +4,13 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.U
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface UniversityMapper {
-    @Mapping(target = "universityTypeId",source = "university.universityType.universityTypeId")
-    @Mapping(target = "stateId",source = "university.state.stateId")
+    UniversityMapper INSTANT = Mappers.getMapper(UniversityMapper.class);
+
+    @Mapping(target = "universityTypeId", source = "university.universityType.universityTypeId")
+    @Mapping(target = "stateId", source = "university.state.stateId")
     UniversityDto universityToUniversityDto(University university);
 }

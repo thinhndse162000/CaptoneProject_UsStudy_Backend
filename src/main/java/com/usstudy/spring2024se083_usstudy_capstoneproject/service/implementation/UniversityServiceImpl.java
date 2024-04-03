@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.UniversityMapper;
@@ -51,5 +52,13 @@ public class UniversityServiceImpl implements IUniversityService {
         return universityRepository.getUniversityByStateId(stateId)
                 .stream().map(universityMapper::universityToUniversityDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UniversityDto> getUniversityByRequest(UniversityFilterRequest request) {
+        List<University> universities = universityRepository.getUniversityByRequest(request);
+        return universities
+                .stream()
+                .map(UniversityDto::convert).collect(Collectors.toList());
     }
 }

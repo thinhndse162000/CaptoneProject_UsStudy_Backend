@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,18 +30,20 @@ public class University {
 //    @Column(name = "university_type_id")
 //    private Integer universityTypeId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "university_type_id",nullable = false)
+    @JoinColumn(name = "university_type_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UniversityType universityType;
     //Fk state here
 //    @Column(name = "state_id")
 //    private Integer stateId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id",nullable = false)
+    @JoinColumn(name = "state_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private State state;
     private String img;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "university")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "university")
     @JsonBackReference
     private List<Program> programs;
 }

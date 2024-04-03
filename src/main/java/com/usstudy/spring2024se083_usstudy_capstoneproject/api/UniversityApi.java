@@ -1,14 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IUniversityService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,5 +68,10 @@ public class UniversityApi {
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<UniversityDto>> getUniversityByRequest(@RequestBody UniversityFilterRequest request) {
+        return ResponseEntity.ok(universityService.getUniversityByRequest(request));
     }
 }

@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -40,38 +40,39 @@ public class Program implements Serializable {
 //    @Column(name = "university_id")
 //    private Integer universityId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "university_id",nullable = false)
+    @JoinColumn(name = "university_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private University university;
     //Fk Major here
 //    @Column(name = "major_id")
 //    private Integer majorId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "major_id",nullable = false)
+    @JoinColumn(name = "major_id", nullable = false)
     @JsonManagedReference
     private Major major;
     //FK Semester here
 //    @Column(name = "semester_id")
 //    private Integer semesterId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "semester_id",nullable = false)
+    @JoinColumn(name = "semester_id", nullable = false)
     @JsonManagedReference
     private Semester semester;
     //FK Program Type here
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_type_id",nullable = false)
+    @JoinColumn(name = "program_type_id", nullable = false)
     @JsonManagedReference
     private ProgramType programType;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
     @JsonBackReference
     private List<ProgramFee> programFees;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
     @JsonBackReference
     private List<ProgramStage> programStages;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "program")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
     @JsonBackReference
     private List<ProgramApplication> programApplications;
 }

@@ -1,13 +1,15 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -32,4 +34,11 @@ public class ProgramDto {
     private Integer semesterId;
 
     private Integer programTypeId;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private University university;
+
+    public static ProgramDto convert(Program program) {
+        return ProgramMapper.INSTANT.programToProgramDto(program);
+    }
 }
