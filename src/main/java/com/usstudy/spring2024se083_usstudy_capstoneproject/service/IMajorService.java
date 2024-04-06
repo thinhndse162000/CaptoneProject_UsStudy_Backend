@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface IMajorService {
     List<MajorDto> getAllMajor();
-    MajorDto saveMajor(Major major);
+    MajorDto saveMajor(MajorDto majorDto);
     Optional findById(int id);
 }
