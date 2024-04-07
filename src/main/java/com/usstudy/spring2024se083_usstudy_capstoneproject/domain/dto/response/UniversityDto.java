@@ -20,4 +20,7 @@ public class UniversityDto {
 
     private Integer stateId;
     private String img;
+    private String slogan;
+    private String website;
+    private String email;
 }

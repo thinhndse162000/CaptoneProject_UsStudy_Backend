@@ -25,6 +25,9 @@ public class University {
     private String universityName;
     private Float tuition;
     private String description;
+    private String slogan;
+    private String website;
+    private String email;
     //FK university type here
 //    @Column(name = "university_type_id")
 //    private Integer universityTypeId;
