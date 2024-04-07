@@ -1,6 +1,8 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.FeeTypeDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FeeType;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.FeeTypeMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FeeTypeRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.FeeTypeService;
 import jakarta.transaction.Transactional;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,18 +19,19 @@ import java.util.Optional;
 public class FeeTypeServiceImpl implements FeeTypeService {
     private final FeeTypeRepository feeTypeRepository;
     @Override
-    public List<FeeType> getAllFeeType() {
-        return feeTypeRepository.findAll();
+    public List<FeeTypeDto> getAllFeeType() {
+        return feeTypeRepository.findAll()
+                .stream().map(FeeTypeMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Override
     public Optional<?> getById(int id) {
-        return feeTypeRepository.findById(id);
+        return feeTypeRepository.findById(id).map(FeeTypeMapper.INSTANCE::toDto);
     }
 
     @Override
-    public FeeType saveFeeType(FeeType feeType) {
-        feeTypeRepository.save(feeType);
-        return feeType;
+    public FeeTypeDto saveFeeType(FeeTypeDto feeTypeDto) {
+        return FeeTypeMapper.INSTANCE.toDto(
+                feeTypeRepository.save(FeeTypeMapper.INSTANCE.toEntity(feeTypeDto)));
     }
 }

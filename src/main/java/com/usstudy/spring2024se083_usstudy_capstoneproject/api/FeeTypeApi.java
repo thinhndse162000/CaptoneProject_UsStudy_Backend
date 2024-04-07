@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.FeeTypeDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FeeType;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.FeeTypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,24 +27,26 @@ public class FeeTypeApi {
     }
     @Operation(summary = "Create new Fee Type", description = "Create new Fee Type")
     @PostMapping("")
-    public  ResponseEntity<?> createFeeType(@RequestBody FeeType feeType){
+    public  ResponseEntity<?> createFeeType(@RequestBody FeeTypeDto feeTypeDto){
         try {
-            FeeType result=feeTypeService.saveFeeType(feeType);
+            FeeTypeDto result=feeTypeService.saveFeeType(feeTypeDto);
             return ResponseEntity.ok(result);
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
     @Operation(summary = "Update a Fee Type", description = "Update a Fee Type ")
-    @PutMapping("")
-    public  ResponseEntity<?> updateFeeType(@RequestBody FeeType feeType){
+    @PutMapping("/{id}")
+    public  ResponseEntity<?> updateFeeType(@PathVariable Integer id,
+                                            @RequestBody FeeTypeDto feeTypeDto){
         try {
-            if(feeType.getFeeTypeId()!=null && !feeTypeService.getById(feeType.getFeeTypeId()).isEmpty())
+            feeTypeDto.setFeeTypeId(id);
+            if(!feeTypeService.getById(id).isEmpty())
             {
-                FeeType result=feeTypeService.saveFeeType(feeType);
+                FeeTypeDto result=feeTypeService.saveFeeType(feeTypeDto);
                 return ResponseEntity.ok(result);
             }
-            return ResponseEntity.badRequest().body("No fee type with id " + feeType.getFeeTypeId() + " found!");
+            return ResponseEntity.badRequest().body("No fee type with id " + feeTypeDto.getFeeTypeId() + " found!");
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
