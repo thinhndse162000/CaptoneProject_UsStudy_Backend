@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,13 +35,13 @@ public class StudentProfileApi {
 
     @Operation(summary = "Get Student Profile by Id ", description = "Returns student profile by id")
     @GetMapping("{id}")
-    public ResponseEntity<Optional<StudentProfile>> getStudentProfileById(@PathVariable Integer id) {
+    public ResponseEntity<?> getStudentProfileById(@PathVariable Integer id) {
         return ResponseEntity.ok(studentProfileService.getById(id));
     }
 
     @Operation(summary = "Get all Student Profile by Customer Id", description = "Returns all Student profile by Customer id")
     @GetMapping("/customer/{id}")
-    public ResponseEntity<Iterable<StudentProfile>> getAllStudentProfileByCustomer(@PathVariable Integer id) {
+    public ResponseEntity<?> getAllStudentProfileByCustomer(@PathVariable Integer id) {
         return ResponseEntity.ok(studentProfileService.getAllByCustomerId(id));
     }
 
