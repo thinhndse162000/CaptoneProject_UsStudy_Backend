@@ -2,8 +2,10 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramStage;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ApplyStageMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ApplyStageRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramStageRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ApplyStageService;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplyStageServiceImpl implements ApplyStageService {
@@ -34,7 +38,6 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         applyStage.setApplyStageId(0);
         applyStage.setProgramStage(programStage);
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-        applyStage.setPaymentStatus(request.getStatus());
 
         applyStageRepository.save(applyStage);
     }
@@ -46,20 +49,22 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         ProgramStage programStage = programStageRepository.findById(request.getProgramStageId())
                 .orElseThrow(() -> new NullPointerException("Program not found - " + request.getProgramStageId()));
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-        applyStage.setPaymentStatus(request.getStatus());
         applyStage.setProgramStage(programStage);
 
         applyStageRepository.save(applyStage);
     }
 
     @Override
-    public Iterable<ApplyStage> getAllApplyStage() {
-        return applyStageRepository.findAll();
+    public List<ApplyStateDto> getAllApplyStage() {
+        return applyStageRepository.findAll()
+                .stream().map(ApplyStageMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<ApplyStage> getById(Integer id) {
-        return applyStageRepository.findById(id);
+    public Optional<ApplyStateDto> getById(Integer id) {
+        return applyStageRepository.findById(id)
+                .map(ApplyStageMapper.INSTANCE::toDto);
     }
 
 
