@@ -36,9 +36,9 @@ public class UniversityApi {
 
     @Operation(summary = "Create University ", description = "Create University ")
     @PostMapping("")
-    public ResponseEntity<?> postUniversity(@RequestBody University university) {
+    public ResponseEntity<?> postUniversity(@RequestBody UniversityDto universityDto) {
         try {
-            UniversityDto result = universityService.saveUniversity(university);
+            UniversityDto result = universityService.saveUniversity(universityDto);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -56,14 +56,16 @@ public class UniversityApi {
     }
 
     @Operation(summary = "Update University ", description = "Update University ")
-    @PutMapping("")
-    public ResponseEntity<?> putUniversity(@RequestBody University university) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putUniversity(@PathVariable Integer id,
+                                           @RequestBody UniversityDto universityDto) {
         try {
-            if (university.getUniversityId() != null && !universityService.getUniversityById(university.getUniversityId()).isEmpty()) {
-                UniversityDto result = universityService.saveUniversity(university);
+            universityDto.setUniversityId(id);
+            if (!universityService.getUniversityById(id).isEmpty()) {
+                UniversityDto result = universityService.saveUniversity(universityDto);
                 return ResponseEntity.ok(result);
             } else {
-                return ResponseEntity.badRequest().body("No University with id " + university.getUniversityId() + " found!");
+                return ResponseEntity.badRequest().body("No University with id " + universityDto.getUniversityId() + " found!");
             }
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());

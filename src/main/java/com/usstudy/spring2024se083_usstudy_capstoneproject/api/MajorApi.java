@@ -33,9 +33,9 @@ public class MajorApi {
 
     @Operation(summary = "Create New Major", description = "Create a new Major")
     @PostMapping("")
-    public ResponseEntity<?> postMajor(@RequestBody Major major) {
+    public ResponseEntity<?> postMajor(@RequestBody MajorDto majorDto) {
         try {
-            MajorDto result = majorService.saveMajor(major);
+            MajorDto result = majorService.saveMajor(majorDto);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -43,14 +43,16 @@ public class MajorApi {
     }
 
     @Operation(summary = "Update a Major", description = "Update a Major")
-    @PutMapping("")
-    public ResponseEntity<?> putMajor(@RequestBody Major major) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putMajor(@PathVariable Integer id,
+                                      @RequestBody MajorDto majorDto) {
         try {
-            if (major.getMajorId() != null && !majorService.findById(major.getMajorId()).isEmpty()) {
-                MajorDto result = majorService.saveMajor(major);
+            majorDto.setMajorId(id);
+            if (!majorService.findById(id).isEmpty()) {
+                MajorDto result = majorService.saveMajor(majorDto);
                 return ResponseEntity.ok(result);
             } else {
-                return ResponseEntity.badRequest().body("No major with id " + major.getMajorId() + " found!");
+                return ResponseEntity.badRequest().body("No major with id " + majorDto.getMajorId() + " found!");
             }
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());

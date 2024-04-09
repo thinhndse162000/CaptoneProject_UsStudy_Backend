@@ -1,7 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.UniversityMapper;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,7 @@ public class UniversityDto {
 
     private Integer stateId;
     private String img;
-
-    public static UniversityDto convert(University university) {
-        return UniversityMapper.INSTANT.universityToUniversityDto(university);
-    }
+    private String slogan;
+    private String website;
+    private String email;
 }

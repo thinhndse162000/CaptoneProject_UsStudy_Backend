@@ -18,23 +18,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MajorServiceImpl implements IMajorService {
     private final MajorRepository majorRepository;
-    private final MajorMapper majorMapper;
+    //private final MajorMapper majorMapper;
 
     @Override
     public List<MajorDto> getAllMajor() {
         return majorRepository.findAllByOrderByMajorIdDesc()
-                .stream().map(majorMapper::majorToMajorDto).collect(Collectors.toList());
+                .stream().map(MajorMapper.INSTANCE::majorToMajorDto).collect(Collectors.toList());
     }
 
     @Override
-    public MajorDto saveMajor(Major major) {
-        majorRepository.save(major);
-        return majorMapper.majorToMajorDto(major);
+    public MajorDto saveMajor(MajorDto majorDto) {
+        return MajorMapper.INSTANCE.majorToMajorDto(
+                majorRepository.save(MajorMapper.INSTANCE.majorDtoToMajor(majorDto)));
     }
 
     @Override
     public Optional<?> findById(int id) {
         return  majorRepository.findById(id)
-                .map(majorMapper::majorToMajorDto);
+                .map(MajorMapper.INSTANCE::majorToMajorDto);
     }
 }

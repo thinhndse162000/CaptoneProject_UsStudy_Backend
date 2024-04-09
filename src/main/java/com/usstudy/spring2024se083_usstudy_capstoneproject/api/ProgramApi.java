@@ -60,9 +60,9 @@ public class ProgramApi {
 
     @Operation(summary = "Create new Program", description = "Create new Program")
     @PostMapping("")
-    public ResponseEntity<?> postProgram(@RequestBody Program program) {
+    public ResponseEntity<?> postProgram(@RequestBody ProgramDto programDto) {
         try {
-            ProgramDto result = programService.saveProgram(program);
+            ProgramDto result = programService.saveProgram(programDto);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -75,14 +75,16 @@ public class ProgramApi {
     }
 
     @Operation(summary = "Update a Program", description = "Update a program ")
-    @PutMapping("")
-    public ResponseEntity<?> putProgram(@RequestBody Program program) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putProgram(@PathVariable Integer id,
+                                        @RequestBody ProgramDto programDto) {
         try {
-            if (program.getProgramId() != null && !programService.getProgramById(program.getProgramId()).isEmpty()) {
-                ProgramDto result = programService.saveProgram(program);
+            programDto.setProgramId(id);
+            if (programDto.getProgramId() != null && !programService.getProgramById(programDto.getProgramId()).isEmpty()) {
+                ProgramDto result = programService.saveProgram(programDto);
                 return ResponseEntity.ok(result);
             } else {
-                return ResponseEntity.badRequest().body("No program with id " + program.getProgramId() + " found!");
+                return ResponseEntity.badRequest().body("No program with id " + programDto.getProgramId() + " found!");
             }
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());

@@ -56,6 +56,19 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
+    public CustomerDto getCustomerById(Integer customerId) {
+        return customerRepository.findById(customerId)
+                .map(CustomerDto::convert)
+                .orElseThrow(() -> new NullPointerException("Customer not found - " + customerId));
+    }
+
+    @Override
+    public CustomerDto updateCustomer(CustomerDto customerDto) {
+        customerRepository.save(CustomerDto.convert(customerDto));
+        return customerDto;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.getCustomerByEmail(email);
         if (customer == null) {

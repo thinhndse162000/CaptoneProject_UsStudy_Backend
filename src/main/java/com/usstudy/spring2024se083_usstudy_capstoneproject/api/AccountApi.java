@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.LoginRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
@@ -9,6 +10,8 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consult
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.EmailService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,15 +30,17 @@ public class AccountApi {
     private final CustomerService service;
     private final ConsultantService consultantService;
     private final JwtTokenProvider tokenProvider;
+    private final EmailService emailService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider) {
+    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService) {
         this.service = customerService;
         this.consultantService = consultantService;
         this.tokenProvider = tokenProvider;
+        this.emailService = emailService;
     }
 
     @PostMapping("/login")
@@ -69,6 +74,18 @@ public class AccountApi {
         return ResponseEntity.ok(consultantService.getAllConsultant());
     }
 
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getCustomerById(id));
+    }
+    @PutMapping("/customer/{id}")
+    @Operation(summary = "Update a customer", description = "Return updated customer")
+    public ResponseEntity<?> putCustomer(@PathVariable Integer id,
+                                         @RequestBody CustomerDto customerDto){
+        customerDto.setCustomerId(id);
+        return ResponseEntity.ok(service.updateCustomer(customerDto));
+    }
+
     @GetMapping("/mix")
     public ResponseEntity<List<Object>> getAllAccount() {
         List<Object> accountList = new ArrayList<>();
@@ -77,5 +94,16 @@ public class AccountApi {
         accountList.addAll(customerList);
         accountList.addAll(consultantDtoList);
         return ResponseEntity.ok(accountList);
+    }
+
+    @GetMapping("/reset-password")
+    public ResponseEntity<?> getEmail(@RequestParam String email) {
+        EmailRequest emailRequest=new EmailRequest();
+        emailRequest.setRecipient(email);
+        emailRequest.setSubject("Reset password");
+        emailRequest.setMessageBody("Click here to reset your password: http://localhost:3000/reset-password "
+                +"\nHere's your password reset token: ");
+        String result = emailService.sendEmail(emailRequest);
+        return ResponseEntity.ok().body(result);
     }
 }

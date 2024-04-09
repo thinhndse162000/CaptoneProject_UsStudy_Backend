@@ -12,7 +12,7 @@ public interface IUniversityService {
 
     Optional getUniversityById(int id);
 
-    UniversityDto saveUniversity(University university);
+    UniversityDto saveUniversity(UniversityDto universityDto);
 
     List<UniversityDto> getUniversityByTypeId(Integer typeid);
 

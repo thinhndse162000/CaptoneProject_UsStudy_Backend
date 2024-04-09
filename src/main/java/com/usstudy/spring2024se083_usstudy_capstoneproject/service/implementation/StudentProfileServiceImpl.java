@@ -2,9 +2,11 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.StudentProfileMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FileUploadRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.StudentProfileRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
@@ -79,12 +82,15 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public Iterable<StudentProfile> getAllByCustomerId(Integer customerId) {
-        return studentProfileRepository.findByCustomerId(customerId);
+    public Iterable<StudentProfileDto> getAllByCustomerId(Integer customerId) {
+        return studentProfileRepository.findByCustomerId(customerId)
+                .stream().map(StudentProfileMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<StudentProfile> getById(Integer id) {
-        return studentProfileRepository.findById(id);
+    public Optional<StudentProfileDto> getById(Integer id) {
+
+        return studentProfileRepository.findById(id).map(StudentProfileMapper.INSTANCE::toDto);
     }
 }

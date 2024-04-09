@@ -12,7 +12,7 @@ public interface IProgramService {
 
     Optional getProgramById(int id);
 
-    ProgramDto saveProgram(Program program);
+    ProgramDto saveProgram(ProgramDto programDto);
 
     List<ProgramDto> getProgramsByUniversityId(int id);
 
