@@ -29,7 +29,7 @@ public class ProgramApplicationApi {
     public ResponseEntity<?> getByStudentProfileId(@PathVariable Integer id) {
         return ResponseEntity.ok(programApplicationService.getByStudentProfileId(id));
     }
-    @Operation(summary = "Create a Program Application (not fully done)", description = "Return a program application if success")
+    @Operation(summary = "Create a Program Application", description = "Return a program application if success")
     @PostMapping("")
     public ResponseEntity<?> postProgramApplication(@RequestBody ProgramApplicationDto programApplicationDto) {
         return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto));
