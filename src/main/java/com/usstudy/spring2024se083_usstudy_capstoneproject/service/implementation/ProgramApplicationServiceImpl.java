@@ -47,10 +47,23 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto) {
+    public ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto,Integer stageNo) {
         List<ProgramStage> programStageList =
                 programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationDto.getProgramId());
-        ProgramStageDto programStageDto= ProgramStageMapper.INSTANCE.toDto(programStageList.get(0));
+        ProgramStageDto programStageDto;
+
+        try{
+            if (stageNo!=null){
+                programStageDto= ProgramStageMapper.INSTANCE.toDto(programStageList.get(stageNo));
+            }
+            else {
+                programStageDto= ProgramStageMapper.INSTANCE.toDto(programStageList.get(0));
+            }
+        } catch (IndexOutOfBoundsException ex){
+            return null;
+        } catch (Exception ex){
+            throw new RuntimeException(ex.getMessage());
+        }
 
         ApplyStateDto saveApplyStage=new ApplyStateDto();
         saveApplyStage.setProgramStageId(programStageDto.getProgramStageId());

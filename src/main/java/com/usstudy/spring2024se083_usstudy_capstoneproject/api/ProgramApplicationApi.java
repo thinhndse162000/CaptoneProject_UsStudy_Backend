@@ -29,9 +29,25 @@ public class ProgramApplicationApi {
     public ResponseEntity<?> getByStudentProfileId(@PathVariable Integer id) {
         return ResponseEntity.ok(programApplicationService.getByStudentProfileId(id));
     }
-    @Operation(summary = "Create a Program Application", description = "Return a program application if success")
+    @Operation(summary = "Create a Program Application",
+            description = "Return a program application if success and create new apply stage in database," +
+                    " return null if the program don't have any program stage")
     @PostMapping("")
     public ResponseEntity<?> postProgramApplication(@RequestBody ProgramApplicationDto programApplicationDto) {
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto));
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto,null));
+    }
+    @Operation(summary = "Update an existed Program Application",
+            description = "Return a program application if success and create new apply stage in database, " +
+                    "return null if the program don't have any program stage " +
+                    "or when stageNo bigger than that program list ProgramStage size")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putProgramApplication(@PathVariable Integer id,
+                                                   @RequestParam Integer stageNo,
+                                                   @RequestBody ProgramApplicationDto programApplicationDto){
+        programApplicationDto.setProgramApplicationId(id);
+        if (!programApplicationService.getById(id).isEmpty()){
+            return ResponseEntity.badRequest().body("No Program Application with id "+id+" found");
+        }
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto,stageNo));
     }
 }

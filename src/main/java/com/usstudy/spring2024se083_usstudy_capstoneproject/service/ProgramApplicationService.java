@@ -9,5 +9,5 @@ public interface ProgramApplicationService {
     Optional getById(Integer id);
     List<ProgramApplicationDto> getAllFilter();
     Optional getByStudentProfileId(Integer id);
-    ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto);
+    ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto,Integer stageNo);
 }
