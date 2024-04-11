@@ -1,15 +1,16 @@
-package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request;
+package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class RegistrationFormCreateRequest {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegistrationFormDto {
+    private int registrationFormId;
     private String area;
     private String moreInformation;
     private String studyAbroadReason;
@@ -21,4 +22,5 @@ public class RegistrationFormCreateRequest {
     private String priorityOfStudyAbroad;
     private String budget;
     private Integer customerId;
+    private Integer consultantId;
 }

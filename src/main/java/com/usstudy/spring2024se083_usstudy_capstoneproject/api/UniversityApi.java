@@ -21,7 +21,7 @@ public class UniversityApi {
     private final IUniversityService universityService;
 
     //@Secured("ROLE_CUSTOMER")
-    @Operation(summary = "Get a list Universities", description = "Return a list Universities")
+    @Operation(summary = "Get a list of Universities", description = "Return a list of Universities")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<UniversityDto> result = universityService.getAllUniversity();
@@ -34,7 +34,7 @@ public class UniversityApi {
         return ResponseEntity.ok(universityService.getUniversityById(id));
     }
 
-    @Operation(summary = "Create University ", description = "Create University ")
+    @Operation(summary = "Create an University ", description = "Create University ")
     @PostMapping("")
     public ResponseEntity<?> postUniversity(@RequestBody UniversityDto universityDto) {
         try {
@@ -44,18 +44,20 @@ public class UniversityApi {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
-
+    @Operation(summary = "Get a list of Universities by university type"
+            , description = "Return a list Universities by university type")
     @GetMapping("/type")
     public ResponseEntity<?> getUniversityByType(@RequestParam Integer typeId) {
         return ResponseEntity.ok(universityService.getUniversityByTypeId(typeId));
     }
-
+    @Operation(summary = "Get a list of Universities by state"
+            , description = "Return a list Universities by state")
     @GetMapping("/state")
     public ResponseEntity<?> getUniversityByState(@RequestParam Integer stateId) {
         return ResponseEntity.ok(universityService.getUniversityByStateId(stateId));
     }
 
-    @Operation(summary = "Update University ", description = "Update University ")
+    @Operation(summary = "Update an University ", description = "Update University ")
     @PutMapping("/{id}")
     public ResponseEntity<?> putUniversity(@PathVariable Integer id,
                                            @RequestBody UniversityDto universityDto) {

@@ -41,14 +41,14 @@ public class ApplyStageApi {
 
 
     @Operation(summary = "Get All Apply Stage", description = "Return Apply Stage ")
-    @GetMapping("/")
-    public ResponseEntity<Iterable<ApplyStage>> getAllApplyStage() {
+    @GetMapping("")
+    public ResponseEntity<?> getAllApplyStage() {
         return ResponseEntity.ok(service.getAllApplyStage());
     }
 
     @Operation(summary = "Get a Apply Stage by id", description = "Returns a Apply Stage by id")
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ApplyStage>> getById(@PathVariable Integer id) {
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getById(id));
     }
 }

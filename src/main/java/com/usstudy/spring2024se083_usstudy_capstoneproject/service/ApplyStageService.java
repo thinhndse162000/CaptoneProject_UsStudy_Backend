@@ -2,8 +2,10 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 
+
+import java.util.List;
 import java.util.Optional;
 
 public interface ApplyStageService {
@@ -11,7 +13,7 @@ public interface ApplyStageService {
 
     void updateApplyStage(Integer applyStageId, ApplyStageUpdateRequest request);
 
-    Iterable<ApplyStage> getAllApplyStage();
+    List<ApplyStateDto> getAllApplyStage();
 
-    Optional<ApplyStage> getById(Integer id);
+    Optional<ApplyStateDto> getById(Integer id);
 }
