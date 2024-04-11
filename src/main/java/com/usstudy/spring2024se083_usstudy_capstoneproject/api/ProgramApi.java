@@ -91,7 +91,7 @@ public class ProgramApi {
         }
     }
 
-    @GetMapping("/test/{universityId}")
+    @GetMapping("/university/{universityId}")
     public ResponseEntity<List<ProgramDto>> listResponseEntity(@PathVariable Integer universityId) {
         return ResponseEntity.ok(programService.getProgramList(universityId));
     }
