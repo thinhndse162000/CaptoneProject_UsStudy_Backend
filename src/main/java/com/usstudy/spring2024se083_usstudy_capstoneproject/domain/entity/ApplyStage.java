@@ -30,8 +30,6 @@ public class ApplyStage {
 
     @Column(name = "update_date")
     private Date updateDate;
-    @Column(name = "payment_status")
-    private int paymentStatus;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "applyStage")
     @JsonBackReference

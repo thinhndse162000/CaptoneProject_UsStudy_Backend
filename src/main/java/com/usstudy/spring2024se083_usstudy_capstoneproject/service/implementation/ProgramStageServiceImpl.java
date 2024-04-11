@@ -28,7 +28,7 @@ public class ProgramStageServiceImpl implements ProgramStageService {
         if (id!=null && stageNo!=null){
 
             List<ProgramStageDto> resultList=programStageRepository
-                    .getProgramStageByProgramProgramIdOrderByProgramStageIdAcs(id)
+                    .getProgramStageByProgramIdOrderByProgramStageIdAcs(id)
                     .stream().map(ProgramStageMapper.INSTANCE::toDto).collect(Collectors.toList());
 
             ProgramStageDto result=resultList.get(stageNo);
@@ -39,7 +39,7 @@ public class ProgramStageServiceImpl implements ProgramStageService {
             return resultList;
         }
         if (id!=null){
-            return programStageRepository.getProgramStageByProgramProgramIdOrderByProgramStageIdAcs(id)
+            return programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(id)
                     .stream().map(ProgramStageMapper.INSTANCE::toDto).collect(Collectors.toList());
         }
         else {
