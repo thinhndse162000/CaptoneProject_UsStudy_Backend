@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramMapper;
@@ -79,5 +80,19 @@ public class ProgramServiceImpl implements IProgramService {
         return programRepository.getProgramBySemesterId(semesterId)
                 .stream().map(ProgramMapper.INSTANCE::programToProgramDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgramDto> getProgrambyRequest(ProgramFilterRequest request) {
+        List<Program> programs = programRepository.getProgramByRequest(request);
+        return programs
+                .stream()
+                .map(ProgramDto::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgramDto> getProgramList(Integer universityId) {
+        List<Program> program = programRepository.getProgrambyUniversityId(universityId);
+        return program.stream().map(ProgramDto::convert).collect(Collectors.toList());
     }
 }

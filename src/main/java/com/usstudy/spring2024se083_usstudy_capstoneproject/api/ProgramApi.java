@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
@@ -8,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v3/programs")
@@ -66,6 +69,11 @@ public class ProgramApi {
         }
     }
 
+    @PostMapping("/filter")
+    public ResponseEntity<List<ProgramDto>> filterProgram(@RequestBody ProgramFilterRequest request) {
+        return ResponseEntity.ok(programService.getProgrambyRequest(request));
+    }
+
     @Operation(summary = "Update a Program", description = "Update a program ")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgram(@PathVariable Integer id,
@@ -81,5 +89,10 @@ public class ProgramApi {
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
+    }
+
+    @GetMapping("/university/{universityId}")
+    public ResponseEntity<List<ProgramDto>> listResponseEntity(@PathVariable Integer universityId) {
+        return ResponseEntity.ok(programService.getProgramList(universityId));
     }
 }

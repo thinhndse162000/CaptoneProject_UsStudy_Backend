@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface UniversityMapper {
+
     UniversityMapper INSTANCE= Mappers.getMapper(UniversityMapper.class);
     @Mapping(target = "universityTypeId",source = "university.universityType.universityTypeId")
     @Mapping(target = "stateId",source = "university.state.stateId")
