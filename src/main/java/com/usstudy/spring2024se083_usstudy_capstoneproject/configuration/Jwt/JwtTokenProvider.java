@@ -22,7 +22,7 @@ public class JwtTokenProvider {
     // Create token extract customer information to token
     public String generateToken(Customer customer) {
         Date now = new Date();
-        Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
+        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
         // create string token put in information of customer
         return Jwts.builder()
                 .setSubject(Integer.toString(customer.getCustomerId()))

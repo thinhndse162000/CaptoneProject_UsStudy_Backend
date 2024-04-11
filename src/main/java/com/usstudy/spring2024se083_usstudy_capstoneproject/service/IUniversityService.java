@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 
@@ -16,4 +17,6 @@ public interface IUniversityService {
     List<UniversityDto> getUniversityByTypeId(Integer typeid);
 
     List<UniversityDto> getUniversityByStateId(Integer stateId);
+
+    List<UniversityDto> getUniversityByRequest(UniversityFilterRequest request);
 }
