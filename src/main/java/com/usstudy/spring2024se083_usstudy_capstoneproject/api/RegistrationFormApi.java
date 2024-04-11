@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v3/registration-form/")
+@RequestMapping("/v3/registration-forms")
 @Tag(name = "Registration-Form-API")
 public class RegistrationFormApi {
     private final RegistrationFormService service;
@@ -22,27 +22,29 @@ public class RegistrationFormApi {
         this.service = service;
     }
 
-    @Operation(summary = "Submit ResgistrationForm", description = "Create new Registration Form")
-    @PostMapping("/")
+    @Operation(summary = "Submit RegistrationForm", description = "Create new Registration Form")
+    @PostMapping("")
     public void submitRegistrationForm(RegistrationFormCreateRequest request) {
         service.CreateRegistrationForm(request);
     }
 
-    @Operation(summary = "Get all Registration Form by Customer id", description = "Returns all Registration Form by Customer id")
+    @Operation(summary = "Get a list of Registration Forms by Customer id",
+            description = "Returns a list of Registration Forms by Customer id")
     @GetMapping("/customer/{id}")
-    public ResponseEntity<Iterable<RegistrationForm>> getRegistrationFormByCustomer(@PathVariable Integer id) {
+    public ResponseEntity<?> getRegistrationFormByCustomer(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getRegistrationFormByCustomer(id));
     }
 
-    @Operation(summary = "Get all Registration form by Consultant Id", description = "Returns Registration Form by Consultant id")
+    @Operation(summary = "Get a list of Registration Forms filter by Consultant Id",
+            description = "Return a list of Registration Forms filter by Consultant id")
     @GetMapping("/consultant/{id}")
-    public ResponseEntity<Iterable<RegistrationForm>> getRegistrationFormByConsultant(@PathVariable Integer id) {
+    public ResponseEntity<?> getRegistrationFormByConsultant(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getRegistrationFormByConsultant(id));
     }
 
-    @Operation(summary = "Get all Registration Form ", description = "Returns all Registration Form")
-    @GetMapping("/")
-    public ResponseEntity<Iterable<RegistrationForm>> getAllRegistrationForm() {
+    @Operation(summary = "Get a list of Registration Forms ", description = "Returns a list of Registration Forms")
+    @GetMapping("")
+    public ResponseEntity<?> getAllRegistrationForm() {
         return ResponseEntity.ok(service.getAll());
     }
 
