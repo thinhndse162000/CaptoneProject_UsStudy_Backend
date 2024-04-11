@@ -26,6 +26,6 @@ public class UniversityDto {
     private String email;
 
     public static UniversityDto convert(University university) {
-        return UniversityMapper.INSTANT.universityToUniversityDto(university);
+        return UniversityMapper.INSTANCE.universityToUniversityDto(university);
     }
 }
