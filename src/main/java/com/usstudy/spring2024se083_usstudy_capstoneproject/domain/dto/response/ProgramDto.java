@@ -41,6 +41,6 @@ public class ProgramDto {
     private University university;
 
     public static ProgramDto convert(Program program) {
-        return ProgramMapper.INSTANT.programToProgramDto(program);
+        return ProgramMapper.INSTANCE.programToProgramDto(program);
     }
 }
