@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v3/program-stages")
 @RequiredArgsConstructor
-@Tag(name = "ProgramStage-API")
+@Tag(name = "Program-Stage-API")
 public class ProgramStageApi {
     private final ProgramStageService programStageService;
 

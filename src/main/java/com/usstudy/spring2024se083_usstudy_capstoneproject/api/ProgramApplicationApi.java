@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v3/program-applications")
 @RequiredArgsConstructor
-@Tag(name = "ProgramApplication-API")
+@Tag(name = "Program-Application-API")
 public class ProgramApplicationApi {
     private final ProgramApplicationService programApplicationService;
     @Operation(summary = "Get a Program Application by program application id", description = "Return a program application")
