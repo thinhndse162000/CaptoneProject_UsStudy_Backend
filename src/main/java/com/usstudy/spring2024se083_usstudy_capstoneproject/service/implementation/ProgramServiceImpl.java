@@ -5,7 +5,6 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.Pr
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramMapper;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramRequestMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import jakarta.transaction.Transactional;
@@ -39,7 +38,7 @@ public class ProgramServiceImpl implements IProgramService {
     @Override
     public ProgramDto saveProgram(ProgramRequest programRequest) {
         return ProgramMapper.INSTANCE.programToProgramDto(
-                programRepository.save(ProgramRequestMapper.INSTANCE.toEntity(programRequest)));
+                programRepository.save(ProgramMapper.INSTANCE.toEntity(programRequest)));
     }
 
     @Override
