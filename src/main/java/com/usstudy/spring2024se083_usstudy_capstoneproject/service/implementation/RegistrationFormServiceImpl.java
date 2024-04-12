@@ -39,7 +39,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setArea(request.getArea());
         registrationForm.setMoreInformation(request.getMoreInformation());
         registrationForm.setStudyAbroadReason(request.getStudyAbroadReason());
-        registrationForm.setProgramChoose(registrationForm.getProgramChoose());
+        registrationForm.setProgramChoose(request.getProgramChoose());
         registrationForm.setDestinationReason(request.getDestinationReason());
         registrationForm.setMajorChooseReason(request.getMajorChooseReason());
         registrationForm.setMajorChoose(request.getMajorChoose());
