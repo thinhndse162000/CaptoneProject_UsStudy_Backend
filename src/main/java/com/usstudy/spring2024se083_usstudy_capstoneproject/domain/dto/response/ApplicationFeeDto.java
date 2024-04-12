@@ -13,4 +13,5 @@ public class ApplicationFeeDto {
     private Integer applicationFeeId;
     private Integer programFeeId;
     private Integer programApplicationId;
+    private int amount;
 }
