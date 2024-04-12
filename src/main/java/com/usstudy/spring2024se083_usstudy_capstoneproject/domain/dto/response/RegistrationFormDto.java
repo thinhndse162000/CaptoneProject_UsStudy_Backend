@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.RegistrationFormMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,8 @@ public class RegistrationFormDto {
     private String budget;
     private Integer customerId;
     private Integer consultantId;
+
+    public static RegistrationFormDto convert(RegistrationForm registrationForm) {
+        return RegistrationFormMapper.INSTANCE.reigstrationFormToRegistrationFormDto(registrationForm);
+    }
 }

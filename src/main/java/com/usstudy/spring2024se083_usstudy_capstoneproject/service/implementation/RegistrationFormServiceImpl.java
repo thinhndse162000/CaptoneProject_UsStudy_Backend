@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +79,12 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         Consultant consultant = consultantRepository.findById(registrationForm.getRegistrationFormId())
                 .orElseThrow(() -> new NullPointerException("Consultant not found - " + registrationForm.getRegistrationFormId()));
         registrationForm.setConsultant(consultant);
+    }
+
+    @Override
+    public Optional getRegistraionFormById(Integer id) {
+        return registrationFormRepository
+                .findById(id).map(RegistrationFormDto::convert);
     }
 
 }
