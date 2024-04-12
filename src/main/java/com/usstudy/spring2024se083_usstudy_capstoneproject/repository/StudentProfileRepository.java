@@ -12,6 +12,6 @@ import java.util.List;
 public interface StudentProfileRepository extends JpaRepository<StudentProfile, Integer> {
 
 
-    @Query("select sp from StudentProfile sp where sp.customer.customerId = :customerId")
+    @Query("select sp from StudentProfile sp INNER JOIN sp.customer u where u.customerId = :customerId")
     List<StudentProfile> findByCustomerId(Integer customerId);
 }

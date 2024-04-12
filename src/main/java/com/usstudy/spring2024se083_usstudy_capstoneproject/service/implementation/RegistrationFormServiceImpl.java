@@ -33,8 +33,8 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public void CreateRegistrationForm(RegistrationFormCreateRequest request) {
         RegistrationForm registrationForm = new RegistrationForm();
-        Customer customer=customerRepository.findById(request.getCustomerId()).orElseThrow(
-                ()->new NullPointerException("Customer not found - "+request.getCustomerId())
+        Customer customer = customerRepository.findById(request.getCustomerId()).orElseThrow(
+                () -> new NullPointerException("Customer not found - " + request.getCustomerId())
         );
         registrationForm.setArea(request.getArea());
         registrationForm.setMoreInformation(request.getMoreInformation());
@@ -52,21 +52,21 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public List<RegistrationFormDto> getRegistrationFormByCustomer(Integer id) {
         return registrationFormRepository.findByCustomerId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getRegistrationFormByConsultant(Integer id) {
         return registrationFormRepository.findByConsultantId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getAll() {
         return registrationFormRepository.findAll()
-                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 
