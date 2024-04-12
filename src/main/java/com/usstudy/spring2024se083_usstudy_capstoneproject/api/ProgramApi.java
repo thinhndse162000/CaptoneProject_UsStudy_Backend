@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
@@ -60,7 +61,7 @@ public class ProgramApi {
 
     @Operation(summary = "Create new Program", description = "Create new Program")
     @PostMapping("")
-    public ResponseEntity<?> postProgram(@RequestBody ProgramDto programDto) {
+    public ResponseEntity<?> postProgram(@RequestBody ProgramRequest programDto) {
         try {
             ProgramDto result = programService.saveProgram(programDto);
             return ResponseEntity.ok(result);
@@ -77,7 +78,7 @@ public class ProgramApi {
     @Operation(summary = "Update a Program", description = "Update a program ")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgram(@PathVariable Integer id,
-                                        @RequestBody ProgramDto programDto) {
+                                        @RequestBody ProgramRequest programDto) {
         try {
             programDto.setProgramId(id);
             if (programDto.getProgramId() != null && !programService.getProgramById(programDto.getProgramId()).isEmpty()) {
@@ -91,7 +92,7 @@ public class ProgramApi {
         }
     }
 
-    @GetMapping("/test/{universityId}")
+    @GetMapping("/university/{universityId}")
     public ResponseEntity<List<ProgramDto>> listResponseEntity(@PathVariable Integer universityId) {
         return ResponseEntity.ok(programService.getProgramList(universityId));
     }

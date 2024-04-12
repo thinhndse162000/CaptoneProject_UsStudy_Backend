@@ -24,7 +24,7 @@ public class RegistrationFormApi {
 
     @Operation(summary = "Submit RegistrationForm", description = "Create new Registration Form")
     @PostMapping("")
-    public void submitRegistrationForm(RegistrationFormCreateRequest request) {
+    public void submitRegistrationForm(@RequestBody RegistrationFormCreateRequest request) {
         service.CreateRegistrationForm(request);
     }
 

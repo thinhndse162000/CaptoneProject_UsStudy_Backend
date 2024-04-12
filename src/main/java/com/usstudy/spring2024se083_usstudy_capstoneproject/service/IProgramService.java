@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 
@@ -12,7 +13,7 @@ public interface IProgramService {
 
     Optional getProgramById(int id);
 
-    ProgramDto saveProgram(ProgramDto programDto);
+    ProgramDto saveProgram(ProgramRequest programDto);
 
     List<ProgramDto> getProgramsByUniversityId(int id);
 
