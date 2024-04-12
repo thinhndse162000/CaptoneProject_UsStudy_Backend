@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,7 +67,7 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
 
         ApplyStateDto saveApplyStage = new ApplyStateDto();
         saveApplyStage.setProgramStageId(programStageDto.getProgramStageId());
-        saveApplyStage.setUpdateDate(programApplicationDto.getUpdateDate());
+        saveApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
 
         ApplyStateDto resultApplyState = ApplyStageMapper.INSTANCE.toDto(
                 applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage))
