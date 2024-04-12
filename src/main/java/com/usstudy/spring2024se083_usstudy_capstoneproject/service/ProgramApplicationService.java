@@ -7,7 +7,12 @@ import java.util.Optional;
 
 public interface ProgramApplicationService {
     Optional getById(Integer id);
+
     List<ProgramApplicationDto> getAllFilter();
+
     Optional getByStudentProfileId(Integer id);
-    ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto,Integer stageNo);
+
+    ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto, Integer stageNo);
+
+    List<ProgramApplicationDto> getByCustomerId(Integer id);
 }
