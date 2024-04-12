@@ -35,17 +35,17 @@ public class RegistrationForm {
     @Column(name = "priority_of_study_abroad")
     private String priorityOfStudyProgram;
     private String budget;
-//    @Column(name = "customer_id")
+    //    @Column(name = "customer_id")
 //    private Integer customerId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id",nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     @JsonManagedReference
     private Customer customer;
 
-//    @Column(name = "consultant_id")
+    //    @Column(name = "consultant_id")
 //    private Integer consultantId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consultant_id",nullable = false)
+    @JoinColumn(name = "consultant_id")
     @JsonManagedReference
     private Consultant consultant;
 }
