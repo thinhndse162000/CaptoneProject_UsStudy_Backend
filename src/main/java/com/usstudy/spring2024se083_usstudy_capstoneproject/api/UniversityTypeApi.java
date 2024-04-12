@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v3/university-types")
 @RequiredArgsConstructor
-@Tag(name = "UniversityType-API")
+@Tag(name = "University-Type-API")
 public class UniversityTypeApi {
     private final IUniversityTypeService universityTypeService;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v3/fee-types")
 @RequiredArgsConstructor
-@Tag(name = "FeeType-API")
+@Tag(name = "Fee-Type-API")
 public class FeeTypeApi {
     private final FeeTypeService feeTypeService;
     @Operation(summary = "Get a list Fee Type", description = "Return a list of Fee Type")

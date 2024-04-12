@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v3/program-types")
 @RequiredArgsConstructor
-@Tag(name = "ProgramType-API")
+@Tag(name = "Program-Type-API")
 public class ProgramTypeApi {
     private final IProgramTypeService programTypeService;
 

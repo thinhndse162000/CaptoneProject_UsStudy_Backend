@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v3/program-applications")
 @RequiredArgsConstructor
-@Tag(name = "ProgramApplication-API")
+@Tag(name = "Program-Application-API")
 public class ProgramApplicationApi {
     private final ProgramApplicationService programApplicationService;
 

@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.*;
 import org.mapstruct.Mapper;
@@ -19,7 +20,7 @@ public interface ProgramMapper {
     @Mapping(target = "major",source = "majorId",qualifiedByName = "MapMajor")
     @Mapping(target = "semester",source = "semesterId",qualifiedByName = "MapSemester")
     @Mapping(target = "programType",source = "programTypeId",qualifiedByName = "MapProgramType")
-    Program programDtoToProgram(ProgramDto programDto);
+    Program toEntity(ProgramRequest programRequest);
     @Named("MapUniversity")
     default University mapUniversity(Integer id){
         University university=new University();
