@@ -55,7 +55,7 @@ public class AccountApi {
         } else if (consultant != null && consultant.getPassword().equals(request.getPassword())) {
             return ResponseEntity.ok(tokenProvider.generateTokenConsultant(consultant));
         }
-        return new ResponseEntity<>("Account or Password Incorrect", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Email hoặc mật khẩu không đúng", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/signup")
@@ -78,10 +78,11 @@ public class AccountApi {
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getCustomerById(id));
     }
+
     @PutMapping("/customer/{id}")
     @Operation(summary = "Update a customer", description = "Return updated customer")
     public ResponseEntity<?> putCustomer(@PathVariable Integer id,
-                                         @RequestBody CustomerDto customerDto){
+                                         @RequestBody CustomerDto customerDto) {
         customerDto.setCustomerId(id);
         return ResponseEntity.ok(service.updateCustomer(customerDto));
     }
@@ -98,11 +99,11 @@ public class AccountApi {
 
     @GetMapping("/reset-password")
     public ResponseEntity<?> getEmail(@RequestParam String email) {
-        EmailRequest emailRequest=new EmailRequest();
+        EmailRequest emailRequest = new EmailRequest();
         emailRequest.setRecipient(email);
         emailRequest.setSubject("Reset password");
         emailRequest.setMessageBody("Click here to reset your password: http://localhost:3000/reset-password "
-                +"\nHere's your password reset token: ");
+                + "\nHere's your password reset token: ");
         String result = emailService.sendEmail(emailRequest);
         return ResponseEntity.ok().body(result);
     }
