@@ -25,6 +25,7 @@ public class RegistrationFormDto {
     private String budget;
     private Integer customerId;
     private Integer consultantId;
+    private Integer status;
 
     public static RegistrationFormDto convert(RegistrationForm registrationForm) {
         return RegistrationFormMapper.INSTANCE.reigstrationFormToRegistrationFormDto(registrationForm);

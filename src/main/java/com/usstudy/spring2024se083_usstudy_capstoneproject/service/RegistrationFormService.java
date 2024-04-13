@@ -18,5 +18,5 @@ public interface RegistrationFormService {
 
     void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request);
 
-    Optional getRegistraionFormById(Integer id);
+    Optional getRegistrationFormById(Integer id);
 }

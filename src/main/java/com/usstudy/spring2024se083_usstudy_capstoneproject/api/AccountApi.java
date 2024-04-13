@@ -59,7 +59,7 @@ public class AccountApi {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> sigup(@RequestBody SignupRequest sigupRequest) {
+    public ResponseEntity<?> signup(@RequestBody SignupRequest sigupRequest) {
         service.CustomerRegistedAccount(sigupRequest);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

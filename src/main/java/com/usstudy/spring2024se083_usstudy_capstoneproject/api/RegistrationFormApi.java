@@ -23,9 +23,10 @@ public class RegistrationFormApi {
         this.service = service;
     }
 
-    @Operation(summary = "Submit RegistrationForm", description = "Create new Registration Form")
+    @Operation(summary = "Submit RegistrationForm", description = "Create new Registration Form with status=0")
     @PostMapping("")
     public void submitRegistrationForm(@RequestBody RegistrationFormCreateRequest request) {
+        request.setStatus(0);
         service.CreateRegistrationForm(request);
     }
 
@@ -57,7 +58,7 @@ public class RegistrationFormApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional> getRegistraionFormById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getRegistraionFormById(id));
+    public ResponseEntity<Optional> getRegistrationFormById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getRegistrationFormById(id));
     }
 }

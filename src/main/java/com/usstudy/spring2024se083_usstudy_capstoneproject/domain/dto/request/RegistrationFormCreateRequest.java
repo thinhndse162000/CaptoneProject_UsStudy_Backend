@@ -21,4 +21,5 @@ public class RegistrationFormCreateRequest {
     private String priorityOfStudyAbroad;
     private String budget;
     private Integer customerId;
+    private Integer status;
 }

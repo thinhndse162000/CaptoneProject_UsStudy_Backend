@@ -29,7 +29,9 @@ public class Consultant implements UserDetails {
     private String userName;
     private String email;
     private String password;
-    private String description;
+    private String introduction;
+    private String education;
+    private String specialize;
     
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "consultant")
     @JsonBackReference

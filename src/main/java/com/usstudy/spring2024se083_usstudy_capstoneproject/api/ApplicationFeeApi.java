@@ -1,14 +1,12 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplicationFeeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ApplicationFeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v3/application-fees")
@@ -26,5 +24,23 @@ public class ApplicationFeeApi {
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(applicationFeeService.getAll());
+    }
+    @Operation(summary = "Create an Application Fee",
+            description = "Returns an Application Fee, or null if no such Program Fee exist" +
+                    ", or error if FK not exist in database")
+    @PostMapping("")
+    public ResponseEntity<?> postApplicationFee(@RequestBody ApplicationFeeRequest applicationFeeRequest){
+        return ResponseEntity.ok(applicationFeeService.saveApplicationFee(applicationFeeRequest));
+    }
+    @Operation(summary = "Update an Application Fee",
+            description = "Returns an Application Fee, or null if no such Program Fee exist"+
+                    ", or error if FK not exist in database")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putApplicationFee(@PathVariable Integer id,
+                                               @RequestBody ApplicationFeeRequest applicationFeeRequest){
+        if (id==null)
+            return ResponseEntity.badRequest().body("Id cannot be empty");
+        applicationFeeRequest.setApplicationFeeId(id);
+        return ResponseEntity.ok(applicationFeeService.saveApplicationFee(applicationFeeRequest));
     }
 }

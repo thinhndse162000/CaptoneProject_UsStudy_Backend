@@ -48,6 +48,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setPriorityOfStudyProgram(request.getPriorityOfStudyAbroad());
         registrationForm.setBudget(request.getBudget());
         registrationForm.setCustomer(customer);
+        registrationForm.setStatus(request.getStatus());
         registrationFormRepository.save(registrationForm);
     }
 
@@ -82,7 +83,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     }
 
     @Override
-    public Optional getRegistraionFormById(Integer id) {
+    public Optional getRegistrationFormById(Integer id) {
         return registrationFormRepository
                 .findById(id).map(RegistrationFormDto::convert);
     }
