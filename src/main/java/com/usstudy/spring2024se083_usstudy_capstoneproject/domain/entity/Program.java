@@ -33,7 +33,7 @@ public class Program implements Serializable {
     private Integer modifier;
     private String duration; //in days or months?
     private String description;
-    private float tuition;
+    private String tuition;
     private String level;
     private String img;
     private String responsibilities;

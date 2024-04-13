@@ -20,7 +20,7 @@ public class ProgramRequest {
     private Integer modifier;
     private String duration;
     private String description;
-    private float tuition;
+    private String tuition;
     private String level;
     private String img;
     private String responsibilities;
