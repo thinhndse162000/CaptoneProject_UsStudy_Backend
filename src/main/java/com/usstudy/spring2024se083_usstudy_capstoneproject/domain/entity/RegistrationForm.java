@@ -35,6 +35,7 @@ public class RegistrationForm {
     @Column(name = "priority_of_study_abroad")
     private String priorityOfStudyProgram;
     private String budget;
+    private Integer status;
     //    @Column(name = "customer_id")
 //    private Integer customerId;
     @ManyToOne(fetch = FetchType.LAZY)
