@@ -20,7 +20,9 @@ public class ConsultantDto {
     private String userName;
     private String email;
     private String password;
-    private String description;
+    private String introduction;
+    private String education;
+    private String specialize;
     
     public static ConsultantDto convert(Consultant consultant) {
         return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);
