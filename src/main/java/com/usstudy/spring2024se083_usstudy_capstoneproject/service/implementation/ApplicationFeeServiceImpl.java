@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplicationFeeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplicationFeeDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramFee;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ApplicationFeeMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ApplicationFeeRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramFeeRepository;
@@ -23,8 +24,12 @@ public class ApplicationFeeServiceImpl implements ApplicationFeeService {
 
     @Override
     public ApplicationFeeDto saveApplicationFee(ApplicationFeeRequest applicationFeeRequest) {
-
-        return null;
+        Optional<ProgramFee> programFee=programFeeRepository.findById(applicationFeeRequest.getProgramFeeId());
+        if (programFee.isEmpty())
+            return null;
+        return ApplicationFeeMapper.INSTANCE.toDto(
+                applicationFeeRepository.save(ApplicationFeeMapper.INSTANCE.toEntity(applicationFeeRequest))
+        );
     }
 
     @Override
