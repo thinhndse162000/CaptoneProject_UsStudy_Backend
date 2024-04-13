@@ -34,6 +34,7 @@ public class ProgramFeeApi {
     public ResponseEntity<?> postProgramFee(@RequestBody ProgramFeeRequest programFeeRequest) {
         return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest));
     }
+    @Operation(summary = "Update a Program Fee", description = "Return a program fee if success")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramFee(@PathVariable Integer id,
                                            @RequestBody ProgramFeeRequest programFeeRequest) {
