@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramStageDto;
@@ -48,9 +49,9 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto, Integer stageNo) {
+    public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo) {
         List<ProgramStage> programStageList =
-                programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationDto.getProgramId());
+                programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationRequest.getProgramId());
         ProgramStageDto programStageDto;
 
         try {
@@ -72,9 +73,9 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
         ApplyStateDto resultApplyState = ApplyStageMapper.INSTANCE.toDto(
                 applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage))
         );
-        programApplicationDto.setApplyStageId(resultApplyState.getApplyStageId());
+        programApplicationRequest.setApplyStageId(resultApplyState.getApplyStageId());
         return ProgramApplicationMapper.INSTANCE.toDto(
-                programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationDto))
+                programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest))
         );
     }
 

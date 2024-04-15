@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class ApplyStage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_stage_id",nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProgramStage programStage;
 
     @Column(name = "update_date")

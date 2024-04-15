@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface ProgramApplicationService {
 
     Optional getByStudentProfileId(Integer id);
 
-    ProgramApplicationDto saveProgramApplication(ProgramApplicationDto programApplicationDto, Integer stageNo);
+    ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo);
 
     List<ProgramApplicationDto> getByCustomerId(Integer id);
 }
