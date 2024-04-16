@@ -53,6 +53,7 @@ public class Program implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Major major;
     //FK Semester here
 //    @Column(name = "semester_id")
@@ -60,11 +61,13 @@ public class Program implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semester_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Semester semester;
     //FK Program Type here
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_type_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProgramType programType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")

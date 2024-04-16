@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ public class ProgramStage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id",nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Program program;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "programStage")

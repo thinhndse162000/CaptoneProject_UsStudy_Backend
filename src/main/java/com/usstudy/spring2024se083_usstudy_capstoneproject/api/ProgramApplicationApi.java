@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,8 +40,8 @@ public class ProgramApplicationApi {
             description = "Return a program application if success and create new apply stage in database," +
                     " return null if the program don't have any program stage")
     @PostMapping("")
-    public ResponseEntity<?> postProgramApplication(@RequestBody ProgramApplicationDto programApplicationDto) {
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto, null));
+    public ResponseEntity<?> postProgramApplication(@RequestBody ProgramApplicationRequest programApplicationRequest) {
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest, null));
     }
 
     @Operation(summary = "Update an existed Program Application",
@@ -50,12 +51,12 @@ public class ProgramApplicationApi {
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramApplication(@PathVariable Integer id,
                                                    @RequestParam Integer stageNo,
-                                                   @RequestBody ProgramApplicationDto programApplicationDto) {
-        programApplicationDto.setProgramApplicationId(id);
+                                                   @RequestBody ProgramApplicationRequest programApplicationRequest) {
+        programApplicationRequest.setProgramApplicationId(id);
         if (!programApplicationService.getById(id).isEmpty()) {
             return ResponseEntity.badRequest().body("No Program Application with id " + id + " found");
         }
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationDto, stageNo));
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest, stageNo));
     }
 
     @GetMapping("/customer/{id}")

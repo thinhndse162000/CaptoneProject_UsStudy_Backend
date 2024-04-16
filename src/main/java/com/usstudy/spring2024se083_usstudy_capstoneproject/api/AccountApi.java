@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.LoginRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
@@ -106,5 +107,10 @@ public class AccountApi {
                 + "\nHere's your password reset token: ");
         String result = emailService.sendEmail(emailRequest);
         return ResponseEntity.ok().body(result);
+    }
+    @Operation(summary = "Get a list of consultant with filter", description = "Return a list of consultant")
+    @PostMapping("/consultant")
+    public ResponseEntity<List<ConsultantDto>> getConsultantFilter(@RequestBody ConsultantFilterRequest request) {
+        return ResponseEntity.ok(consultantService.getConsultantFilter(request));
     }
 }

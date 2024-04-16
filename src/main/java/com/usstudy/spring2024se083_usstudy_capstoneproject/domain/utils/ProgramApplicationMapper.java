@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
@@ -20,7 +21,7 @@ public interface ProgramApplicationMapper {
     @Mapping(target = "studentProfile",source = "studentProfileId",qualifiedByName = "MapStudentProfile")
     @Mapping(target = "program",source = "programId",qualifiedByName = "MapProgram")
     @Mapping(target = "applyStage",source = "applyStageId",qualifiedByName = "MapApplyStage")
-    ProgramApplication toEntity(ProgramApplicationDto programApplicationDto);
+    ProgramApplication toEntity(ProgramApplicationRequest programApplicationRequest);
     @Named("MapProgram")
     default Program mapProgram(Integer id){
         Program program=new Program();
