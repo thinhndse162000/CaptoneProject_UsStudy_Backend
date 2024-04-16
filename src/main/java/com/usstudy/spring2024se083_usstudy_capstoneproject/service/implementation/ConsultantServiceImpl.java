@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
@@ -38,6 +39,13 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
         return repository.findAll()
                 .stream()
                 .map(ConsultantDto::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ConsultantDto> getConsultantFilter(ConsultantFilterRequest request) {
+        return repository.getConsultantFilter(request)
+                .stream().map(ConsultantDto::convert)
+                .collect(Collectors.toList());
     }
 
     @Override
