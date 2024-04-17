@@ -27,6 +27,7 @@ public class CustomerDto implements Serializable {
     private Date dateOfBirth;
     private String gender;
     private String phone;
+    private String img;
 
     public static CustomerDto convert(Customer customer) {
         return CustomerMapper.INSTANT.customerToCustomerDto(customer);
