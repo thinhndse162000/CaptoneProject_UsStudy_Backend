@@ -43,9 +43,10 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public Optional getByStudentProfileId(Integer id) {
+    public List<ProgramApplicationDto> getByStudentProfileId(Integer id) {
         return programApplicationRepository.findByStudentProfileStudentProfileId(id)
-                .map(ProgramApplicationMapper.INSTANCE::toDto);
+                .stream().map(ProgramApplicationMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
