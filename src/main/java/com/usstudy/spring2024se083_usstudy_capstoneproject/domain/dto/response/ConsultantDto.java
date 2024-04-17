@@ -23,6 +23,7 @@ public class ConsultantDto {
     private String introduction;
     private String education;
     private String specialize;
+    private String img;
     
     public static ConsultantDto convert(Consultant consultant) {
         return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);

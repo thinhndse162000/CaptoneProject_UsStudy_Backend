@@ -38,6 +38,7 @@ public class Customer implements Serializable, UserDetails {
     private Date dateOfBirth;
     private String gender;
     private String phone;
+    private String img;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
     @JsonBackReference
