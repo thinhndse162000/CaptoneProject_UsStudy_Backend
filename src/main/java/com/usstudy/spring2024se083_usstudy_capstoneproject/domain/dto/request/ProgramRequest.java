@@ -12,7 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProgramRequest {
-    private Integer programId;
+    //private Integer programId;
     private String nameProgram;
     private String status;
     private Date createDate;
@@ -25,6 +25,7 @@ public class ProgramRequest {
     private String img;
     private String responsibilities;
     private String requirement;
+
     private Integer universityId;
 
     private Integer majorId;

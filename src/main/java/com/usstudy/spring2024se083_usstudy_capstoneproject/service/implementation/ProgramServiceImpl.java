@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,7 +37,28 @@ public class ProgramServiceImpl implements IProgramService {
     }
 
     @Override
-    public ProgramDto saveProgram(ProgramRequest programRequest) {
+    public ProgramDto saveProgram(ProgramRequest programRequest,Integer id) {
+        //update program
+        if (id!=null){
+
+            Program previousProgram=programRepository.findById(id)
+                    .orElseThrow(() -> new NullPointerException("Program not found - " + id));;
+            previousProgram.setNameProgram(programRequest.getNameProgram());
+            previousProgram.setModifiedDate(new Date(System.currentTimeMillis()));
+            previousProgram.setStatus(programRequest.getStatus());
+            previousProgram.setCreateDate(programRequest.getCreateDate());
+            previousProgram.setModifier(programRequest.getModifier());
+            previousProgram.setDuration(programRequest.getDuration());
+            previousProgram.setDescription(programRequest.getDescription());
+            previousProgram.setTuition(programRequest.getTuition());
+            previousProgram.setLevel(programRequest.getLevel());
+            previousProgram.setImg(programRequest.getImg());
+            previousProgram.setRequirement(programRequest.getRequirement());
+            previousProgram.setResponsibilities(programRequest.getResponsibilities());
+            return ProgramMapper.INSTANCE.programToProgramDto(
+                    programRepository.save(previousProgram));
+        }
+        //create new program
         return ProgramMapper.INSTANCE.programToProgramDto(
                 programRepository.save(ProgramMapper.INSTANCE.toEntity(programRequest)));
     }

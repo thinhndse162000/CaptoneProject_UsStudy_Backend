@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.AdminAccountConfig;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import io.jsonwebtoken.*;
@@ -18,6 +19,19 @@ public class JwtTokenProvider {
 
     // Time expired of jwt token
     private final long JWT_EXPIRATION = 604800000L;
+    public String generateTokenAdmin(AdminAccountConfig adminAccountConfig) {
+        Date now = new Date();
+        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
+        // create string token put in information of customer
+        return Jwts.builder()
+                .setSubject("ADMIN TOKEN")
+                .claim("email", adminAccountConfig.getADMIN_EMAIL())
+                .claim("Role", "ROLE_ADMIN")
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .compact();
+    }
 
     // Create token extract customer information to token
     public String generateToken(Customer customer) {

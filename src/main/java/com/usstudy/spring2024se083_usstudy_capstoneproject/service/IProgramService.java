@@ -13,7 +13,7 @@ public interface IProgramService {
 
     Optional getProgramById(int id);
 
-    ProgramDto saveProgram(ProgramRequest programDto);
+    ProgramDto saveProgram(ProgramRequest programDto,Integer id);
 
     List<ProgramDto> getProgramsByUniversityId(int id);
 
