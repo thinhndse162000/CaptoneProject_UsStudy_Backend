@@ -70,10 +70,10 @@ public class AccountApi {
         return ResponseEntity.ok(service.getAllCustomer());
     }
 
-    @GetMapping("/consultant")
-    public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
-        return ResponseEntity.ok(consultantService.getAllConsultant());
-    }
+//    @GetMapping("/consultant")
+//    public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
+//        return ResponseEntity.ok(consultantService.getAllConsultant());
+//    }
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
@@ -109,8 +109,15 @@ public class AccountApi {
         return ResponseEntity.ok().body(result);
     }
     @Operation(summary = "Get a list of consultant with filter", description = "Return a list of consultant")
-    @PostMapping("/consultant")
-    public ResponseEntity<List<ConsultantDto>> getConsultantFilter(@RequestBody ConsultantFilterRequest request) {
+    @GetMapping("/consultants")
+    public ResponseEntity<List<ConsultantDto>> getConsultantFilter(@RequestParam(required = false) String username,
+                                                                   @RequestParam(required = false) String email,
+                                                                   @RequestParam(required = false) String introduction,
+                                                                   @RequestParam(required = false) String education,
+                                                                   @RequestParam(required = false) String specialize) {
+        if (username==null && email==null && introduction==null && education==null && specialize==null)
+            return ResponseEntity.ok(consultantService.getAllConsultant());
+        ConsultantFilterRequest request=new ConsultantFilterRequest(username,email,introduction,education,specialize);
         return ResponseEntity.ok(consultantService.getConsultantFilter(request));
     }
 }
