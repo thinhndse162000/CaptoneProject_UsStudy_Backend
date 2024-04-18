@@ -35,4 +35,7 @@ public class StudentProfileCreateRequest {
     private String studyProcess;
     private List<String> fileString;
     private Integer customerId;
+    private String img;
+    private String englishLevel;
+    private String grade;
 }

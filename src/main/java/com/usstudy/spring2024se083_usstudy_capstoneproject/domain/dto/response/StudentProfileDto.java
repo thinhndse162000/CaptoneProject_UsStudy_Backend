@@ -1,11 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +26,7 @@ public class StudentProfileDto {
     private String nationalId;
     private String studyProcess;
     private Integer customerId;
+    private String img;
+    private String englishLevel;
+    private String grade;
 }
