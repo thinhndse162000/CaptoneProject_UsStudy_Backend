@@ -63,7 +63,7 @@ public class ProgramApi {
     @PostMapping("")
     public ResponseEntity<?> postProgram(@RequestBody ProgramRequest programDto) {
         try {
-            ProgramDto result = programService.saveProgram(programDto);
+            ProgramDto result = programService.saveProgram(programDto,null);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -80,13 +80,11 @@ public class ProgramApi {
     public ResponseEntity<?> putProgram(@PathVariable Integer id,
                                         @RequestBody ProgramRequest programDto) {
         try {
-            programDto.setProgramId(id);
-            if (programDto.getProgramId() != null && !programService.getProgramById(programDto.getProgramId()).isEmpty()) {
-                ProgramDto result = programService.saveProgram(programDto);
+            ProgramDto result = programService.saveProgram(programDto,id);
+            if (result!=null)
                 return ResponseEntity.ok(result);
-            } else {
-                return ResponseEntity.badRequest().body("No program with id " + programDto.getProgramId() + " found!");
-            }
+            else
+                return ResponseEntity.badRequest().body("No program with id " + id + " found!");
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
