@@ -38,6 +38,10 @@ public class StudentProfile {
     private String nationalId;
     @Column(name = "study_process")
     private String studyProcess;
+    private String img;
+    @Column(name = "english_level")
+    private String englishLevel;
+    private String grade;
     //    @Column(name = "customer_id")
 //    private Integer customerId;
     @ManyToOne(fetch = FetchType.LAZY)
