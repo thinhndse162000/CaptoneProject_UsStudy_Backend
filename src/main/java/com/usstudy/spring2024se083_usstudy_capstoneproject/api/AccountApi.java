@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.AdminAccountConfig;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
@@ -32,20 +33,26 @@ public class AccountApi {
     private final ConsultantService consultantService;
     private final JwtTokenProvider tokenProvider;
     private final EmailService emailService;
+    private final AdminAccountConfig adminAccountConfig;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService) {
+    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService, AdminAccountConfig adminAccountConfig) {
         this.service = customerService;
         this.consultantService = consultantService;
         this.tokenProvider = tokenProvider;
         this.emailService = emailService;
+        this.adminAccountConfig = adminAccountConfig;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+
+        if (request.getEmail().equals(adminAccountConfig.getADMIN_EMAIL())
+        && request.getPassword().equals(adminAccountConfig.getADMIN_PASSWORD()))
+            return ResponseEntity.ok(tokenProvider.generateTokenAdmin(adminAccountConfig));
 
         Customer customer = service.getCustomerByEmail(request.getEmail());
         Consultant consultant = consultantService.getConsultantByEmail(request.getEmail());
