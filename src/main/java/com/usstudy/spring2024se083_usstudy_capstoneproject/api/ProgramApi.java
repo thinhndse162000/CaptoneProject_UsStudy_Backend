@@ -2,12 +2,13 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IProgramService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,18 +79,20 @@ public class ProgramApi {
     @Operation(summary = "Update a Program", description = "Update a program ")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgram(@PathVariable Integer id,
-                                        @RequestBody ProgramRequest programDto) {
-        try {
-            programDto.setProgramId(id);
-            if (programDto.getProgramId() != null && !programService.getProgramById(programDto.getProgramId()).isEmpty()) {
-                ProgramDto result = programService.saveProgram(programDto);
-                return ResponseEntity.ok(result);
-            } else {
-                return ResponseEntity.badRequest().body("No program with id " + programDto.getProgramId() + " found!");
-            }
-        } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        }
+                                        @RequestBody ProgramUpdateRequest request) {
+//        try {
+//            programDto.setProgramId(id);
+//            if (programDto.getProgramId() != null && !programService.getProgramById(programDto.getProgramId()).isEmpty()) {
+//                ProgramDto result = programService.saveProgram(programDto);
+//                return ResponseEntity.ok(result);
+//            } else {
+//                return ResponseEntity.badRequest().body("No program with id " + programDto.getProgramId() + " found!");
+//            }
+//        } catch (Exception ex) {
+//            return ResponseEntity.internalServerError().body(ex.getMessage());
+//        }
+        programService.updateProgram(request, id);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/university/{universityId}")
