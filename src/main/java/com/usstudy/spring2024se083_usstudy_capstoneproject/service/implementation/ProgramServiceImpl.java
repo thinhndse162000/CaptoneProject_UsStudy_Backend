@@ -118,4 +118,12 @@ public class ProgramServiceImpl implements IProgramService {
         List<Program> program = programRepository.getProgrambyUniversityId(universityId);
         return program.stream().map(ProgramDto::convert).collect(Collectors.toList());
     }
+     @Override
+    public void updateProgram(ProgramUpdateRequest request, Integer Id) {
+
+        Program program = programRepository.findById(Id)
+                .orElseThrow(() -> new NullPointerException("Program not found - " + Id));
+        MergeRequest.mergeIgnoreNullValue(request, program);
+        programRepository.save(program);
+    }
 }
