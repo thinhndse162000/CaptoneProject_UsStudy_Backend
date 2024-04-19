@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.MajorRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.MajorDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.MajorMapper;
@@ -27,9 +29,15 @@ public class MajorServiceImpl implements IMajorService {
     }
 
     @Override
-    public MajorDto saveMajor(MajorDto majorDto) {
+    public MajorDto saveMajor(MajorRequest majorRequest,Integer id) {
+        if (id!=null){
+            Major major=majorRepository.findById(id)
+                    .orElseThrow(() -> new  NullPointerException("Major not found - "+id));
+            MergeRequest.mergeIgnoreNullValue(majorRequest,major);
+            return MajorMapper.INSTANCE.majorToMajorDto(majorRepository.save(major));
+        }
         return MajorMapper.INSTANCE.majorToMajorDto(
-                majorRepository.save(MajorMapper.INSTANCE.majorDtoToMajor(majorDto)));
+                majorRepository.save(MajorMapper.INSTANCE.majorDtoToMajor(majorRequest)));
     }
 
     @Override
