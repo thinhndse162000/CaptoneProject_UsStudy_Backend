@@ -1,5 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.FeeTypeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.FeeTypeDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FeeType;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.FeeTypeMapper;
@@ -30,8 +32,14 @@ public class FeeTypeServiceImpl implements FeeTypeService {
     }
 
     @Override
-    public FeeTypeDto saveFeeType(FeeTypeDto feeTypeDto) {
+    public FeeTypeDto saveFeeType(FeeTypeRequest feeTypeRequest,Integer id) {
+        if (id!=null){
+            FeeType feeType=feeTypeRepository.findById(id)
+                    .orElseThrow(() -> new NullPointerException("FeeType not found - " + id));
+            MergeRequest.mergeIgnoreNullValue(feeTypeRequest,feeType);
+            return FeeTypeMapper.INSTANCE.toDto(feeTypeRepository.save(feeType));
+        }
         return FeeTypeMapper.INSTANCE.toDto(
-                feeTypeRepository.save(FeeTypeMapper.INSTANCE.toEntity(feeTypeDto)));
+                feeTypeRepository.save(FeeTypeMapper.INSTANCE.toEntity(feeTypeRequest)));
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProgramFeeService {
-    ProgramFeeDto saveProgramFee(ProgramFeeRequest programFeeRequest);
+    ProgramFeeDto saveProgramFee(ProgramFeeRequest programFeeRequest,Integer id);
     List<ProgramFeeDto> getAll();
     Optional findById(Integer id);
     List<ProgramFeeDto> findByProgramId(Integer programId);

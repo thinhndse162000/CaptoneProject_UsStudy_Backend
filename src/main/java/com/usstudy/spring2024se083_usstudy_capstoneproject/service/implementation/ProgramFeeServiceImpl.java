@@ -1,7 +1,9 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFeeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramFeeDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramFee;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramFeeMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramFeeRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramFeeService;
@@ -20,7 +22,13 @@ public class ProgramFeeServiceImpl implements ProgramFeeService {
     private final ProgramFeeRepository programFeeRepository;
 
     @Override
-    public ProgramFeeDto saveProgramFee(ProgramFeeRequest programFeeRequest) {
+    public ProgramFeeDto saveProgramFee(ProgramFeeRequest programFeeRequest,Integer id) {
+        if (id!=null){
+            ProgramFee programFee=programFeeRepository.findById(id)
+                    .orElseThrow(() -> new NullPointerException("ProgramFee not found - "+id));
+            MergeRequest.mergeIgnoreNullValue(programFeeRequest,programFee);
+            return ProgramFeeMapper.INSTANCE.toDto(programFeeRepository.save(programFee));
+        }
         return ProgramFeeMapper.INSTANCE.toDto(
                 programFeeRepository.save(
                         ProgramFeeMapper.INSTANCE.toEntity(programFeeRequest)

@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.MajorRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.MajorDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Major;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IMajorService;
@@ -33,9 +34,9 @@ public class MajorApi {
 
     @Operation(summary = "Create New Major", description = "Create a new Major")
     @PostMapping("")
-    public ResponseEntity<?> postMajor(@RequestBody MajorDto majorDto) {
+    public ResponseEntity<?> postMajor(@RequestBody MajorRequest majorRequest) {
         try {
-            MajorDto result = majorService.saveMajor(majorDto);
+            MajorDto result = majorService.saveMajor(majorRequest,null);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -45,17 +46,8 @@ public class MajorApi {
     @Operation(summary = "Update a Major", description = "Update a Major")
     @PutMapping("/{id}")
     public ResponseEntity<?> putMajor(@PathVariable Integer id,
-                                      @RequestBody MajorDto majorDto) {
-        try {
-            majorDto.setMajorId(id);
-            if (!majorService.findById(id).isEmpty()) {
-                MajorDto result = majorService.saveMajor(majorDto);
-                return ResponseEntity.ok(result);
-            } else {
-                return ResponseEntity.badRequest().body("No major with id " + majorDto.getMajorId() + " found!");
-            }
-        } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        }
+                                      @RequestBody MajorRequest majorRequest) {
+        MajorDto result = majorService.saveMajor(majorRequest,id);
+        return ResponseEntity.ok(result);
     }
 }

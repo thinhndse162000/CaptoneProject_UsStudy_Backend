@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityFilterRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.IUniversityService;
@@ -36,9 +37,9 @@ public class UniversityApi {
 
     @Operation(summary = "Create an University ", description = "Create University ")
     @PostMapping("")
-    public ResponseEntity<?> postUniversity(@RequestBody UniversityDto universityDto) {
+    public ResponseEntity<?> postUniversity(@RequestBody UniversityRequest universityRequest) {
         try {
-            UniversityDto result = universityService.saveUniversity(universityDto);
+            UniversityDto result = universityService.saveUniversity(universityRequest,null);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -60,18 +61,10 @@ public class UniversityApi {
     @Operation(summary = "Update an University ", description = "Update University ")
     @PutMapping("/{id}")
     public ResponseEntity<?> putUniversity(@PathVariable Integer id,
-                                           @RequestBody UniversityDto universityDto) {
-        try {
-            universityDto.setUniversityId(id);
-            if (!universityService.getUniversityById(id).isEmpty()) {
-                UniversityDto result = universityService.saveUniversity(universityDto);
-                return ResponseEntity.ok(result);
-            } else {
-                return ResponseEntity.badRequest().body("No University with id " + universityDto.getUniversityId() + " found!");
-            }
-        } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        }
+                                           @RequestBody UniversityRequest universityRequest) {
+
+        UniversityDto result = universityService.saveUniversity(universityRequest,id);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/filter")

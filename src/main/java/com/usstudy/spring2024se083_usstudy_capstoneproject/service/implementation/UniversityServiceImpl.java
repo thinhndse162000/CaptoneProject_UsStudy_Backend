@@ -1,6 +1,8 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityFilterRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.UniversityMapper;
@@ -35,9 +37,15 @@ public class UniversityServiceImpl implements IUniversityService {
     }
 
     @Override
-    public UniversityDto saveUniversity(UniversityDto universityDto) {
+    public UniversityDto saveUniversity(UniversityRequest universityRequest,Integer id) {
+        if (id!=null){
+            University university=universityRepository.findById(id)
+                    .orElseThrow(() -> new NullPointerException("University not found - "+id));
+            MergeRequest.mergeIgnoreNullValue(universityRequest,university);
+            return UniversityMapper.INSTANCE.universityToUniversityDto(universityRepository.save(university));
+        }
         return UniversityMapper.INSTANCE.universityToUniversityDto(
-                universityRepository.save(UniversityMapper.INSTANCE.universityDtoToUniversity(universityDto)));
+                universityRepository.save(UniversityMapper.INSTANCE.universityDtoToUniversity(universityRequest)));
     }
 
     @Override
