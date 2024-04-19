@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.AdminAccountConfig;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
@@ -32,20 +33,26 @@ public class AccountApi {
     private final ConsultantService consultantService;
     private final JwtTokenProvider tokenProvider;
     private final EmailService emailService;
+    private final AdminAccountConfig adminAccountConfig;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService) {
+    public AccountApi(CustomerService customerService, ConsultantService consultantService, JwtTokenProvider tokenProvider, EmailService emailService, AdminAccountConfig adminAccountConfig) {
         this.service = customerService;
         this.consultantService = consultantService;
         this.tokenProvider = tokenProvider;
         this.emailService = emailService;
+        this.adminAccountConfig = adminAccountConfig;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+
+        if (request.getEmail().equals(adminAccountConfig.getADMIN_EMAIL())
+        && request.getPassword().equals(adminAccountConfig.getADMIN_PASSWORD()))
+            return ResponseEntity.ok(tokenProvider.generateTokenAdmin(adminAccountConfig));
 
         Customer customer = service.getCustomerByEmail(request.getEmail());
         Consultant consultant = consultantService.getConsultantByEmail(request.getEmail());
@@ -70,10 +77,10 @@ public class AccountApi {
         return ResponseEntity.ok(service.getAllCustomer());
     }
 
-    @GetMapping("/consultant")
-    public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
-        return ResponseEntity.ok(consultantService.getAllConsultant());
-    }
+//    @GetMapping("/consultant")
+//    public ResponseEntity<List<ConsultantDto>> getAllAccountConsultant() {
+//        return ResponseEntity.ok(consultantService.getAllConsultant());
+//    }
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
@@ -109,8 +116,15 @@ public class AccountApi {
         return ResponseEntity.ok().body(result);
     }
     @Operation(summary = "Get a list of consultant with filter", description = "Return a list of consultant")
-    @PostMapping("/consultant")
-    public ResponseEntity<List<ConsultantDto>> getConsultantFilter(@RequestBody ConsultantFilterRequest request) {
+    @GetMapping("/consultants")
+    public ResponseEntity<List<ConsultantDto>> getConsultantFilter(@RequestParam(required = false) String username,
+                                                                   @RequestParam(required = false) String email,
+                                                                   @RequestParam(required = false) String introduction,
+                                                                   @RequestParam(required = false) String education,
+                                                                   @RequestParam(required = false) String specialize) {
+        if (username==null && email==null && introduction==null && education==null && specialize==null)
+            return ResponseEntity.ok(consultantService.getAllConsultant());
+        ConsultantFilterRequest request=new ConsultantFilterRequest(username,email,introduction,education,specialize);
         return ResponseEntity.ok(consultantService.getConsultantFilter(request));
     }
 }

@@ -11,7 +11,7 @@ public interface ProgramApplicationService {
 
     List<ProgramApplicationDto> getAllFilter();
 
-    Optional getByStudentProfileId(Integer id);
+    List<ProgramApplicationDto> getByStudentProfileId(Integer id);
 
     ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo);
 

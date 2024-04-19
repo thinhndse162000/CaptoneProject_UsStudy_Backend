@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.AdminServiceImpl;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.ConsultantServiceImpl;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.CustomerServiceImpl;
 import jakarta.servlet.FilterChain;
@@ -27,6 +28,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private CustomerServiceImpl service;
     @Autowired
     private ConsultantServiceImpl consultantService;
+    @Autowired
+    private AdminServiceImpl adminService;
 
 
     @Override
@@ -39,7 +42,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (token != null && tokenProvider.validateToken(token)) {
                 String email = tokenProvider.getUserEmailFromJwt(token);
                 String role = tokenProvider.getRole(token);
-                if (role.equals("ROLE_CUSTOMER")) {
+                if (role.equals("ROLE_ADMIN")){
+                    UserDetails admin=adminService.loadUserByUsername(email);
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(admin.getUsername(), null, admin.getAuthorities());
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    log.info("authenticated user with email :{}", email);
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                } else if (role.equals("ROLE_CUSTOMER")) {
                     UserDetails customer = service.loadUserByUsername(email);
                     if (customer != null) {
                         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =

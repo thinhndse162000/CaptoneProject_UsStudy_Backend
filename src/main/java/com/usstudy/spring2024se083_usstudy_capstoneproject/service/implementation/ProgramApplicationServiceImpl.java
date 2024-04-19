@@ -43,15 +43,18 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public Optional getByStudentProfileId(Integer id) {
+    public List<ProgramApplicationDto> getByStudentProfileId(Integer id) {
         return programApplicationRepository.findByStudentProfileStudentProfileId(id)
-                .map(ProgramApplicationMapper.INSTANCE::toDto);
+                .stream().map(ProgramApplicationMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo) {
         List<ProgramStage> programStageList =
                 programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationRequest.getProgramId());
+        if (programStageList.isEmpty())
+            return null;
         ProgramStageDto programStageDto;
 
         try {
@@ -62,8 +65,6 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
             }
         } catch (IndexOutOfBoundsException ex) {
             return null;
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
         }
 
         ApplyStateDto saveApplyStage = new ApplyStateDto();

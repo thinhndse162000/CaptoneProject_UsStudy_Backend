@@ -64,7 +64,7 @@ public class ProgramApi {
     @PostMapping("")
     public ResponseEntity<?> postProgram(@RequestBody ProgramRequest programDto) {
         try {
-            ProgramDto result = programService.saveProgram(programDto);
+            ProgramDto result = programService.saveProgram(programDto,null);
             return ResponseEntity.ok(result);
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(ex.getMessage());
