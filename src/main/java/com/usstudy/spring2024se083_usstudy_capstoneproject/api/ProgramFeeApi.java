@@ -32,15 +32,12 @@ public class ProgramFeeApi {
     @Operation(summary = "Create a Program Fee", description = "Return a program fee if success")
     @PostMapping("")
     public ResponseEntity<?> postProgramFee(@RequestBody ProgramFeeRequest programFeeRequest) {
-        return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest));
+        return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest,null));
     }
     @Operation(summary = "Update a Program Fee", description = "Return a program fee if success")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramFee(@PathVariable Integer id,
                                            @RequestBody ProgramFeeRequest programFeeRequest) {
-        programFeeRequest.setProgramId(id);
-        if (!programFeeService.findById(id).isEmpty())
-            return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest));
-        return ResponseEntity.badRequest().body("No Program Fee with id:"+id+" found");
+        return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest,id));
     }
 }
