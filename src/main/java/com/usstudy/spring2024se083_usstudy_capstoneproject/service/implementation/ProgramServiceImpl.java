@@ -1,7 +1,9 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramMapper;
