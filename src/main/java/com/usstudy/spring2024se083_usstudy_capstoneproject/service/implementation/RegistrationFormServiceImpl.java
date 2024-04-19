@@ -80,6 +80,9 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         Consultant consultant = consultantRepository.findById(registrationForm.getRegistrationFormId())
                 .orElseThrow(() -> new NullPointerException("Consultant not found - " + registrationForm.getRegistrationFormId()));
         registrationForm.setConsultant(consultant);
+        registrationForm.setStatus(request.getStatus());
+
+        registrationFormRepository.save(registrationForm);
     }
 
     @Override
