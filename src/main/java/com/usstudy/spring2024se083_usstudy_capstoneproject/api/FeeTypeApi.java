@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.FeeTypeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.FeeTypeDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.FeeType;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.FeeTypeService;
@@ -27,9 +28,9 @@ public class FeeTypeApi {
     }
     @Operation(summary = "Create new Fee Type", description = "Create new Fee Type")
     @PostMapping("")
-    public  ResponseEntity<?> createFeeType(@RequestBody FeeTypeDto feeTypeDto){
+    public  ResponseEntity<?> createFeeType(@RequestBody FeeTypeRequest feeTypeRequest){
         try {
-            FeeTypeDto result=feeTypeService.saveFeeType(feeTypeDto);
+            FeeTypeDto result=feeTypeService.saveFeeType(feeTypeRequest,null);
             return ResponseEntity.ok(result);
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(ex.getMessage());
@@ -38,17 +39,8 @@ public class FeeTypeApi {
     @Operation(summary = "Update a Fee Type", description = "Update a Fee Type ")
     @PutMapping("/{id}")
     public  ResponseEntity<?> updateFeeType(@PathVariable Integer id,
-                                            @RequestBody FeeTypeDto feeTypeDto){
-        try {
-            feeTypeDto.setFeeTypeId(id);
-            if(!feeTypeService.getById(id).isEmpty())
-            {
-                FeeTypeDto result=feeTypeService.saveFeeType(feeTypeDto);
-                return ResponseEntity.ok(result);
-            }
-            return ResponseEntity.badRequest().body("No fee type with id " + feeTypeDto.getFeeTypeId() + " found!");
-        }catch (Exception ex){
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        }
+                                            @RequestBody FeeTypeRequest feeTypeRequest){
+        FeeTypeDto result=feeTypeService.saveFeeType(feeTypeRequest,id);
+        return ResponseEntity.ok(result);
     }
 }
