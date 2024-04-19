@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.UniversityRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UniversityDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.State;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.University;
@@ -18,7 +19,7 @@ public interface UniversityMapper {
     UniversityDto universityToUniversityDto(University university);
     @Mapping(target = "universityType",source = "universityTypeId",qualifiedByName = "MapUniversityType")
     @Mapping(target = "state",source = "stateId",qualifiedByName = "MapState")
-    University universityDtoToUniversity(UniversityDto universityDto);
+    University universityDtoToUniversity(UniversityRequest universityDto);
 
     @Named("MapUniversityType")
     default UniversityType mapType(Integer id){
