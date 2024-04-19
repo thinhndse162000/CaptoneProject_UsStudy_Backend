@@ -2,8 +2,8 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramFilterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,4 +30,6 @@ public interface IProgramService {
     List<ProgramDto> getProgrambyRequest(ProgramFilterRequest request);
 
     List<ProgramDto> getProgramList(Integer universityId);
+
+    void updateProgram(ProgramUpdateRequest request, Integer Id);
 }
