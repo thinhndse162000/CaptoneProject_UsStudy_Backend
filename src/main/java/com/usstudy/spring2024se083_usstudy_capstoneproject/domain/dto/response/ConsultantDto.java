@@ -16,7 +16,7 @@ public class ConsultantDto {
 
     @Column(name = "consultant_id")
     private Integer consultantId;
-    @Column(name = "username")
+//    @Column(name = "username")
     private String userName;
     private String email;
     private String password;
