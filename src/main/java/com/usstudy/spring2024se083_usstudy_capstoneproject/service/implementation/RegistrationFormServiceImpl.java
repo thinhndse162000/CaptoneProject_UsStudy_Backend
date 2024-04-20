@@ -77,7 +77,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     public void updateRegistrationForm(Integer id, RegistrationFormUpdateRequest request) {
         RegistrationForm registrationForm = registrationFormRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("Form not found - " + id));
-        Consultant consultant = consultantRepository.findById(registrationForm.getRegistrationFormId())
+        Consultant consultant = consultantRepository.findById(request.getConsultantId())
                 .orElseThrow(() -> new NullPointerException("Consultant not found - " + registrationForm.getRegistrationFormId()));
         registrationForm.setConsultant(consultant);
         registrationForm.setStatus(request.getStatus());
