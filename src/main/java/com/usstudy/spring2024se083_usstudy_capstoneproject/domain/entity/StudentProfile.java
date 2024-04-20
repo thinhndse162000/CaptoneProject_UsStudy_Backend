@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Setter
 @Getter
 @Table(name = "studentProfile")
-public class StudentProfile {
+public class StudentProfile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_profile_id")
@@ -47,6 +49,7 @@ public class StudentProfile {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnore
     private Customer customer;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")

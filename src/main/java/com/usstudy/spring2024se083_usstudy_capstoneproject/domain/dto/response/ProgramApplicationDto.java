@@ -3,6 +3,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramApplicationMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,8 @@ public class ProgramApplicationDto {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ApplyStage applyStage;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private StudentProfile studentProfile;
 
     public static ProgramApplicationDto convert(ProgramApplication programApplication) {
         return ProgramApplicationMapper.INSTANCE.toDto(programApplication);

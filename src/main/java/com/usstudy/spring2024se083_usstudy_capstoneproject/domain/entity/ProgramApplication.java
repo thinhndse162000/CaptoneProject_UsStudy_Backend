@@ -23,23 +23,24 @@ public class ProgramApplication implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_application_id")
     private Integer programApplicationId;
-//    @Column(name = "student_profile_id")
+    //    @Column(name = "student_profile_id")
 //    private Integer studentProfileId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_profile_id",nullable = false)
+    @JoinColumn(name = "student_profile_id", nullable = false)
     @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudentProfile studentProfile;
-//    @Column(name = "program_id")
+    //    @Column(name = "program_id")
 //    private Integer programId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_id",nullable = false)
+    @JoinColumn(name = "program_id", nullable = false)
     @JsonManagedReference
     private Program program;
 
-//    @Column(name = "apply_stage_id")
+    //    @Column(name = "apply_stage_id")
 //    private Integer applyStageId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apply_stage_id",nullable = false)
+    @JoinColumn(name = "apply_stage_id", nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ApplyStage applyStage;
@@ -47,11 +48,11 @@ public class ProgramApplication implements Serializable {
     @Column(name = "update_date")
     private Date updateDate;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "programApplication")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programApplication")
     @JsonBackReference
     private List<Payment> payments;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "programApplication")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programApplication")
     @JsonBackReference
     private List<ApplicationFee> applicationFees;
 }
