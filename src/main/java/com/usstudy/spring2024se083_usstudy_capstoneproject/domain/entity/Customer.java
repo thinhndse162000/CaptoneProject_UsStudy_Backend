@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,12 +41,13 @@ public class Customer implements Serializable, UserDetails {
     private String phone;
     private String img;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     @JsonBackReference
     private List<RegistrationForm> registrationForms;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<StudentProfile> studentProfiles;
     @Transient
     private String role;
