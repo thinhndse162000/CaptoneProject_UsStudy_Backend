@@ -33,6 +33,11 @@ public class University {
 //    @Column(name = "university_type_id")
 //    private Integer universityTypeId;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id")
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Staff staff;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "university_type_id", nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

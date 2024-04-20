@@ -15,6 +15,7 @@ public class UniversityRequest {
     private Float tuition;
     private String description;
 
+    private Integer staffId;
     private Integer universityTypeId;
 
     private Integer stateId;
