@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +28,7 @@ public class RegistrationFormDto {
     private Integer customerId;
     private Integer consultantId;
     private Integer status;
+    private Date createDate;
 
     public static RegistrationFormDto convert(RegistrationForm registrationForm) {
         return RegistrationFormMapper.INSTANCE.registrationFormToRegistrationFormDto(registrationForm);

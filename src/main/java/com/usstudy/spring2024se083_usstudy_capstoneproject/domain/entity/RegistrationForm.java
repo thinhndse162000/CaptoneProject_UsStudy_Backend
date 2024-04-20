@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -36,6 +38,8 @@ public class RegistrationForm {
     private String priorityOfStudyAbroad;
     private String budget;
     private Integer status;
+    @Column(name = "create_date")
+    private Date createDate;
     //    @Column(name = "customer_id")
 //    private Integer customerId;
     @ManyToOne(fetch = FetchType.LAZY)

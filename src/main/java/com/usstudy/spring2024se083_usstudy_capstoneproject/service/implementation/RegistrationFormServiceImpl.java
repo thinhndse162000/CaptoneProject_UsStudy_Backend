@@ -14,6 +14,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.RegistrationF
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +50,8 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setBudget(request.getBudget());
         registrationForm.setCustomer(customer);
         registrationForm.setStatus(request.getStatus());
+        //Note: server time and client site time might be different
+        registrationForm.setCreateDate(new Date(System.currentTimeMillis()));
         registrationFormRepository.save(registrationForm);
     }
 
