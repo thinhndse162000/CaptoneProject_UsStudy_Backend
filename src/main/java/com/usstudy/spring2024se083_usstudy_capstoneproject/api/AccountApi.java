@@ -86,6 +86,10 @@ public class AccountApi {
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getCustomerById(id));
     }
+    @GetMapping("/consultant/{id}")
+    public ResponseEntity<ConsultantDto> getConsultantById(@PathVariable Integer id) {
+        return ResponseEntity.ok(consultantService.getConsultantById(id));
+    }
 
     @PutMapping("/customer/{id}")
     @Operation(summary = "Update a customer", description = "Return updated customer")

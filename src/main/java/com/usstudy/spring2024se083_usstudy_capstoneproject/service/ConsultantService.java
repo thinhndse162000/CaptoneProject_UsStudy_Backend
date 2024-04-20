@@ -12,4 +12,5 @@ public interface ConsultantService {
 
     List<ConsultantDto> getAllConsultant();
     List<ConsultantDto> getConsultantFilter(ConsultantFilterRequest request);
+    ConsultantDto getConsultantById(Integer consultantId);
 }

@@ -49,6 +49,13 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
     }
 
     @Override
+    public ConsultantDto getConsultantById(Integer consultantId) {
+        return repository.findById(consultantId)
+                .map(ConsultantDto::convert)
+                .orElseThrow(() -> new NullPointerException("Consultant not found - " + consultantId));
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Consultant consultant = repository.getCustomerByEmail(email);
         if (consultant == null) {
