@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -36,4 +37,10 @@ public interface ProgramRepository extends JpaRepository<Program, Integer> {
 
     @Query("SELECT p FROM Program p INNER JOIN p.university u WHERE u.universityId = :universityId")
     List<Program> getProgrambyUniversityId(Integer universityId);
+
+    @Query("SELECT p FROM Program p INNER JOIN p.semester s WHERE s.endDate = :date")
+    List<Program> getProgrambyEndDate(Date date);
+
+    @Query("SELECT p FROM Program p INNER JOIN p.semester s WHERE s.startDate = :date")
+    List<Program> getProgrambyStartDate(Date date);
 }
