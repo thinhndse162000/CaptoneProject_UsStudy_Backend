@@ -28,6 +28,6 @@ public class RegistrationFormDto {
     private Integer status;
 
     public static RegistrationFormDto convert(RegistrationForm registrationForm) {
-        return RegistrationFormMapper.INSTANCE.reigstrationFormToRegistrationFormDto(registrationForm);
+        return RegistrationFormMapper.INSTANCE.registrationFormToRegistrationFormDto(registrationForm);
     }
 }

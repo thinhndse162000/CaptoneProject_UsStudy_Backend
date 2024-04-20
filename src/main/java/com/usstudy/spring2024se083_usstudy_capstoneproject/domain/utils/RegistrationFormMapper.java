@@ -13,5 +13,5 @@ public interface RegistrationFormMapper {
 
     @Mapping(target = "customerId", source = "registrationForm.customer.customerId")
     @Mapping(target = "consultantId", source = "registrationForm.consultant.consultantId")
-    RegistrationFormDto reigstrationFormToRegistrationFormDto(RegistrationForm registrationForm);
+    RegistrationFormDto registrationFormToRegistrationFormDto(RegistrationForm registrationForm);
 }

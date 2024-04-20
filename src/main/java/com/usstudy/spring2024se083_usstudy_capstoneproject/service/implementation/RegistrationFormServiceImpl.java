@@ -45,7 +45,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setMajorChooseReason(request.getMajorChooseReason());
         registrationForm.setMajorChoose(request.getMajorChoose());
         registrationForm.setUniversityChooseReason(request.getUniversityChooseReason());
-        registrationForm.setPriorityOfStudyProgram(request.getPriorityOfStudyAbroad());
+        registrationForm.setPriorityOfStudyAbroad(request.getPriorityOfStudyAbroad());
         registrationForm.setBudget(request.getBudget());
         registrationForm.setCustomer(customer);
         registrationForm.setStatus(request.getStatus());
@@ -55,21 +55,21 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public List<RegistrationFormDto> getRegistrationFormByCustomer(Integer id) {
         return registrationFormRepository.findByCustomerId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getRegistrationFormByConsultant(Integer id) {
         return registrationFormRepository.findByConsultantId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getAll() {
         return registrationFormRepository.findAll()
-                .stream().map(RegistrationFormMapper.INSTANCE::reigstrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
                 .collect(Collectors.toList());
     }
 

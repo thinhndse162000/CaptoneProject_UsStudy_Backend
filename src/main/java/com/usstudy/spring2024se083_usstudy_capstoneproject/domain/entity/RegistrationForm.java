@@ -33,7 +33,7 @@ public class RegistrationForm {
     @Column(name = "university_choose_reason")
     private String universityChooseReason;
     @Column(name = "priority_of_study_abroad")
-    private String priorityOfStudyProgram;
+    private String priorityOfStudyAbroad;
     private String budget;
     private Integer status;
     //    @Column(name = "customer_id")
