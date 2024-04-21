@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
         studentProfile.setCustomer(customer);
         studentProfile.setImg(request.getImg());
+        studentProfile.setEnglishLevel(request.getEnglishLevel());
+        studentProfile.setGrade(request.getGrade());
 
         studentProfileRepository.save(studentProfile);
 
@@ -71,15 +74,21 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         StudentProfile studentProfile = studentProfileRepository.findById(studentProfileId)
                 .orElseThrow(() -> new NullPointerException("Account not found - " + studentProfileId));
 
-        studentProfile.setEmail(request.getEmail());
-        studentProfile.setAddress(request.getAddress());
-        studentProfile.setGender(request.getGender());
-        studentProfile.setStudyProcess(request.getStudyProcess());
-        studentProfile.setPhone(request.getPhone());
-        studentProfile.setPlaceOfBirth(request.getPlaceOfBirth());
+        studentProfile.setStudentProfileId(0);
+        studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
         studentProfile.setNationalId(request.getNationalId());
+        studentProfile.setPlaceOfBirth(request.getPlaceOfBirth());
         studentProfile.setFullName(request.getFullName());
-            
+        studentProfile.setEmail(request.getEmail());
+        studentProfile.setPhone(request.getPhone());
+        studentProfile.setAddress(request.getAddress());
+        studentProfile.setDateOfBirth(request.getDateOfBirth());
+        studentProfile.setGender(request.getGender());
+        studentProfile.setStudyProcess(request.getStudyProcess().trim());
+        studentProfile.setImg(request.getImg());
+        studentProfile.setEnglishLevel(request.getEnglishLevel());
+        studentProfile.setGrade(request.getGrade());
+
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
         studentProfileRepository.save(studentProfile);
     }
@@ -95,5 +104,13 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     public Optional<StudentProfileDto> getById(Integer id) {
 
         return studentProfileRepository.findById(id).map(StudentProfileMapper.INSTANCE::toDto);
+    }
+
+    @Override
+    public List<StudentProfileDto> getAll() {
+        List<StudentProfile> studentProfiles = studentProfileRepository.findAll();
+        return studentProfiles.stream()
+                .map(StudentProfileMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 }

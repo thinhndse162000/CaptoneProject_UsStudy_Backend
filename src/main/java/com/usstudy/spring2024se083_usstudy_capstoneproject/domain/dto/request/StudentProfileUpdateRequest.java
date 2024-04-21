@@ -37,5 +37,8 @@ public class StudentProfileUpdateRequest {
     private String nationalId;
     @NotBlank(message = "Study Proccess number must not be blank")
     private String studyProcess;
+    private String englishLevel;
+    private String grade;
+    private String img;
     ArrayList<UploadFile> fileUploads;
 }

@@ -3,7 +3,6 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v3/profile")
@@ -35,8 +34,8 @@ public class StudentProfileApi {
 
     @Operation(summary = "Get Student Profile by Id ", description = "Returns student profile by id")
     @GetMapping("{id}")
-    public ResponseEntity<?> getStudentProfileById(@PathVariable Integer id) {
-        return ResponseEntity.ok(studentProfileService.getById(id));
+    public ResponseEntity<StudentProfileDto> getStudentProfileById(@PathVariable Integer id) {
+        return ResponseEntity.ok(studentProfileService.getById(id).orElseThrow());
     }
 
     @Operation(summary = "Get all Student Profile by Customer Id", description = "Returns all Student profile by Customer id")
@@ -52,4 +51,8 @@ public class StudentProfileApi {
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<StudentProfileDto>> getAllStudentProfile() {
+        return ResponseEntity.ok(studentProfileService.getAll());
+    }
 }
