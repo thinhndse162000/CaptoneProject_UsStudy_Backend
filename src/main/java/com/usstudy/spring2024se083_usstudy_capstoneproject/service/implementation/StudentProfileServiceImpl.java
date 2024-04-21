@@ -52,6 +52,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setGender(request.getGender());
         studentProfile.setStudyProcess(request.getStudyProcess().trim());
         studentProfile.setCustomer(customer);
+        studentProfile.setImg(request.getImg());
+
         studentProfileRepository.save(studentProfile);
 
         if (!(request.getFileString() == null)) {
@@ -77,6 +79,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setPlaceOfBirth(request.getPlaceOfBirth());
         studentProfile.setNationalId(request.getNationalId());
         studentProfile.setFullName(request.getFullName());
+            
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
         studentProfileRepository.save(studentProfile);
     }
