@@ -2,10 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.AdminAccountConfig;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EmailRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.LoginRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.*;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.CustomerDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StaffDto;
@@ -111,6 +108,12 @@ public class AccountApi {
                                          @RequestBody CustomerDto customerDto) {
         customerDto.setCustomerId(id);
         return ResponseEntity.ok(service.updateCustomer(customerDto));
+    }
+    @PutMapping("/consultant/{id}")
+    @Operation(summary = "Update a consultant", description = "Return updated consultant")
+    public ResponseEntity<?> putConsultant(@PathVariable Integer id,
+                                         @RequestBody ConsultantRequest consultantRequest) {
+        return ResponseEntity.ok(consultantService.saveConsultant(consultantRequest,id));
     }
 
     @GetMapping("/mix")

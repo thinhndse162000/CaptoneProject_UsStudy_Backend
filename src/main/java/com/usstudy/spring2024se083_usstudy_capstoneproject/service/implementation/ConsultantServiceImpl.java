@@ -1,9 +1,12 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantFilterRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ConsultantRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ConsultantDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ConsultantMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ConsultantRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +56,21 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
         return repository.findById(consultantId)
                 .map(ConsultantDto::convert)
                 .orElseThrow(() -> new NullPointerException("Consultant not found - " + consultantId));
+    }
+
+    @Override
+    public ConsultantDto saveConsultant(ConsultantRequest consultantRequest, Integer id) {
+        if (id!=null){
+            Consultant consultant=repository.findById(id)
+                    .orElseThrow(() -> new NullPointerException("Consultant not found - "+id));
+            MergeRequest.mergeIgnoreNullValue(consultantRequest,consultant);
+            return ConsultantMapper.INSTANT.consultantToConsultantDto(
+                    repository.save(consultant)
+            );
+        }
+        return ConsultantMapper.INSTANT.consultantToConsultantDto(
+                repository.save(ConsultantMapper.INSTANT.toEntity(consultantRequest))
+        );
     }
 
     @Override
