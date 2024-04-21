@@ -1,9 +1,11 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt.JwtTokenProvider;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StaffService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.AdminServiceImpl;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.ConsultantServiceImpl;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.CustomerServiceImpl;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.StaffServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +32,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private ConsultantServiceImpl consultantService;
     @Autowired
     private AdminServiceImpl adminService;
+    @Autowired
+    private StaffServiceImpl staffService;
 
 
     @Override
@@ -63,6 +67,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     if (consultant != null) {
                         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                                 new UsernamePasswordAuthenticationToken(consultant.getUsername(), null, consultant.getAuthorities());
+                        log.info("authenticated user with email :{}", email);
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
+                } else if (role.equals("ROLE_STAFF")){
+                    UserDetails staff=staffService.loadUserByUsername(email);
+                    if (staff!=null){
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(staff.getUsername(), null, staff.getAuthorities());
                         log.info("authenticated user with email :{}", email);
                         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                     }

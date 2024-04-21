@@ -3,6 +3,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.Jwt;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.AdminAccountConfig;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Staff;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,19 @@ public class JwtTokenProvider {
                 .claim("UserId", customer.getCustomerId())
                 .claim("email", customer.getEmail())
                 .claim("Role", "ROLE_CUSTOMER")
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .compact();
+    }
+    public String generateTokenStaff(Staff staff) {
+        Date now = new Date();
+        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
+        // create string token put in information of customer
+        return Jwts.builder()
+                .setSubject(Integer.toString(staff.getStaffId()))
+                .claim("UserId", staff.getStaffId())
+                .claim("Role", "ROLE_STAFF")
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)

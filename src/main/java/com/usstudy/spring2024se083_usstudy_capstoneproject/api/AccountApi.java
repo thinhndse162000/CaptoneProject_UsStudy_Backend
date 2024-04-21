@@ -11,6 +11,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.C
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StaffDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Consultant;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Staff;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ConsultantService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.EmailService;
@@ -60,13 +61,15 @@ public class AccountApi {
 
         Customer customer = service.getCustomerByEmail(request.getEmail());
         Consultant consultant = consultantService.getConsultantByEmail(request.getEmail());
+        Staff staff=staffService.getStaffByEmail(request.getEmail());
 
 
         if (customer != null && customer.getPassword().equals(request.getPassword())) {
             return ResponseEntity.ok(tokenProvider.generateToken(customer));
         } else if (consultant != null && consultant.getPassword().equals(request.getPassword())) {
             return ResponseEntity.ok(tokenProvider.generateTokenConsultant(consultant));
-        }
+        } else if (staff!=null && staff.getPassword().equals(request.getPassword()))
+            return ResponseEntity.ok(tokenProvider.generateTokenStaff(staff));
         return new ResponseEntity<>("Email hoặc mật khẩu không đúng", HttpStatus.BAD_REQUEST);
     }
 
