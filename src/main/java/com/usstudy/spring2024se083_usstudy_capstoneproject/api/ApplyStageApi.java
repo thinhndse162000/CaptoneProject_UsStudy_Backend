@@ -2,7 +2,6 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ApplyStageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v3/apply-stage")
@@ -34,7 +31,7 @@ public class ApplyStageApi {
 
     @Operation(summary = "Update Apply Stage", description = "Apply Stage Update Program Stages")
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateApplyStage(@PathVariable Integer id, ApplyStageUpdateRequest request) {
+    public ResponseEntity<?> updateApplyStage(@PathVariable Integer id, @RequestBody ApplyStageUpdateRequest request) {
         service.updateApplyStage(id, request);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
