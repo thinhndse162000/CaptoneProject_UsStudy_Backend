@@ -75,6 +75,10 @@ public class AccountApi {
         service.CustomerRegistedAccount(sigupRequest);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/consultant")
+    public ResponseEntity<?> createConsultant(@RequestBody ConsultantRequest consultantRequest){
+        return ResponseEntity.ok(consultantService.saveConsultant(consultantRequest,null));
+    }
 
     @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllAccountCustomer() {
