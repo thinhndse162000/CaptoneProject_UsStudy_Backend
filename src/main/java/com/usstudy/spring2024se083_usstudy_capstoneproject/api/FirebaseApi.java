@@ -1,6 +1,8 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.FirebaseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/v3/firebase")
+@Tag(name = "Firebase-API")
 public class FirebaseApi {
 
     private final FirebaseService service;
@@ -32,7 +35,22 @@ public class FirebaseApi {
     }
 
     @PostMapping("/download")
-    public String downloadFile(@RequestParam("file") String fileName) throws IOException {
-        return service.download(fileName);
+    @Operation(summary = "Download a file from Firebase( Info at description)",
+            description = "EX: gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg ,\n" +
+                    "file (Ex: myfile.txt, img.jpg,...),\n" +
+                    "file-path (Ex: Image/Program/), \n" +
+                    "May not work on other OS like linus")
+    public String downloadFile(@RequestParam("file") String fileName,
+                               @RequestParam("file-path") String filePath) throws IOException {
+        return service.download(fileName,filePath);
     }
+//    @PostMapping("/file")
+//    public String downloadFileUrl(@RequestParam("file") String fileName,
+//                                  @RequestParam("file-url") String url){
+//        try {
+//            return service.downloadLink(fileName,url);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

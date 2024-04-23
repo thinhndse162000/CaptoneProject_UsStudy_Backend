@@ -77,15 +77,26 @@ public class FirebaseService {
         }
     }
 
-    public String download(String fileName) throws IOException {
+    public String download(String fileName, String filePath) throws IOException {
 //        String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
-        String destFilePath = "C:\\Users\\Admin\\Downloads\\" + fileName;                                    // to set destination file path
+        String home = System.getProperty("user.home");
+        String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-        Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", fileName));
+        Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath+fileName));
         blob.downloadTo(Paths.get(destFilePath));
         return "Check download file";
     }
+    // firebase file token
+    //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/Image%2FProgram%2Ftaxi.jpeg
+    // ?alt=media&token=7b3d38a4-9c35-437a-acb7-71db8dc976d4
+    //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/Image%2FUniversities%2Fharvard-university-logo.png
+    // ?alt=media&token=62f3002f-087c-4219-b268-3da8f44fdf00
+    //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/form%2Fc%C3%A1c%20%C4%91%C6%A1n%20m%E1%BA%ABu%20xin%20%C4%91i%20du%20h%E1%BB%8Dc.rar
+    // ?alt=media&token=0251db7b-331e-4907-8940-d145f522877d
+
+    // firebase file location
+    //gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg
 }
