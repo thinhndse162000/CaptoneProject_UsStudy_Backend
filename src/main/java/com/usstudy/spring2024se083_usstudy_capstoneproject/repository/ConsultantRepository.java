@@ -19,6 +19,6 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Integer>
             "AND (:#{#req.email} is null OR c.email like %:#{#req.email}%) " +
             "AND (:#{#req.introduction} is null OR c.introduction like %:#{#req.introduction}%) " +
             "AND (:#{#req.education} is null OR c.education like %:#{#req.education}%) " +
-            "AND (:#{#req.specialize} is null OR c.specialize like %:#{#req.specialize})")
+            "AND (:#{#req.specialize} is null OR c.specialize like %:#{#req.specialize}%) ")
     List<Consultant> getConsultantFilter(@Param(value = "req")ConsultantFilterRequest request);
 }
