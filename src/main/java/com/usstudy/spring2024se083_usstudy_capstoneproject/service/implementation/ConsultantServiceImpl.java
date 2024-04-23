@@ -64,6 +64,7 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
             Consultant consultant=repository.findById(id)
                     .orElseThrow(() -> new NullPointerException("Consultant not found - "+id));
             MergeRequest.mergeIgnoreNullValue(consultantRequest,consultant);
+            consultant.setSpecialize(String.join(",", consultantRequest.getSpecialize()));
             return ConsultantMapper.INSTANT.consultantToConsultantDto(
                     repository.save(consultant)
             );
