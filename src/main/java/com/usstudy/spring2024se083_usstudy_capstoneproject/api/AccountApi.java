@@ -76,6 +76,7 @@ public class AccountApi {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PostMapping("/consultant")
+    @Operation(summary = "Create a consultant", description = "Return newly created consultant")
     public ResponseEntity<?> createConsultant(@RequestBody ConsultantRequest consultantRequest){
         return ResponseEntity.ok(consultantService.saveConsultant(consultantRequest,null));
     }

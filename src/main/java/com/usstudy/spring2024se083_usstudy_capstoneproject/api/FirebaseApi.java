@@ -4,13 +4,11 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementatio
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 @RestController
 @RequestMapping("/v3/firebase")
@@ -53,4 +51,13 @@ public class FirebaseApi {
 //            throw new RuntimeException(e);
 //        }
 //    }
+    @GetMapping("/file")
+    @Operation(summary = "Get a file from Firebase using url", description = "Return a file")
+    public String downloadFileUrl(@RequestParam("url") String url){
+        try {
+            return service.downloadLink(url);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
