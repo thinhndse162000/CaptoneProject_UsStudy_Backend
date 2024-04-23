@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,6 +17,6 @@ public class ConsultantRequest {
     private String password;
     private String introduction;
     private String education;
-    private String specialize;
+    private List<String> specialize;
     private String img;
 }
