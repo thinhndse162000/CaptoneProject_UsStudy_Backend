@@ -111,6 +111,11 @@ public class FirebaseService {
         //String destFilePath = home+"\\Downloads\\" + fileName;
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
+        try {
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
+        }catch (Exception ex){
+            return ex.getMessage();
+        }
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath));
