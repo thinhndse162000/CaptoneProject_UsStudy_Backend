@@ -119,14 +119,14 @@ public class FirebaseService {
         Credentials credentials = GoogleCredentials.fromStream(inputStream);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath));
-        //blob.downloadTo(Paths.get(destFilePath));
+        blob.downloadTo(Paths.get(destFilePath));
         //File file=new File("test");
-        File tempFile = new File(destFilePath);
-        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
-            fos.write(blob.getContent());
-            fos.close();
-        }
-        return tempFile;
-//        return blob.getContent();
+//        File tempFile = new File(destFilePath);
+//        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+//            fos.write(blob.getContent());
+//            fos.close();
+//        }
+//        return tempFile;
+        return blob.getContent();
     }
 }
