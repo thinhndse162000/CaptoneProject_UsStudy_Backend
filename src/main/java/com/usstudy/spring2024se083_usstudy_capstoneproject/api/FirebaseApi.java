@@ -65,4 +65,10 @@ public class FirebaseApi {
             return ResponseEntity.badRequest().body(e);
         }
     }
+    @GetMapping("/test")
+    public ResponseEntity<?> test(@RequestParam("file") String fileName){
+        String home = System.getProperty("user.home");
+        String destFilePath = home+"\\Downloads\\" + fileName;
+        return ResponseEntity.ok(destFilePath);
+    }
 }
