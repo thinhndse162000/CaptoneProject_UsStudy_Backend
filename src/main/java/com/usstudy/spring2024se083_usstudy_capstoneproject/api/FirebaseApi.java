@@ -62,13 +62,13 @@ public class FirebaseApi {
         try {
             return ResponseEntity.ok(service.downloadLink(url,destFilePath));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("/test")
-    public ResponseEntity<?> test(@RequestParam("file") String fileName){
-        String home = System.getProperty("user.home");
-        String destFilePath = home+"\\Downloads\\" + fileName;
-        return ResponseEntity.ok(destFilePath);
-    }
+//    @GetMapping("/test")
+//    public ResponseEntity<?> test(@RequestParam("file") String fileName){
+//        String home = System.getProperty("user.home");
+//        String destFilePath = home+"\\Downloads\\" + fileName;
+//        return ResponseEntity.ok(destFilePath);
+//    }
 }

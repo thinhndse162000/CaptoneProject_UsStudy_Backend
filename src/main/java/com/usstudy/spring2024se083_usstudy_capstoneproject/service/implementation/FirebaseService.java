@@ -102,7 +102,7 @@ public class FirebaseService {
     //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/Image%2FProfileStudent%2Fquan-tri-kinh-doanh.jpg?alt=media&token=9604f2b4-1dcb-4f0d-afcd-73ce92abd3d8
     // firebase file location
     //gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg
-    public String downloadLink(String url,String destFilePath) throws IOException {
+    public Object downloadLink(String url,String destFilePath) throws IOException {
         String bucket=BUCKET+"/o/";
         String filePath= URLDecoder.decode(url.substring(
                 url.lastIndexOf(bucket)+bucket.length()
@@ -111,19 +111,22 @@ public class FirebaseService {
 
         //String home = System.getProperty("user.home");
         //String destFilePath = home+"\\Downloads\\" + fileName;
+        //destFilePath result
+        ///root\Downloads\test.txt
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
-        try {
-            InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
-            Credentials credentials = GoogleCredentials.fromStream(inputStream);
-        }catch (Exception ex){
-            return ex.getMessage();
-        }
         InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
         Credentials credentials = GoogleCredentials.fromStream(inputStream);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath));
-        blob.downloadTo(Paths.get(destFilePath));
-        return "Check download file";
+        //blob.downloadTo(Paths.get(destFilePath));
+        //File file=new File("test");
+        File tempFile = new File(destFilePath);
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(blob.getContent());
+            fos.close();
+        }
+        return tempFile;
+//        return blob.getContent();
     }
 }
