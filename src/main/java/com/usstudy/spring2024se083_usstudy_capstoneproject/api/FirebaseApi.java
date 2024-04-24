@@ -4,6 +4,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementatio
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,12 +56,12 @@ public class FirebaseApi {
 //    }
     @GetMapping("/file")
     @Operation(summary = "Get a file from Firebase using url", description = "Return a file")
-    public String downloadFileUrl(@RequestParam("url") String url,
-                                  @RequestParam("destination-folder") String destFilePath){
+    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url,
+                                          @RequestParam("destination-folder") String destFilePath){
         try {
-            return service.downloadLink(url,destFilePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.ok(service.downloadLink(url,destFilePath));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }
