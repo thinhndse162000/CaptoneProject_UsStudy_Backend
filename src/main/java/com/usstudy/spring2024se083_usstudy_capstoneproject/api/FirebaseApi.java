@@ -34,17 +34,13 @@ public class FirebaseApi {
     }
 
     @PostMapping("/download")
-    @Operation(summary = "Download a file from Firebase( Info at description)",
-            description = "EX: gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg ,\n" +
-                    "file (Ex: myfile.txt, img.jpg,...),\n" +
-                    "file-path (Ex: Image/Program/), \n" +
-                    //"destination-folder: your download folder path" +
-                    "May not work on other OS like linus")
-    public String downloadFile(@RequestParam("file") String fileName,
+    @Operation(summary = "Return a Byte[] from a file in Firebase",
+            description = "")
+    public ResponseEntity<?> downloadFile(@RequestParam("file") String fileName,
                                @RequestParam("file-path") String filePath
             // , @RequestParam("destination-folder") String destFilePath
     ) throws IOException {
-        return service.download(fileName,filePath);
+        return ResponseEntity.ok(service.download(fileName,filePath));
     }
 //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
@@ -56,11 +52,10 @@ public class FirebaseApi {
 //        }
 //    }
     @GetMapping("/file")
-    @Operation(summary = "Get a file from Firebase using url", description = "Return a file")
-    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url,
-                                          @RequestParam("destination-folder") String destFilePath){
+    @Operation(summary = "Get a Byte[] from a file in Firebase using url", description = "Return an Byte[]")
+    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url){
         try {
-            return ResponseEntity.ok(service.downloadLink(url,destFilePath));
+            return ResponseEntity.ok(service.downloadLink(url));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
