@@ -79,10 +79,10 @@ public class FirebaseService {
         }
     }
 
-    public String download(String fileName, String filePath) throws IOException {
+    public String download(String fileName, String filePath, String destFilePath) throws IOException {
 //        String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
-        String home = System.getProperty("user.home");
-        String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
+        //String home = System.getProperty("user.home");
+        //String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
@@ -100,15 +100,15 @@ public class FirebaseService {
     //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/Image%2FProfileStudent%2Fquan-tri-kinh-doanh.jpg?alt=media&token=9604f2b4-1dcb-4f0d-afcd-73ce92abd3d8
     // firebase file location
     //gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg
-    public String downloadLink(String url) throws IOException {
+    public String downloadLink(String url,String destFilePath) throws IOException {
         String bucket=BUCKET+"/o/";
         String filePath= URLDecoder.decode(url.substring(
                 url.lastIndexOf(bucket)+bucket.length()
                 ,url.lastIndexOf("?")));
         String fileName=filePath.substring(filePath.lastIndexOf("/"));
 
-        String home = System.getProperty("user.home");
-        String destFilePath = home+"\\Downloads\\" + fileName;
+        //String home = System.getProperty("user.home");
+        //String destFilePath = home+"\\Downloads\\" + fileName;
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));

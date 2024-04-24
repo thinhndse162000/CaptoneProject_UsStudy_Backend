@@ -37,10 +37,12 @@ public class FirebaseApi {
             description = "EX: gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg ,\n" +
                     "file (Ex: myfile.txt, img.jpg,...),\n" +
                     "file-path (Ex: Image/Program/), \n" +
+                    "destination-folder: your download folder path" +
                     "May not work on other OS like linus")
     public String downloadFile(@RequestParam("file") String fileName,
-                               @RequestParam("file-path") String filePath) throws IOException {
-        return service.download(fileName,filePath);
+                               @RequestParam("file-path") String filePath,
+                               @RequestParam("destination-folder") String destFilePath) throws IOException {
+        return service.download(fileName,filePath,destFilePath);
     }
 //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
@@ -53,9 +55,10 @@ public class FirebaseApi {
 //    }
     @GetMapping("/file")
     @Operation(summary = "Get a file from Firebase using url", description = "Return a file")
-    public String downloadFileUrl(@RequestParam("url") String url){
+    public String downloadFileUrl(@RequestParam("url") String url,
+                                  @RequestParam("destination-folder") String destFilePath){
         try {
-            return service.downloadLink(url);
+            return service.downloadLink(url,destFilePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
