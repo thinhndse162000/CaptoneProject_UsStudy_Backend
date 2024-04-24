@@ -38,12 +38,13 @@ public class FirebaseApi {
             description = "EX: gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg ,\n" +
                     "file (Ex: myfile.txt, img.jpg,...),\n" +
                     "file-path (Ex: Image/Program/), \n" +
-                    "destination-folder: your download folder path" +
+                    //"destination-folder: your download folder path" +
                     "May not work on other OS like linus")
     public String downloadFile(@RequestParam("file") String fileName,
-                               @RequestParam("file-path") String filePath,
-                               @RequestParam("destination-folder") String destFilePath) throws IOException {
-        return service.download(fileName,filePath,destFilePath);
+                               @RequestParam("file-path") String filePath
+            // , @RequestParam("destination-folder") String destFilePath
+    ) throws IOException {
+        return service.download(fileName,filePath);
     }
 //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,

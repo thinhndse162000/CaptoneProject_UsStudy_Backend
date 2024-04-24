@@ -79,13 +79,15 @@ public class FirebaseService {
         }
     }
 
-    public String download(String fileName, String filePath, String destFilePath) throws IOException {
+    public String download(String fileName, String filePath) throws IOException {
 //        String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
-        //String home = System.getProperty("user.home");
-        //String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
+        String home = System.getProperty("user.home");
+        String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
+        //Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
+        InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
+        Credentials credentials = GoogleCredentials.fromStream(inputStream);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath+fileName));
         blob.downloadTo(Paths.get(destFilePath));
@@ -112,11 +114,13 @@ public class FirebaseService {
 
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         try {
-            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
+            InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
+            Credentials credentials = GoogleCredentials.fromStream(inputStream);
         }catch (Exception ex){
             return ex.getMessage();
         }
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"));
+        InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
+        Credentials credentials = GoogleCredentials.fromStream(inputStream);
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("capstone-project-5362d.appspot.com", filePath));
         blob.downloadTo(Paths.get(destFilePath));
