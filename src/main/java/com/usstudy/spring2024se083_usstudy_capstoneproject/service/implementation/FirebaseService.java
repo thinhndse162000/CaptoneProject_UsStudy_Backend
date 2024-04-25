@@ -79,7 +79,7 @@ public class FirebaseService {
         }
     }
 
-    public Object download(String fileName, String filePath) throws IOException {
+    public byte[] download(String fileName, String filePath) throws IOException {
 //        String destFileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));     // to set random strinh for destination file name
 //        String home = System.getProperty("user.home");
 //        String destFilePath = home+"\\Downloads\\" + fileName;                                    // to set destination file path
@@ -103,7 +103,7 @@ public class FirebaseService {
     //https://firebasestorage.googleapis.com/v0/b/capstone-project-5362d.appspot.com/o/Image%2FProfileStudent%2Fquan-tri-kinh-doanh.jpg?alt=media&token=9604f2b4-1dcb-4f0d-afcd-73ce92abd3d8
     // firebase file location
     //gs://capstone-project-5362d.appspot.com/Image/Program/taxi.jpeg
-    public Object downloadLink(String url) throws IOException {
+    public byte[] downloadLink(String url) throws IOException {
         String bucket=BUCKET+"/o/";
         String filePath= URLDecoder.decode(url.substring(
                 url.lastIndexOf(bucket)+bucket.length()

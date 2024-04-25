@@ -3,13 +3,22 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.FirebaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLConnection;
 import java.net.URLDecoder;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/v3/firebase")
@@ -34,13 +43,32 @@ public class FirebaseApi {
     }
 
     @PostMapping("/download")
-    @Operation(summary = "Return a Byte[] from a file in Firebase",
-            description = "")
+    @Operation(summary = "Return a file in Firebase (test with Postman)",
+            description = "Return a file, may return a Byte[] if file contentType is not common")
     public ResponseEntity<?> downloadFile(@RequestParam("file") String fileName,
                                @RequestParam("file-path") String filePath
             // , @RequestParam("destination-folder") String destFilePath
     ) throws IOException {
-        return ResponseEntity.ok(service.download(fileName,filePath));
+        try {
+            byte[] result=service.download(fileName,filePath);
+            File tempFile = new File("tempFile");
+            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                fos.write(result);
+            }
+            Tika tika=new Tika();
+            String contentType=tika.detect(tempFile);
+            if (contentType != null) {
+                MediaType mediaType = MediaType.valueOf(contentType);
+                return ResponseEntity.ok()
+                        .contentType(mediaType)
+                        .body(result);
+            } else {
+                return ResponseEntity.ok()
+                        .body(result);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
@@ -52,10 +80,26 @@ public class FirebaseApi {
 //        }
 //    }
     @GetMapping("/file")
-    @Operation(summary = "Get a Byte[] from a file in Firebase using url", description = "Return an Byte[]")
+    @Operation(summary = "Get file in Firebase using url (test with Postman)"
+            , description = "Return a file, may return a Byte[] if file contentType is not common")
     public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url){
         try {
-            return ResponseEntity.ok(service.downloadLink(url));
+            byte[] result=service.downloadLink(url);
+            File tempFile = new File("tempFile");
+            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                fos.write(result);
+            }
+            Tika tika=new Tika();
+            String contentType=tika.detect(tempFile);
+            if (contentType != null) {
+                MediaType mediaType = MediaType.valueOf(contentType);
+                return ResponseEntity.ok()
+                        .contentType(mediaType)
+                        .body(result);
+            } else {
+                return ResponseEntity.ok()
+                        .body(result);
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
