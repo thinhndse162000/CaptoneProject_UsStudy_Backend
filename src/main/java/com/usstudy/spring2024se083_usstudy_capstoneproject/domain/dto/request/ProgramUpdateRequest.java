@@ -14,6 +14,7 @@ import java.sql.Date;
 public class ProgramUpdateRequest {
     
     private String nameProgram;
+    private String status;
     private Date createDate;
     private Date modifiedDate;
     private Integer modifier;
