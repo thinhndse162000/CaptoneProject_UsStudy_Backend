@@ -75,9 +75,9 @@ public class FirebaseApi {
 //        }
 //    }
     @GetMapping("/file")
-    @Operation(summary = "Get file in Firebase using url (test with Postman)"
-            , description = "Return a file, may return a Byte[] if file contentType is not common")
-    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url) {
+    @Operation(summary = "Get file in Firebase using url)"
+            , description = "")
+    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url){
         try {
             byte[] result = service.downloadLink(url);
             File tempFile = new File("tempFile");

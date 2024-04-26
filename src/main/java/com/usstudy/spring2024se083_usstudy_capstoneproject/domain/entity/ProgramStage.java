@@ -29,6 +29,8 @@ public class ProgramStage {
     private String StageName;
 //    @Column(name = "program_id")
 //    private Integer programId;
+    @Column(name = "is_payment")
+    private Boolean isPayment;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id",nullable = false)
     @JsonManagedReference
