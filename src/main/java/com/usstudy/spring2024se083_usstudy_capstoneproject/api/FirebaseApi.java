@@ -5,20 +5,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLConnection;
-import java.net.URLDecoder;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/v3/firebase")
@@ -46,17 +40,17 @@ public class FirebaseApi {
     @Operation(summary = "Return a file in Firebase (test with Postman)",
             description = "Return a file, may return a Byte[] if file contentType is not common")
     public ResponseEntity<?> downloadFile(@RequestParam("file") String fileName,
-                               @RequestParam("file-path") String filePath
-            // , @RequestParam("destination-folder") String destFilePath
+                                          @RequestParam("file-path") String filePath
+                                          // , @RequestParam("destination-folder") String destFilePath
     ) throws IOException {
         try {
-            byte[] result=service.download(fileName,filePath);
+            byte[] result = service.download(fileName, filePath);
             File tempFile = new File("tempFile");
             try (FileOutputStream fos = new FileOutputStream(tempFile)) {
                 fos.write(result);
             }
-            Tika tika=new Tika();
-            String contentType=tika.detect(tempFile);
+            Tika tika = new Tika();
+            String contentType = tika.detect(tempFile);
             if (contentType != null) {
                 MediaType mediaType = MediaType.valueOf(contentType);
                 return ResponseEntity.ok()
@@ -70,7 +64,8 @@ public class FirebaseApi {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-//    @PostMapping("/file")
+
+    //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
 //                                  @RequestParam("file-url") String url){
 //        try {
@@ -82,15 +77,15 @@ public class FirebaseApi {
     @GetMapping("/file")
     @Operation(summary = "Get file in Firebase using url (test with Postman)"
             , description = "Return a file, may return a Byte[] if file contentType is not common")
-    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url){
+    public ResponseEntity<?> downloadFileUrl(@RequestParam("url") String url) {
         try {
-            byte[] result=service.downloadLink(url);
+            byte[] result = service.downloadLink(url);
             File tempFile = new File("tempFile");
             try (FileOutputStream fos = new FileOutputStream(tempFile)) {
                 fos.write(result);
             }
-            Tika tika=new Tika();
-            String contentType=tika.detect(tempFile);
+            Tika tika = new Tika();
+            String contentType = tika.detect(tempFile);
             if (contentType != null) {
                 MediaType mediaType = MediaType.valueOf(contentType);
                 return ResponseEntity.ok()
@@ -104,10 +99,20 @@ public class FirebaseApi {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-//    @GetMapping("/test")
+
+    //    @GetMapping("/test")
 //    public ResponseEntity<?> test(@RequestParam("file") String fileName){
 //        String home = System.getProperty("user.home");
 //        String destFilePath = home+"\\Downloads\\" + fileName;
 //        return ResponseEntity.ok(destFilePath);
 //    }
+    @GetMapping("/get")
+    public String getNameFile(@RequestParam("url") String url) throws IOException {
+        return service.downloadLinkD(url);
+    }
+
+    @GetMapping("/down")
+    public String download(@RequestParam("url") String url) throws IOException {
+        return service.downloadString(url);
+    }
 }
