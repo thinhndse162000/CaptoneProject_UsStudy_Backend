@@ -3,6 +3,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.FirebaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -84,13 +85,17 @@ public class FirebaseApi {
             try (FileOutputStream fos = new FileOutputStream(tempFile)) {
                 fos.write(result);
             }
-
+            Tika tika=new Tika();
+            String contentType=tika.detect(tempFile);
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment; filename=" + service.getFileNameFromUrl(url));
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-//            Tika tika=new Tika();
-//            String contentType=tika.detect(tempFile);
+            if (contentType != null) {
+                MediaType mediaType = MediaType.valueOf(contentType);
+                headers.setContentType(mediaType);
+            }
+            else
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 //            if (contentType != null) {
 //                MediaType mediaType = MediaType.valueOf(contentType);
 //                HttpHeaders headers = new HttpHeaders();
