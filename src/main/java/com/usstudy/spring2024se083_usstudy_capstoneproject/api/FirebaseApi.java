@@ -36,36 +36,36 @@ public class FirebaseApi {
         return service.uploadPdf(multipartFile);
     }
 
-    @PostMapping("/download")
-    @Operation(summary = "Return a file in Firebase (test with Postman)",
-            description = "Return a file, may return a Byte[] if file contentType is not common")
-    public ResponseEntity<?> downloadFile(@RequestParam("file") String fileName,
-                                          @RequestParam("file-path") String filePath
-                                          // , @RequestParam("destination-folder") String destFilePath
-    ) throws IOException {
-        try {
-            byte[] result = service.download(fileName, filePath);
-            File tempFile = new File("tempFile");
-            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
-                fos.write(result);
-            }
-            Tika tika = new Tika();
-            String contentType = tika.detect(tempFile);
-            if (contentType != null) {
-                MediaType mediaType = MediaType.valueOf(contentType);
-                return ResponseEntity.ok()
-                        .contentType(mediaType)
-                        .body(result);
-            } else {
-                return ResponseEntity.ok()
-                        .body(result);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+//    @PostMapping("/download")
+//    @Operation(summary = "Return a file in Firebase (test with Postman)",
+//            description = "Return a file, may return a Byte[] if file contentType is not common")
+//    public ResponseEntity<?> downloadFile(@RequestParam("file") String fileName,
+//                               @RequestParam("file-path") String filePath
+//            // , @RequestParam("destination-folder") String destFilePath
+//    ) throws IOException {
+//        try {
+//            byte[] result=service.download(fileName,filePath);
+//            File tempFile = new File("tempFile");
+//            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+//                fos.write(result);
+//            }
+//            Tika tika=new Tika();
+//            String contentType=tika.detect(tempFile);
+//            if (contentType != null) {
+//                MediaType mediaType = MediaType.valueOf(contentType);
+//                return ResponseEntity.ok()
+//                        .contentType(mediaType)
+//                        .body(result);
+//            } else {
+//                return ResponseEntity.ok()
+//                        .body(result);
+//            }
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
 
-    //    @PostMapping("/file")
+//    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
 //                                  @RequestParam("file-url") String url){
 //        try {
@@ -84,17 +84,30 @@ public class FirebaseApi {
             try (FileOutputStream fos = new FileOutputStream(tempFile)) {
                 fos.write(result);
             }
-            Tika tika = new Tika();
-            String contentType = tika.detect(tempFile);
-            if (contentType != null) {
-                MediaType mediaType = MediaType.valueOf(contentType);
-                return ResponseEntity.ok()
-                        .contentType(mediaType)
-                        .body(result);
-            } else {
-                return ResponseEntity.ok()
-                        .body(result);
-            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=" + service.getFileNameFromUrl(url));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//            Tika tika=new Tika();
+//            String contentType=tika.detect(tempFile);
+//            if (contentType != null) {
+//                MediaType mediaType = MediaType.valueOf(contentType);
+//                HttpHeaders headers = new HttpHeaders();
+//                headers.add(HttpHeaders.CONTENT_DISPOSITION,
+//                        "attachment; filename=" + service.getFileNameFromUrl(url));
+//                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//                return ResponseEntity.ok()
+//                        .headers(headers)
+//                        //.contentType(mediaType)
+//                        .body(result);
+//            } else {
+//                return ResponseEntity.ok()
+//                        .body(result);
+//            }
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
