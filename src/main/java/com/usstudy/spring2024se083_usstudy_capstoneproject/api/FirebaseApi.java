@@ -3,8 +3,8 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.FirebaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +65,7 @@ public class FirebaseApi {
 //        }
 //    }
 
-//    @PostMapping("/file")
+    //    @PostMapping("/file")
 //    public String downloadFileUrl(@RequestParam("file") String fileName,
 //                                  @RequestParam("file-url") String url){
 //        try {
