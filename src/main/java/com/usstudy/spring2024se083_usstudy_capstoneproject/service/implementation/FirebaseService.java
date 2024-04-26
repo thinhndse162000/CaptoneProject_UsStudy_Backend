@@ -168,7 +168,7 @@ public class FirebaseService {
         // Use substring to extract the filename
         String fileString = fileName.substring(lastSeparatorIndex + 1);
         System.out.println("Filename: " + fileString);
-        String destFilePath = "C:\\Users\\Admin\\Downloads\\" + fileString;                                    // to set destination file path
+        String destFilePath = "C:/Users/Admin/Downloads/" + fileString;                                    // to set destination file path
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         InputStream inputStream = FirebaseService.class.getClassLoader().getResourceAsStream("capstone-project-5362d-firebase-adminsdk-1wk99-96f3adbcca.json"); // change the file name with your one
         Credentials credentials = GoogleCredentials.fromStream(inputStream);
