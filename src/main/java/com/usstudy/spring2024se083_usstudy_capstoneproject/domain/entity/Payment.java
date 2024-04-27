@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Entity
 @Getter
 @Setter
@@ -27,4 +29,8 @@ public class Payment {
     private String method;
     private int amount;
     private String note;
+    @Column(name = "payment_date")
+    private Date paymentDate;
+    @Column(name = "transaction_no")
+    private Integer transactionNo;
 }
