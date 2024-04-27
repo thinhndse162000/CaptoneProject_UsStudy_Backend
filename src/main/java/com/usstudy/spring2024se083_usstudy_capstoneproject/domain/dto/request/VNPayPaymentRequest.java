@@ -7,18 +7,6 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-//vnp_Amount=5000000
-// &vnp_BankCode=NCB
-// &vnp_BankTranNo=VNP14394250
-// &vnp_CardType=ATM
-// &vnp_OrderInfo=test+2+26%2F04%2F2024+7h30
-// &vnp_PayDate=20240426193144
-// &vnp_ResponseCode=00
-// &vnp_TmnCode=8J40OKIL
-// &vnp_TransactionNo=14394250
-// &vnp_TransactionStatus=00
-// &vnp_TxnRef=31859091
-// &vnp_SecureHash=d0a1d2c03bbb49d419bf6f8d18c468b904259256bd37eb27965278ceacc97fbfc95a1d8a2fe7e205cda770af5634263b3204ec92bdf775e1921db62de750fa80
 @Getter
 @Setter
 @NoArgsConstructor

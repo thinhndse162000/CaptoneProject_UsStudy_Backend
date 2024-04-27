@@ -105,42 +105,46 @@ public class VNPayService {
         return paymentUrl;
     }
     public Object checkAndUpdatePayment(VNPayPaymentRequest vnPayPaymentRequest){
-//        Map fields = mapVNPayPaymentRequest(vnPayPaymentRequest);
-//        if (fields.containsKey("vnp_SecureHashType"))
-//        {
-//            fields.remove("vnp_SecureHashType");
-//        }
-//        if (fields.containsKey("vnp_SecureHash"))
-//        {
-//            fields.remove("vnp_SecureHash");
-//        }
+        Map fields = mapVNPayPaymentRequest(vnPayPaymentRequest);
+        if (fields.containsKey("vnp_SecureHashType"))
+        {
+            fields.remove("vnp_SecureHashType");
+        }
+        if (fields.containsKey("vnp_SecureHash"))
+        {
+            fields.remove("vnp_SecureHash");
+        }
         Payment payment=paymentRepository.getPaymentByTransactionNo(Integer.parseInt(vnPayPaymentRequest.getVnp_TxnRef()));
         if (payment==null)
             return "No Payment with TransactionNo "+vnPayPaymentRequest.getVnp_TxnRef()+" exist";
         if (payment.getAmount()*100!=Integer.parseInt(vnPayPaymentRequest.getVnp_Amount()))
             return "Payment amount do not match with database";
-        //String checkHash=VNPayConfig.hashAllFields(fields);
-//        if (!checkHash.equals(vnPayPaymentRequest.getVnp_SecureHash()))
-//            return "Secure hash do not match "+checkHash;
-        payment.setPaymentDate(Date.valueOf(vnPayPaymentRequest.getVnp_PayDate()));
+        String checkHash=VNPayConfig.hashAllFields(fields);
+        if (!checkHash.equals(vnPayPaymentRequest.getVnp_SecureHash()))
+            return "Secure hash do not match "+checkHash;
+        payment.setPaymentDate(new Date(System.currentTimeMillis()));
         payment.setNote("Paid");
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(payment)
         );
     }
-//    private Map mapVNPayPaymentRequest(VNPayPaymentRequest request){
-//        Map map = new TreeMap();
-//        map.put("vnp_Amount",request.getVnp_Amount());
-//        map.put("vnp_BankCode",request.getVnp_BankCode());
-//        map.put("vnp_BankTranNo",request.getVnp_BankTranNo());
-//        map.put("vnp_CardType",request.getVnp_CardType());
-//        map.put("vnp_OrderInfo",request.getVnp_OrderInfo());
-//        map.put("vnp_PayDate",request.getVnp_PayDate());
-//        map.put("vnp_ResponseCode",request.getVnp_ResponseCode());
-//        map.put("vnp_TmnCode",request.getVnp_TmnCode());
-//        map.put("vnp_TransactionNo",request.getVnp_TransactionNo());
-//        map.put("vnp_TransactionStatus",request.getVnp_TransactionStatus());
-//        map.put("vnp_TxnRef",request.getVnp_TxnRef());
-//        return map;
-//    }
+    private Map mapVNPayPaymentRequest(VNPayPaymentRequest request){
+        Map map = new TreeMap();
+        map.put("vnp_Amount",request.getVnp_Amount());
+        map.put("vnp_BankCode",request.getVnp_BankCode());
+        map.put("vnp_BankTranNo",request.getVnp_BankTranNo());
+        map.put("vnp_CardType",request.getVnp_CardType());
+        map.put("vnp_OrderInfo",request.getVnp_OrderInfo());
+        map.put("vnp_PayDate",request.getVnp_PayDate());
+        map.put("vnp_ResponseCode",request.getVnp_ResponseCode());
+        map.put("vnp_TmnCode",request.getVnp_TmnCode());
+        map.put("vnp_TransactionNo",request.getVnp_TransactionNo());
+        map.put("vnp_TransactionStatus",request.getVnp_TransactionStatus());
+        map.put("vnp_TxnRef",request.getVnp_TxnRef());
+        return map;
+    }
+    public String testHash(VNPayPaymentRequest request){
+        Map map=mapVNPayPaymentRequest(request);
+        return VNPayConfig.hashAllFields(map);
+    }
 }
