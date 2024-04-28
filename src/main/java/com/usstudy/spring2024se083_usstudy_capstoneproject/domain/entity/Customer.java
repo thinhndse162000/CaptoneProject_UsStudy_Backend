@@ -49,6 +49,10 @@ public class Customer implements Serializable, UserDetails {
     @JsonBackReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<StudentProfile> studentProfiles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    private List<Notification> notifications;
+
     @Transient
     private String role;
     @Transient
