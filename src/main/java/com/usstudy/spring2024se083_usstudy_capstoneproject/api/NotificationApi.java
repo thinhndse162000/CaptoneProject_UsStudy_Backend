@@ -1,15 +1,16 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Notice;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.NotificationCreateRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.NotificationDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Notification;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.NotificationServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/v3/notification/")
 @RestController
@@ -22,8 +23,18 @@ public class NotificationApi {
         this.notificationService = notificationService;
     }
 
+//    @PostMapping("")
+//    public String sendNotification(@RequestBody Notice notice) throws FirebaseMessagingException {
+//        return notificationService.sendNotification(notice);
+//    }
+
     @PostMapping("")
-    public String sendNotification(@RequestBody Notice notice) throws FirebaseMessagingException {
-        return notificationService.sendNotification(notice);
+    public ResponseEntity<Notification> createNotification(@RequestBody NotificationCreateRequest request) {
+        return ResponseEntity.ok(notificationService.createNotification(request));
+    }
+
+    @GetMapping("customer/{id}")
+    public ResponseEntity<List<NotificationDto>> getNotification(@PathVariable Integer id) {
+        return ResponseEntity.ok(notificationService.getNotificationByCustomerId(id));
     }
 }
