@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramApplicationMapper;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,10 +25,14 @@ public class ProgramApplicationDto {
     private Integer programId;
     //private Integer applyStageId;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    private ApplyStage applyStage;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private List<ApplyStage> applyStage;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudentProfile studentProfile;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Program program;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    private List<ApplicationFee> applicationFees;
 
     public static ProgramApplicationDto convert(ProgramApplication programApplication) {
         return ProgramApplicationMapper.INSTANCE.toDto(programApplication);
