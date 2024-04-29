@@ -13,7 +13,7 @@ public interface ProgramApplicationService {
 
     List<ProgramApplicationDto> getByStudentProfileId(Integer id);
 
-    ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo);
+    ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest,Integer programApplicationId, Integer stageNo);
 
     List<ProgramApplicationDto> getByCustomerId(Integer id);
 }

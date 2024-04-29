@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
@@ -51,7 +52,8 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest, Integer stageNo) {
+    public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest,Integer programApplicationId, Integer stageNo) {
+
         List<ProgramStage> programStageList =
                 programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationRequest.getProgramId());
         if (programStageList.isEmpty())
@@ -67,16 +69,23 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
         } catch (IndexOutOfBoundsException ex) {
             return null;
         }
-
+        if (programApplicationId!=null){
+            ProgramApplication programApplication=programApplicationRepository.findById(programApplicationId)
+                    .orElseThrow(() -> new NullPointerException("No Program Application -"+programApplicationId));
+            MergeRequest.mergeIgnoreNullValue(programApplicationRequest,programApplication);
+            return ProgramApplicationMapper.INSTANCE.toDto(
+                    programApplicationRepository.save(programApplication)
+            );
+        }
+        ProgramApplication resultProgramApplication=programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest));
         ApplyStateDto saveApplyStage = new ApplyStateDto();
         saveApplyStage.setProgramStageId(programStage.getProgramStageId());
         saveApplyStage.setProgramApplicationId(programApplicationRequest.getProgramApplicationId());
         saveApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
 
-        ApplyStage resultApplyState = applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage));
-        programApplicationRequest.setProgramApplicationId(resultApplyState.getApplyStageId());
+        applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage));
         return ProgramApplicationMapper.INSTANCE.toDto(
-                programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest))
+                resultProgramApplication
         );
     }
 
