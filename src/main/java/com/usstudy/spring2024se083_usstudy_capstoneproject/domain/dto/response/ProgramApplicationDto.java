@@ -21,10 +21,10 @@ public class ProgramApplicationDto {
     private Date updateDate;
     private Integer studentProfileId;
     private Integer programId;
-    private Integer applyStageId;
+    //private Integer applyStageId;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private ApplyStage applyStage;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    private ApplyStage applyStage;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudentProfile studentProfile;
 

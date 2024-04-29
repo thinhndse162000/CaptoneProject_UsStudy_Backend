@@ -33,7 +33,10 @@ public class ApplyStage {
     @Column(name = "update_date")
     private Date updateDate;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "applyStage")
-    @JsonBackReference
-    private List<ProgramApplication> programApplications;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_application_id", nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private ProgramApplication programApplication;
 }

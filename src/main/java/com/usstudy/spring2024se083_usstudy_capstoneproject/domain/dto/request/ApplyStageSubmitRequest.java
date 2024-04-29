@@ -15,5 +15,6 @@ import java.sql.Date;
 public class ApplyStageSubmitRequest {
     private Integer programStageId;
     private Date updateDate;
+    private Integer programApplicationId;
     private int status;
 }

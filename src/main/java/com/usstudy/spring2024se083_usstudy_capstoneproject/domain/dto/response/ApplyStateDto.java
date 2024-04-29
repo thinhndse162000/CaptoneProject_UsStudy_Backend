@@ -15,4 +15,5 @@ public class ApplyStateDto {
     private Integer applyStageId;
     private Date updateDate;
     private Integer programStageId;
+    private Integer programApplicationId;
 }

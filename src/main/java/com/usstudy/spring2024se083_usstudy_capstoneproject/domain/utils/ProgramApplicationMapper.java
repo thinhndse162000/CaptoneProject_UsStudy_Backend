@@ -16,11 +16,11 @@ public interface ProgramApplicationMapper {
     ProgramApplicationMapper INSTANCE= Mappers.getMapper(ProgramApplicationMapper.class);
     @Mapping(target = "studentProfileId",source = "programApplication.studentProfile.studentProfileId")
     @Mapping(target = "programId",source = "programApplication.program.programId")
-    @Mapping(target = "applyStageId",source = "programApplication.applyStage.applyStageId")
+    //@Mapping(target = "applyStageId",source = "programApplication.applyStage.applyStageId")
     ProgramApplicationDto toDto(ProgramApplication programApplication);
     @Mapping(target = "studentProfile",source = "studentProfileId",qualifiedByName = "MapStudentProfile")
     @Mapping(target = "program",source = "programId",qualifiedByName = "MapProgram")
-    @Mapping(target = "applyStage",source = "applyStageId",qualifiedByName = "MapApplyStage")
+    //@Mapping(target = "applyStage",source = "applyStageId",qualifiedByName = "MapApplyStage")
     ProgramApplication toEntity(ProgramApplicationRequest programApplicationRequest);
     @Named("MapProgram")
     default Program mapProgram(Integer id){
@@ -34,10 +34,10 @@ public interface ProgramApplicationMapper {
         studentProfile.setStudentProfileId(id);
         return studentProfile;
     }
-    @Named("MapApplyStage")
-    default ApplyStage mapApplyStage(Integer id){
-        ApplyStage applyStage=new ApplyStage();
-        applyStage.setApplyStageId(id);
-        return applyStage;
-    }
+//    @Named("MapApplyStage")
+//    default ApplyStage mapApplyStage(Integer id){
+//        ApplyStage applyStage=new ApplyStage();
+//        applyStage.setApplyStageId(id);
+//        return applyStage;
+//    }
 }

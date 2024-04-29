@@ -4,6 +4,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.Pr
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramStageDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ApplyStageMapper;
@@ -55,26 +56,25 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
                 programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationRequest.getProgramId());
         if (programStageList.isEmpty())
             return null;
-        ProgramStageDto programStageDto;
+        ProgramStage programStage;
 
         try {
             if (stageNo != null) {
-                programStageDto = ProgramStageMapper.INSTANCE.toDto(programStageList.get(stageNo));
+                programStage = programStageList.get(stageNo);
             } else {
-                programStageDto = ProgramStageMapper.INSTANCE.toDto(programStageList.get(0));
+                programStage = programStageList.get(0);
             }
         } catch (IndexOutOfBoundsException ex) {
             return null;
         }
 
         ApplyStateDto saveApplyStage = new ApplyStateDto();
-        saveApplyStage.setProgramStageId(programStageDto.getProgramStageId());
+        saveApplyStage.setProgramStageId(programStage.getProgramStageId());
+        saveApplyStage.setProgramApplicationId(programApplicationRequest.getProgramApplicationId());
         saveApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
 
-        ApplyStateDto resultApplyState = ApplyStageMapper.INSTANCE.toDto(
-                applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage))
-        );
-        programApplicationRequest.setApplyStageId(resultApplyState.getApplyStageId());
+        ApplyStage resultApplyState = applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage));
+        programApplicationRequest.setProgramApplicationId(resultApplyState.getApplyStageId());
         return ProgramApplicationMapper.INSTANCE.toDto(
                 programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest))
         );

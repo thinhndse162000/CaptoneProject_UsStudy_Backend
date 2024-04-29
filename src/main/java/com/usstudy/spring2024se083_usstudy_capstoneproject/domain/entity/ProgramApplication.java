@@ -39,11 +39,9 @@ public class ProgramApplication implements Serializable {
 
     //    @Column(name = "apply_stage_id")
 //    private Integer applyStageId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apply_stage_id", nullable = false)
-    @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private ApplyStage applyStage;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "programApplication")
+    @JsonBackReference
+    private List<ApplyStage> applyStages;
 
     @Column(name = "update_date")
     private Date updateDate;
