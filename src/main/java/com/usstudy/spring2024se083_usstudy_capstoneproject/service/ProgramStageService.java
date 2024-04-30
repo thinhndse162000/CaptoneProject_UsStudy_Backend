@@ -10,4 +10,5 @@ public interface ProgramStageService {
     Optional findByProgramStageId(Integer id);
     List<ProgramStageDto> findByProgramId(Integer id,Integer stageNo);
     ProgramStageDto saveProgramStage(ProgramStageRequest programStageRequest);
+    List<ProgramStageDto> saveListProgram(List<ProgramStageRequest> programStageRequestList);
 }

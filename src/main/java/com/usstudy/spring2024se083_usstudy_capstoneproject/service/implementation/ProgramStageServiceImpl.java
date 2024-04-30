@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,5 +55,16 @@ public class ProgramStageServiceImpl implements ProgramStageService {
         return ProgramStageMapper.INSTANCE.toDto(
                 programStageRepository.save(ProgramStageMapper.INSTANCE.toEntity(programStageRequest))
         );
+    }
+
+    @Override
+    public List<ProgramStageDto> saveListProgram(List<ProgramStageRequest> programStageRequestList) {
+        List<ProgramStageDto> result=new ArrayList<>();
+        for (ProgramStageRequest programStageRequest:programStageRequestList){
+            result.add(ProgramStageMapper.INSTANCE.toDto(
+                    programStageRepository.save(ProgramStageMapper.INSTANCE.toEntity(programStageRequest))
+            ));
+        }
+        return result;
     }
 }
