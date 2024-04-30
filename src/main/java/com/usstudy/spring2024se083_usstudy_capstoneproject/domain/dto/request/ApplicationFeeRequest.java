@@ -13,5 +13,5 @@ public class ApplicationFeeRequest {
     private Integer applicationFeeId;
     private Integer programFeeId;
     private Integer programApplicationId;
-//    private int amount;
+    private Integer total;
 }

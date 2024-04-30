@@ -31,5 +31,6 @@ public class ApplicationFee {
     @JsonManagedReference
     private ProgramApplication programApplication;
 
-//    private int amount;
+    @Column(name = "total")
+    private Integer total;
 }

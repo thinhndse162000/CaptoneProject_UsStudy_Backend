@@ -15,6 +15,7 @@ public interface ApplicationFeeMapper {
     ApplicationFeeMapper INSTANCE= Mappers.getMapper(ApplicationFeeMapper.class);
     @Mapping(target = "programFeeId",source = "applicationFee.programFee.programFeeId")
     @Mapping(target = "programApplicationId",source = "applicationFee.programApplication.programApplicationId")
+    //@Mapping(target = "total",source = "applicationFee.total")
     ApplicationFeeDto toDto(ApplicationFee applicationFee);
     @Mapping(target = "programFee",source = "programFeeId", qualifiedByName = "MapProgramFee")
     @Mapping(target = "programApplication",source = "programApplicationId",qualifiedByName = "MapProgramApplication")
