@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.PaymentRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.PaymentDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Payment;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.PaymentMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.PaymentRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.PaymentService;
@@ -9,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +22,22 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDto createPayment(PaymentRequest paymentRequest) {
+        paymentRequest.setTransactionNo(null);
+        paymentRequest.setPaymentDate(new Date(System.currentTimeMillis()));
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(PaymentMapper.INSTANCE.toEntity(paymentRequest))
+        );
+    }
+
+    @Override
+    public PaymentDto updatePayment(PaymentRequest paymentRequest,Integer id) {
+        Payment payment=paymentRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("No Payment with id "+id));
+        payment.setNote(paymentRequest.getNote());
+        payment.setMethod(payment.getMethod());
+        payment.setAmount(payment.getAmount());
+        return PaymentMapper.INSTANCE.toDto(
+                paymentRepository.save(payment)
         );
     }
 

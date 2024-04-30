@@ -62,10 +62,20 @@ public class PaymentApi {
 //        }
 //    }
     @PostMapping("")
-    @Operation(summary = "Create a new payment( for other type of payment)", description = "Return new payment")
+    @Operation(summary = "Create a new payment ( for other type of payment)", description = "Return new payment")
     public ResponseEntity<?> postPayment(@RequestBody PaymentRequest paymentRequest){
         try {
             return ResponseEntity.ok(paymentService.createPayment(paymentRequest));
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
+    }
+    @PutMapping("/{id}")
+    @Operation(summary = "Update payment ( amount, note, method only )", description = "Return updated payment")
+    public ResponseEntity<?> putPayment(@RequestBody PaymentRequest paymentRequest,
+                                        @PathVariable Integer id){
+        try {
+            return ResponseEntity.ok(paymentService.updatePayment(paymentRequest,id));
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
