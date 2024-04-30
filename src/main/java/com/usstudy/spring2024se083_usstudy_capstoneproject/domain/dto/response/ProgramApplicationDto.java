@@ -27,7 +27,7 @@ public class ProgramApplicationDto {
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<ApplyStageDto> applyStage;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private StudentProfile studentProfile;
+    private StudentProfileDto studentProfile;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Program program;
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

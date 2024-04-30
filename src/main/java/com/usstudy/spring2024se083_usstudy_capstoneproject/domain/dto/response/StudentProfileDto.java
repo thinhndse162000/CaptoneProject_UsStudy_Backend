@@ -31,5 +31,5 @@ public class StudentProfileDto {
     private String englishLevel;
     private String grade;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<UploadFile> fileUploads;
+    private List<UploadFileDto> fileUploads;
 }

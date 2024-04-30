@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.UploadFileDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
@@ -10,6 +11,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface StudentProfileMapper {
@@ -18,12 +20,13 @@ public interface StudentProfileMapper {
     @Mapping(target = "fileUploads",source = "studentProfile.fileUploads",qualifiedByName = "MapFile")
     StudentProfileDto toDto(StudentProfile studentProfile);
     @Named("MapFile")
-    default List<UploadFile> mapFile(List<UploadFile> uploadFiles){
-        List<UploadFile> list=uploadFiles;
-        for (UploadFile u:list) {
-            u.setStudentProfile(null);
+    default List<UploadFileDto> mapFile(List<UploadFile> uploadFiles){
+        if (uploadFiles!=null){
+            List<UploadFileDto> list=uploadFiles.stream().map(UploadFileMapper.INSTANCE::toDto)
+                    .collect(Collectors.toList());
+            return list;
         }
-        return list;
+        return null;
     }
     @Mapping(target = "customer",source = "customerId",qualifiedByName = "MapCustomer")
     StudentProfile toEntity(StudentProfileDto studentProfileDto);
