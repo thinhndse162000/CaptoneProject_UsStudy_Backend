@@ -45,6 +45,7 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         applyStage.setProgramStage(programStage);
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
         applyStage.setProgramApplication(programApplication);
+        applyStage.setStatus(1);
         applyStageRepository.save(applyStage);
     }
 
@@ -59,6 +60,7 @@ public class ApplyStageServiceImpl implements ApplyStageService {
         applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
         applyStage.setProgramStage(programStage);
         applyStage.setProgramApplication(programApplication);
+        applyStage.setStatus(request.getStatus());
         applyStageRepository.save(applyStage);
     }
 

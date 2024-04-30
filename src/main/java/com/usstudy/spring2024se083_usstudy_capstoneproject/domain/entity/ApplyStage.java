@@ -39,4 +39,6 @@ public class ApplyStage {
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProgramApplication programApplication;
+
+    private Integer status;
 }

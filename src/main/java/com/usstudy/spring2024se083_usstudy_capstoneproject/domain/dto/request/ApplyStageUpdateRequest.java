@@ -12,5 +12,5 @@ import lombok.Setter;
 public class ApplyStageUpdateRequest {
     private Integer programStageId;
     private Integer programApplicationId;
-    private int status;
+    private Integer status;
 }

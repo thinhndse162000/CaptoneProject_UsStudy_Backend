@@ -16,5 +16,5 @@ public class ApplyStageSubmitRequest {
     private Integer programStageId;
     private Date updateDate;
     private Integer programApplicationId;
-    private int status;
+    private Integer status;
 }
