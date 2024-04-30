@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramStageRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramStageDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramStageMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramStageRepository;
@@ -46,5 +47,12 @@ public class ProgramStageServiceImpl implements ProgramStageService {
             return programStageRepository.findAll().stream()
                     .map(ProgramStageMapper.INSTANCE::toDto).collect(Collectors.toList());
         }
+    }
+
+    @Override
+    public ProgramStageDto saveProgramStage(ProgramStageRequest programStageRequest) {
+        return ProgramStageMapper.INSTANCE.toDto(
+                programStageRepository.save(ProgramStageMapper.INSTANCE.toEntity(programStageRequest))
+        );
     }
 }

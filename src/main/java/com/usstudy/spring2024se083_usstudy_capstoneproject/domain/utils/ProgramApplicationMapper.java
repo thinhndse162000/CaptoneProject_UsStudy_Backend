@@ -37,8 +37,11 @@ public interface ProgramApplicationMapper {
     }
     @Named("MapApplyStageList")
     default List<ApplyStageDto> mapApplyStageList(List<ApplyStage> applyStages){
-        List<ApplyStageDto> list=applyStages.stream().map(ApplyStageMapper.INSTANCE::toDto)
-                .collect(Collectors.toList());
-        return list;
+        if (applyStages!=null){
+            List<ApplyStageDto> list=applyStages.stream().map(ApplyStageMapper.INSTANCE::toDto)
+                    .collect(Collectors.toList());
+            return list;
+        }
+        return null;
     }
 }
