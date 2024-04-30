@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplyStageRepository extends JpaRepository<ApplyStage, Integer> {
-
+    ApplyStage getApplyStageByProgramApplicationProgramApplicationIdAndStatus(Integer programApplicationId,Integer status);
 }

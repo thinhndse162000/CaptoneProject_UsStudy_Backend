@@ -52,41 +52,50 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
     }
 
     @Override
-    public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest,Integer programApplicationId, Integer stageNo) {
+    public ProgramApplicationDto saveProgramApplication(ProgramApplicationRequest programApplicationRequest,Integer programApplicationId, Integer applyStageId) {
 
         List<ProgramStage> programStageList =
                 programStageRepository.getProgramStageByProgramIdOrderByProgramStageIdAcs(programApplicationRequest.getProgramId());
         if (programStageList.isEmpty())
             return null;
-        ProgramStage programStage;
 
-        try {
-            if (stageNo != null) {
-                programStage = programStageList.get(stageNo);
-            } else {
-                programStage = programStageList.get(0);
-            }
-        } catch (IndexOutOfBoundsException ex) {
-            return null;
-        }
         if (programApplicationId!=null){
             ProgramApplication programApplication=programApplicationRepository.findById(programApplicationId)
                     .orElseThrow(() -> new NullPointerException("No Program Application -"+programApplicationId));
+            //get new apply stage
+            ApplyStage applyStage =applyStageRepository.findById(applyStageId)
+                    .orElseThrow(() -> new NullPointerException("No Apply Stage -"+applyStageId));
+            //set status and save old apply stage
+            ApplyStage oldApplyStage=applyStageRepository
+                    .getApplyStageByProgramApplicationProgramApplicationIdAndStatus(programApplication.getProgramApplicationId(),1);
+            oldApplyStage.setStatus(2);
+            oldApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+            applyStageRepository.save(oldApplyStage);
+            //set status and save new apply stage
+            applyStage.setStatus(1);
+            applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+            applyStageRepository.save(applyStage);
             MergeRequest.mergeIgnoreNullValue(programApplicationRequest,programApplication);
             return ProgramApplicationMapper.INSTANCE.toDto(
                     programApplicationRepository.save(programApplication)
             );
         }
-        ProgramApplication resultProgramApplication=programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest));
-        ApplyStateDto saveApplyStage = new ApplyStateDto();
-        saveApplyStage.setProgramStageId(programStage.getProgramStageId());
-        saveApplyStage.setProgramApplicationId(programApplicationRequest.getProgramApplicationId());
-        saveApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-
-        applyStageRepository.save(ApplyStageMapper.INSTANCE.toEntity(saveApplyStage));
-        return ProgramApplicationMapper.INSTANCE.toDto(
-                resultProgramApplication
-        );
+        else {
+            ProgramApplication resultProgramApplication=programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest));
+            //create and save list apply stage
+            for (ProgramStage programStage:programStageList){
+                ApplyStage applyStage =new ApplyStage();
+                applyStage.setProgramApplication(resultProgramApplication);
+                applyStage.setProgramStage(programStage);
+                if (programStage==programStageList.get(0))
+                    applyStage.setStatus(1);
+                applyStage.setStatus(0);
+                applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+            }
+            return ProgramApplicationMapper.INSTANCE.toDto(
+                    resultProgramApplication
+            );
+        }
     }
 
     @Override

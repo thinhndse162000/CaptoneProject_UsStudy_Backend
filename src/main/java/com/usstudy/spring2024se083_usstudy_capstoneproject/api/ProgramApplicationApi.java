@@ -50,13 +50,13 @@ public class ProgramApplicationApi {
                     "or when stageNo bigger than that program list ProgramStage size")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramApplication(@PathVariable Integer id,
-                                                   @RequestParam Integer stageNo,
+                                                   @RequestParam Integer applyStageId,
                                                    @RequestBody ProgramApplicationRequest programApplicationRequest) {
-        programApplicationRequest.setProgramApplicationId(id);
-        if (!programApplicationService.getById(id).isEmpty()) {
-            return ResponseEntity.badRequest().body("No Program Application with id " + id + " found");
-        }
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,id, stageNo));
+//        programApplicationRequest.setProgramApplicationId(id);
+//        if (!programApplicationService.getById(id).isEmpty()) {
+//            return ResponseEntity.badRequest().body("No Program Application with id " + id + " found");
+//        }
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,id, applyStageId));
     }
 
     @GetMapping("/customer/{id}")
