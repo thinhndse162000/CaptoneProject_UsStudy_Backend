@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStageDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.*;
 import org.mapstruct.Mapper;
@@ -9,6 +10,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface ProgramApplicationMapper {
@@ -34,11 +36,9 @@ public interface ProgramApplicationMapper {
         return studentProfile;
     }
     @Named("MapApplyStageList")
-    default List<ApplyStage> mapApplyStageList(List<ApplyStage> applyStages){
-        List<ApplyStage> applyStage=applyStages;
-        for (ApplyStage a:applyStages) {
-            a.setProgramApplication(null);
-        }
-        return applyStage;
+    default List<ApplyStageDto> mapApplyStageList(List<ApplyStage> applyStages){
+        List<ApplyStageDto> list=applyStages.stream().map(ApplyStageMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+        return list;
     }
 }

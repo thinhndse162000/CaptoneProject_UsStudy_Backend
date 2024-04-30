@@ -41,7 +41,7 @@ public class ProgramApplication implements Serializable {
 //    private Integer applyStageId;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "programApplication")
     @JsonBackReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<ApplyStage> applyStages;
 
     @Column(name = "update_date")

@@ -2,7 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStageDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramStage;
@@ -65,14 +65,14 @@ public class ApplyStageServiceImpl implements ApplyStageService {
     }
 
     @Override
-    public List<ApplyStateDto> getAllApplyStage() {
+    public List<ApplyStageDto> getAllApplyStage() {
         return applyStageRepository.findAll()
                 .stream().map(ApplyStageMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<ApplyStateDto> getById(Integer id) {
+    public Optional<ApplyStageDto> getById(Integer id) {
         return applyStageRepository.findById(id)
                 .map(ApplyStageMapper.INSTANCE::toDto);
     }

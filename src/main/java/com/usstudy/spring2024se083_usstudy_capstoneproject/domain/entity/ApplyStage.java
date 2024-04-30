@@ -37,7 +37,7 @@ public class ApplyStage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_application_id", nullable = false)
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProgramApplication programApplication;
 
     private Integer status;

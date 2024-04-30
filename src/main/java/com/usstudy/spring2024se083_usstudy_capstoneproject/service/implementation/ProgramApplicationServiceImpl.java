@@ -1,16 +1,11 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramStageDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramStage;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ApplyStageMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramApplicationMapper;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramStageMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ApplyStageRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramApplicationRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramStageRepository;
@@ -70,14 +65,18 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
                     .getApplyStageByProgramApplicationProgramApplicationIdAndStatus(programApplication.getProgramApplicationId(),1);
             oldApplyStage.setStatus(2);
             oldApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+            oldApplyStage.setProgramApplication(programApplication);
             applyStageRepository.save(oldApplyStage);
             //set status and save new apply stage
             applyStage.setStatus(1);
             applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+            applyStage.setProgramApplication(programApplication);
             applyStageRepository.save(applyStage);
-            MergeRequest.mergeIgnoreNullValue(programApplicationRequest,programApplication);
+
+            programApplication.setUpdateDate(new Date(System.currentTimeMillis()));
             return ProgramApplicationMapper.INSTANCE.toDto(
-                    programApplicationRepository.save(programApplication)
+                    //programApplicationRepository.save(programApplication)
+                    programApplication
             );
         }
         else {
@@ -87,10 +86,12 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
                 ApplyStage applyStage =new ApplyStage();
                 applyStage.setProgramApplication(resultProgramApplication);
                 applyStage.setProgramStage(programStage);
-                if (programStage==programStageList.get(0))
+                if (programStage.getProgramStageId()==programStageList.get(0).getProgramStageId())
                     applyStage.setStatus(1);
-                applyStage.setStatus(0);
+                else
+                    applyStage.setStatus(0);
                 applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+                applyStageRepository.save(applyStage);
             }
             return ProgramApplicationMapper.INSTANCE.toDto(
                     resultProgramApplication

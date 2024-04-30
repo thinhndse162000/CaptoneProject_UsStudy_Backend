@@ -2,7 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageSubmitRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ApplyStageUpdateRequest;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStateDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ApplyStageDto;
 
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface ApplyStageService {
 
     void updateApplyStage(Integer applyStageId, ApplyStageUpdateRequest request);
 
-    List<ApplyStateDto> getAllApplyStage();
+    List<ApplyStageDto> getAllApplyStage();
 
-    Optional<ApplyStateDto> getById(Integer id);
+    Optional<ApplyStageDto> getById(Integer id);
 }
