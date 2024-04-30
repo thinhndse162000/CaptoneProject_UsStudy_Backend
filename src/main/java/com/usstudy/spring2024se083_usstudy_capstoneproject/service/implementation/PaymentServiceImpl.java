@@ -9,16 +9,32 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
     @Override
-    public PaymentDto savePayment(PaymentRequest paymentRequest) {
+    public PaymentDto createPayment(PaymentRequest paymentRequest) {
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(PaymentMapper.INSTANCE.toEntity(paymentRequest))
         );
+    }
+
+    @Override
+    public List<PaymentDto> getByProgramApplication(Integer programApplication) {
+        return paymentRepository.getPaymentByProgramApplicationProgramApplicationId(programApplication)
+                .stream().map(PaymentMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaymentDto> getAll() {
+        return paymentRepository.findAll().stream().map(PaymentMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 }
