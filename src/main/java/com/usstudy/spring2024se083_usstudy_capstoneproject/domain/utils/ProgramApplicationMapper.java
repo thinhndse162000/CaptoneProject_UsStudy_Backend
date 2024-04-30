@@ -2,21 +2,20 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Program;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramApplication;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper
 public interface ProgramApplicationMapper {
     ProgramApplicationMapper INSTANCE= Mappers.getMapper(ProgramApplicationMapper.class);
     @Mapping(target = "studentProfileId",source = "programApplication.studentProfile.studentProfileId")
     @Mapping(target = "programId",source = "programApplication.program.programId")
-    //@Mapping(target = "applyStageId",source = "programApplication.applyStage.applyStageId")
+    @Mapping(target = "applyStage",source = "programApplication.applyStages",qualifiedByName = "MapApplyStageList")
     ProgramApplicationDto toDto(ProgramApplication programApplication);
     @Mapping(target = "studentProfile",source = "studentProfileId",qualifiedByName = "MapStudentProfile")
     @Mapping(target = "program",source = "programId",qualifiedByName = "MapProgram")
@@ -34,10 +33,12 @@ public interface ProgramApplicationMapper {
         studentProfile.setStudentProfileId(id);
         return studentProfile;
     }
-//    @Named("MapApplyStage")
-//    default ApplyStage mapApplyStage(Integer id){
-//        ApplyStage applyStage=new ApplyStage();
-//        applyStage.setApplyStageId(id);
-//        return applyStage;
-//    }
+    @Named("MapApplyStageList")
+    default List<ApplyStage> mapApplyStageList(List<ApplyStage> applyStages){
+        List<ApplyStage> applyStage=applyStages;
+        for (ApplyStage a:applyStages) {
+            a.setProgramApplication(null);
+        }
+        return applyStage;
+    }
 }
