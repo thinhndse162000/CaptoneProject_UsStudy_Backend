@@ -12,6 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDto {
+    private Integer paymentId;
     private Integer programApplicationId;
     private String method;
     private int amount;
