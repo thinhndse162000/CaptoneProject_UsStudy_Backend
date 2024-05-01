@@ -40,7 +40,8 @@ public class Program implements Serializable {
     private String img;
     private String responsibilities;
     private String requirement;
-
+    @Column(name = "file_download")
+    private String fileDownload;
     //FK university here
 //    @Column(name = "university_id")
 //    private Integer universityId;

@@ -25,6 +25,7 @@ public class ProgramRequest {
     private String img;
     private String responsibilities;
     private String requirement;
+    private String fileDownload;
 
     private Integer universityId;
 

@@ -26,6 +26,7 @@ public class ProgramUpdateRequest {
     private String responsibilities;
     private String requirement;
     private Integer universityId;
+    private String fileDownload;
 
     private Integer majorId;
 
