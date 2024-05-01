@@ -35,9 +35,9 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment=paymentRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("No Payment with id "+id));
         payment.setNote(paymentRequest.getNote());
-        payment.setMethod(payment.getMethod());
-        payment.setAmount(payment.getAmount());
-        payment.setImg(payment.getImg());
+        payment.setMethod(paymentRequest.getMethod());
+        payment.setAmount(paymentRequest.getAmount());
+        payment.setImg(paymentRequest.getImg());
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(payment)
         );
