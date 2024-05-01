@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService {
                     message.setTo(emailRequest.getRecipient());
                     message.setSubject(emailRequest.getSubject());
                     message.setText(emailRequest.getMessageBody()+jwtTokenProvider.generateToken(customer)
-                    +" \n Local link: http://localhost:3000/reset-password/?token="+jwtTokenProvider.generateToken(customer));
+                    +" \n Local link: http://localhost:3000/reset-password/token="+jwtTokenProvider.generateToken(customer));
 
                     mailSender.send(message);
                     return "Email sent";
