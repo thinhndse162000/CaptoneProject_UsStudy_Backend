@@ -20,5 +20,5 @@ public class PaymentRequest {
     private Date paymentDate;
     private Integer transactionNo;
     private Integer status;
-
+    private String img;
 }

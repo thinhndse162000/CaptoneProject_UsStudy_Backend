@@ -34,4 +34,5 @@ public class Payment {
     @Column(name = "transaction_no")
     private Integer transactionNo;
     private Integer status;
+    private String img;
 }
