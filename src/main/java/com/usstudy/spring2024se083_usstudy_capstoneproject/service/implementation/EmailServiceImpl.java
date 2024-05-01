@@ -29,7 +29,8 @@ public class EmailServiceImpl implements EmailService {
                     SimpleMailMessage message = new SimpleMailMessage();
                     message.setTo(emailRequest.getRecipient());
                     message.setSubject(emailRequest.getSubject());
-                    message.setText(emailRequest.getMessageBody()+jwtTokenProvider.generateToken(customer));
+                    message.setText(emailRequest.getMessageBody()+jwtTokenProvider.generateToken(customer)
+                    +" \n Local link: localhost:3000/reset-password/?token="+jwtTokenProvider.generateToken(customer));
 
                     mailSender.send(message);
                     return "Email sent";
