@@ -84,6 +84,7 @@ public class PaymentApi {
         }
     }
     @GetMapping("/report")
+    @Operation(summary = "Get report from start date to end date (date format yyyy-mm-dd)", description = "Return a report")
     public ResponseEntity<PaymentReportDto> getReport(@RequestParam Date startDate,
                                                       @RequestParam Date endDate){
         return ResponseEntity.ok(paymentService.getReport(startDate,endDate));
