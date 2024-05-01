@@ -67,4 +67,10 @@ public class PaymentServiceImpl implements PaymentService {
         paymentReportDto.setTotal(paymentRepository.getTotalAmount(startDate,endDate,1));
         return paymentReportDto;
     }
+
+    @Override
+    public PaymentDto getById(Integer id) {
+        return paymentRepository.findById(id).map(PaymentMapper.INSTANCE::toDto)
+                .orElseThrow(() -> new NullPointerException("No Payment id "+id));
+    }
 }

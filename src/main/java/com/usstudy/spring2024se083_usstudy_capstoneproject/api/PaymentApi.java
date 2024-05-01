@@ -30,6 +30,15 @@ public class PaymentApi {
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
     }
+    @GetMapping("/{id}")
+    @Operation(summary = "Get a Payment by id", description = "Return a payment")
+    public ResponseEntity<?> getById(@PathVariable Integer id){
+        try {
+            return ResponseEntity.ok(paymentService.getById(id));
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
+    }
     @Operation(summary = "Get a list of Payments by program application id", description = "Return a list of Payments")
     @GetMapping("/program-application/{id}")
     public ResponseEntity<?> getPaymentByProgramApplication(@PathVariable Integer id){

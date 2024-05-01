@@ -13,4 +13,5 @@ public interface PaymentService {
     List<PaymentDto> getByProgramApplication(Integer programApplication);
     List<PaymentDto> getAll();
     PaymentReportDto getReport(Date startDate,Date endDate);
+    PaymentDto getById(Integer id);
 }
