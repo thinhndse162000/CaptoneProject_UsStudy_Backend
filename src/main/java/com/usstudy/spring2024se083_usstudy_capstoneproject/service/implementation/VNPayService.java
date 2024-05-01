@@ -122,8 +122,12 @@ public class VNPayService {
         if (payment.getAmount()*100!=Integer.parseInt(vnPayPaymentRequest.getVnp_Amount()))
             return "Payment amount do not match with database";
         String checkHash=VNPayConfig.hashAllFields(fields);
-        if (!checkHash.equals(vnPayPaymentRequest.getVnp_SecureHash()))
-            return "Secure hash do not match "+checkHash;
+        String vnp_OrderInfo =  fields.get("vnp_OrderInfo").toString();
+        fields.put("vnp_OrderInfo",URLEncoder.encode(vnp_OrderInfo));
+        String checkHash2=VNPayConfig.hashAllFields(fields);
+        if (!checkHash.equals(vnPayPaymentRequest.getVnp_SecureHash())
+                &&!checkHash2.equals(vnPayPaymentRequest.getVnp_SecureHash()))
+            return "Secure hash 1 do not match "+checkHash+ "\n Secure hash 2 do not match "+checkHash2;
         payment.setPaymentDate(new Date(System.currentTimeMillis()));
         payment.setNote("Paid");
         payment.setStatus(1);
