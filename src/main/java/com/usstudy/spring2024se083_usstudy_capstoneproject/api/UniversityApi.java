@@ -22,9 +22,15 @@ public class UniversityApi {
     private final IUniversityService universityService;
 
     //@Secured("ROLE_CUSTOMER")
-    @Operation(summary = "Get a list of Universities", description = "Return a list of Universities")
+    @Operation(summary = "Get a list of Universities with filter", description = "Return a list of Universities")
     @GetMapping("")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@RequestParam(required = false) String name,
+                                    @RequestParam(required = false) Float tuition,
+                                    @RequestParam(required = false) String description) {
+        if (name!=null||tuition!=null||description!=null){
+            UniversityFilterRequest request=new UniversityFilterRequest(name,tuition,description);
+            return ResponseEntity.ok(universityService.getUniversityByRequest(request));
+        }
         List<UniversityDto> result = universityService.getAllUniversity();
         return ResponseEntity.ok(result);
     }
@@ -67,8 +73,8 @@ public class UniversityApi {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/filter")
-    public ResponseEntity<List<UniversityDto>> getUniversityByRequest(@RequestBody UniversityFilterRequest request) {
-        return ResponseEntity.ok(universityService.getUniversityByRequest(request));
-    }
+//    @PostMapping("/filter")
+//    public ResponseEntity<List<UniversityDto>> getUniversityByRequest(@RequestBody UniversityFilterRequest request) {
+//        return ResponseEntity.ok(universityService.getUniversityByRequest(request));
+//    }
 }
