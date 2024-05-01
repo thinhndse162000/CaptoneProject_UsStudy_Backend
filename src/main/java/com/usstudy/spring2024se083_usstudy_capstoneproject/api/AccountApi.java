@@ -72,8 +72,13 @@ public class AccountApi {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupRequest sigupRequest) {
-        service.CustomerRegistedAccount(sigupRequest);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            service.CustomerRegistedAccount(sigupRequest);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception ex){
+            return ResponseEntity.internalServerError().body(ex.getMessage());
+        }
     }
     @PostMapping("/consultant")
     @Operation(summary = "Create a consultant", description = "Return newly created consultant")
