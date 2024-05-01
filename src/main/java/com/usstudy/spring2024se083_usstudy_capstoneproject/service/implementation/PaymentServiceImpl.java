@@ -24,6 +24,7 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentDto createPayment(PaymentRequest paymentRequest) {
         paymentRequest.setTransactionNo(null);
         paymentRequest.setPaymentDate(new Date(System.currentTimeMillis()));
+        paymentRequest.setStatus(0);
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(PaymentMapper.INSTANCE.toEntity(paymentRequest))
         );

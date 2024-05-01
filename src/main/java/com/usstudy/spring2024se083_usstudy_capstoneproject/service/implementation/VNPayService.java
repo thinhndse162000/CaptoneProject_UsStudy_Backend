@@ -99,6 +99,7 @@ public class VNPayService {
         paymentRequest.setAmount(amount.intValue());
         paymentRequest.setTransactionNo(Integer.parseInt(vnp_TxnRef));
         paymentRequest.setMethod("VNPay");
+        paymentRequest.setStatus(0);
         //save payment request
         paymentRepository.save(PaymentMapper.INSTANCE.toEntity(paymentRequest));
 
@@ -124,6 +125,7 @@ public class VNPayService {
             return "Secure hash do not match "+checkHash;
         payment.setPaymentDate(new Date(System.currentTimeMillis()));
         payment.setNote("Paid");
+        payment.setStatus(1);
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(payment)
         );

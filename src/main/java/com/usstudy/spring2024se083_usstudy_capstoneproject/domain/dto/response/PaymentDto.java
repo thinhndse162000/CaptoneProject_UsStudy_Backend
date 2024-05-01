@@ -19,4 +19,5 @@ public class PaymentDto {
     //
     private Date paymentDate;
     private Integer transactionNo;
+    private Integer status;
 }

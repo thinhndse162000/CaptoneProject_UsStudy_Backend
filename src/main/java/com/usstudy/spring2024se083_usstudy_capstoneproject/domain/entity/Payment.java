@@ -33,4 +33,5 @@ public class Payment {
     private Date paymentDate;
     @Column(name = "transaction_no")
     private Integer transactionNo;
+    private Integer status;
 }
