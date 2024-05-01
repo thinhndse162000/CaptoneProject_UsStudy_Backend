@@ -40,4 +40,7 @@ public class ProgramStage {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "programStage")
     @JsonBackReference
     private List<ApplyStage> applyStages;
+
+    @Column(name = "program_fee_id")
+    private Integer programFeeId;
 }

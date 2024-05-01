@@ -14,4 +14,5 @@ public class ProgramStageDto {
     private String StageName;
     private Integer programId;
     private Boolean isPayment;
+    private Integer programFeeId;
 }
