@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.PaymentRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.VNPayPaymentRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.PaymentReportDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.PaymentService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.VNPayService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 
 @RestController
 @RequestMapping("/v3/payment")
@@ -79,5 +82,10 @@ public class PaymentApi {
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(ex.getMessage());
         }
+    }
+    @GetMapping("/report")
+    public ResponseEntity<PaymentReportDto> getReport(@RequestParam Date startDate,
+                                                      @RequestParam Date endDate){
+        return ResponseEntity.ok(paymentService.getReport(startDate,endDate));
     }
 }

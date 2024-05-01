@@ -2,6 +2,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementati
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.PaymentRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.PaymentDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.PaymentReportDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Payment;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.PaymentMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.PaymentRepository;
@@ -55,5 +56,15 @@ public class PaymentServiceImpl implements PaymentService {
     public List<PaymentDto> getAll() {
         return paymentRepository.findAll().stream().map(PaymentMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PaymentReportDto getReport(Date startDate, Date endDate) {
+        PaymentReportDto paymentReportDto=new PaymentReportDto();
+        paymentReportDto.setNumberOfPayment(paymentRepository.getNumberOfPayment(startDate,endDate,null));
+        paymentReportDto.setSuccessPayment(paymentRepository.getNumberOfPayment(startDate,endDate,1));
+        paymentReportDto.setNotVerifyPayment(paymentRepository.getNumberOfPayment(startDate,endDate,0));
+        paymentReportDto.setTotal(paymentRepository.getTotalAmount(startDate,endDate,1));
+        return paymentReportDto;
     }
 }

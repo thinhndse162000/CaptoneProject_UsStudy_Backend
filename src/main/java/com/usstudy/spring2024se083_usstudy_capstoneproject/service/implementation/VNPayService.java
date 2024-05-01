@@ -100,6 +100,7 @@ public class VNPayService {
         paymentRequest.setTransactionNo(Integer.parseInt(vnp_TxnRef));
         paymentRequest.setMethod("VNPay");
         paymentRequest.setStatus(0);
+        paymentRequest.setPaymentDate(new Date(System.currentTimeMillis()));
         //save payment request
         paymentRepository.save(PaymentMapper.INSTANCE.toEntity(paymentRequest));
 
