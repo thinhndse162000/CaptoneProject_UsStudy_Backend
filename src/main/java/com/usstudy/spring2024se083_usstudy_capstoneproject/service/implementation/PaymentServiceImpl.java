@@ -38,6 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setMethod(paymentRequest.getMethod());
         payment.setAmount(paymentRequest.getAmount());
         payment.setImg(paymentRequest.getImg());
+        payment.setStatus(paymentRequest.getStatus());
         return PaymentMapper.INSTANCE.toDto(
                 paymentRepository.save(payment)
         );
