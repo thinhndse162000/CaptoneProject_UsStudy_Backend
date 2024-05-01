@@ -76,11 +76,11 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setCustomer(customer);
             notification.setTitle("Cập nhập trạng thái đơn tư vấn");
             if (registrationForm.getStatus() == 0) {
-                notification.setContent("Tư vấn viên " + consultant.getUsername() + " đã cập nhập trạng thái đơn tư vấn thành " + "Chưa được tư vấn");
+                notification.setContent("Tư vấn viên " + " đã cập nhập trạng thái đơn tư vấn thành " + "Chưa được tư vấn");
             } else if (registrationForm.getStatus() == 1) {
-                notification.setContent("Tư vấn viên " + consultant.getUsername() + " đã cập nhập trạng thái đơn tư vấn thành " + "Đang được tư vấn " + "Xin hãy chờ tư vấn viên sẽ liên lạc cho bạn");
+                notification.setContent("Tư vấn viên " + " đã cập nhập trạng thái đơn tư vấn thành " + "Đang được tư vấn " + "Xin hãy chờ tư vấn viên sẽ liên lạc cho bạn");
             } else if (registrationForm.getStatus() == 2) {
-                notification.setContent("Tư vấn viên " + consultant.getUsername() + " đã cập nhập trạng thái đơn tư vấn thành " + "Đã được tư vấn");
+                notification.setContent("Tư vấn viên " + " đã cập nhập trạng thái đơn tư vấn thành " + "Đã được tư vấn");
             }
             notificationRepository.save(notification);
         } else if (request.getProgramId() != null && request.getApplyStageId() != null) {
@@ -93,7 +93,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Cập nhập trạng thái hồ sơ tư vấn ");
-            notification.setContent("Quản lý vừa cập nhập trạng thái hồ sơ " + program.getNameProgram() + " Thành " + applyStage.getProgramStage().getStageName());
+            notification.setContent("Cập nhập trạng thái hồ sơ " + program.getNameProgram() + " Thành " + applyStage.getProgramStage().getStageName());
             notificationRepository.save(notification);
         } else if (request.getProgramId() != null) {
             Program program = programRepository.findById(request.getProgramId())
