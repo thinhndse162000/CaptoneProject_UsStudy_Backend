@@ -136,8 +136,7 @@ public class AccountApi {
         EmailRequest emailRequest = new EmailRequest();
         emailRequest.setRecipient(email);
         emailRequest.setSubject("Reset password");
-        emailRequest.setMessageBody("Click here to reset your password: https://usct-deloy7h15pm.vercel.app/reset-password "
-                + "\nHere's your password reset token: ");
+        emailRequest.setMessageBody("Click here to reset your password: https://usct-deloy7h15pm.vercel.app/reset-password/?token=");
         String result = emailService.sendEmail(emailRequest);
         return ResponseEntity.ok().body(result);
     }
