@@ -75,7 +75,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Cập nhập trạng thái đơn tư vấn");
-            notification.setContent("Tư Vấn trạng thái đơn tư vấn" + registrationForm.getRegistrationFormId());
+            notification.setContent("Tư Vấn cập nhâp trạng thái đơn tư vấn" + registrationForm.getRegistrationFormId());
             notificationRepository.save(notification);
         } else if (request.getProgramId() != null && request.getApplyStageId() != null) {
             Program program = programRepository.findById(request.getProgramId())
