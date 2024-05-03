@@ -18,18 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProgramTypeServiceImpl implements IProgramTypeService {
     private final ProgramTypeRepository programTypeRepository;
-    private final ProgramTypeMapper programTypeMapper;
 
     @Override
     public List<ProgramTypeDto> getAllProgramType() {
         return programTypeRepository.findAll()
-                .stream().map(programTypeMapper::programTypeToProgramTypeDto)
+                .stream().map(ProgramTypeMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional getProgramTypeById(int id) {
         return programTypeRepository.findById(id)
-                .map(programTypeMapper::programTypeToProgramTypeDto);
+                .map(ProgramTypeMapper.INSTANCE::toDto);
     }
 }

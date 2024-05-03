@@ -25,6 +25,6 @@ public class NotificationDto {
     private Customer customer;
 
     public static NotificationDto convert(Notification notification) {
-        return NotificationMapper.INSTANT.notificationToNotificationDto(notification);
+        return NotificationMapper.INSTANT.toDto(notification);
     }
 }

@@ -150,8 +150,8 @@ public class VNPayService {
         map.put("vnp_TxnRef",request.getVnp_TxnRef());
         return map;
     }
-    public String testHash(VNPayPaymentRequest request){
-        Map map=mapVNPayPaymentRequest(request);
-        return VNPayConfig.hashAllFields(map);
-    }
+//    public String testHash(VNPayPaymentRequest request){
+//        Map map=mapVNPayPaymentRequest(request);
+//        return VNPayConfig.hashAllFields(map);
+//    }
 }

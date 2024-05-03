@@ -10,5 +10,5 @@ public interface NotificationMapper {
 
     NotificationMapper INSTANT = Mappers.getMapper(NotificationMapper.class);
 
-    NotificationDto notificationToNotificationDto(Notification notification);
+    NotificationDto toDto(Notification notification);
 }
