@@ -8,7 +8,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Custome
 import java.util.List;
 
 public interface CustomerService {
-    void CustomerRegistedAccount(SignupRequest request);
+    void CustomerRegisterAccount(SignupRequest request);
 
     Customer getCustomerByEmail(String email);
 

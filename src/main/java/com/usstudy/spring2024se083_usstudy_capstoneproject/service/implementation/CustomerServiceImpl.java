@@ -32,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
-    public void CustomerRegistedAccount(SignupRequest request) {
+    public void CustomerRegisterAccount(SignupRequest request) {
         Customer customer = new Customer();
 
         customer.setFullName(request.getFullName());

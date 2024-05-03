@@ -4,6 +4,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.NotificationCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.NotificationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Notification;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.service.NotificationService;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation.NotificationServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,10 @@ import java.util.List;
 @RestController
 @Tag(name = "Notification-API")
 public class NotificationApi {
-    private final NotificationServiceImpl notificationService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public NotificationApi(NotificationServiceImpl notificationService) {
+    public NotificationApi(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
 
