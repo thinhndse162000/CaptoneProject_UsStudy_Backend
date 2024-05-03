@@ -58,21 +58,21 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public List<RegistrationFormDto> getRegistrationFormByCustomer(Integer id) {
         return registrationFormRepository.findByCustomerId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getRegistrationFormByConsultant(Integer id) {
         return registrationFormRepository.findByConsultantId(id)
-                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RegistrationFormDto> getAll() {
         return registrationFormRepository.findAll()
-                .stream().map(RegistrationFormMapper.INSTANCE::registrationFormToRegistrationFormDto)
+                .stream().map(RegistrationFormMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -91,7 +91,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public Optional getRegistrationFormById(Integer id) {
         return registrationFormRepository
-                .findById(id).map(RegistrationFormDto::convert);
+                .findById(id).map(RegistrationFormMapper.INSTANCE::toDto);
     }
 
 }

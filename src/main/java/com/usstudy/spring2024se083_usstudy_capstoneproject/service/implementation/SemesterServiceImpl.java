@@ -1,7 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.SemesterDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Semester;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.SemesterMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.SemesterRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ISemesterService;
@@ -18,17 +17,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SemesterServiceImpl implements ISemesterService {
     private final SemesterRepository semesterRepository;
-    private final SemesterMapper semesterMapper;
+    //private final SemesterMapper semesterMapper;
 
     @Override
     public List<SemesterDto> getAllSemester() {
         return semesterRepository.findAll()
-                .stream().map(semesterMapper::semesterToSemesterDto).collect(Collectors.toList());
+                .stream().map(SemesterMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Override
     public Optional findSemesterById(int id) {
         return semesterRepository.findById(id)
-                .map(semesterMapper::semesterToSemesterDto);
+                .map(SemesterMapper.INSTANCE::toDto);
     }
 }

@@ -30,7 +30,7 @@ public class RegistrationFormDto {
     private Integer status;
     private Date createDate;
 
-    public static RegistrationFormDto convert(RegistrationForm registrationForm) {
-        return RegistrationFormMapper.INSTANCE.registrationFormToRegistrationFormDto(registrationForm);
-    }
+//    public static RegistrationFormDto convert(RegistrationForm registrationForm) {
+//        return RegistrationFormMapper.INSTANCE.toDto(registrationForm);
+//    }
 }

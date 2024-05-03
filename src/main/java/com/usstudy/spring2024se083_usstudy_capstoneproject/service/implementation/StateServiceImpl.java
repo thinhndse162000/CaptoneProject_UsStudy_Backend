@@ -18,15 +18,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StateServiceImpl implements IStateService {
     private final StateRepository stateRepository;
-    private final StateMapper stateMapper;
 
     @Override
     public List<StateDto> getAllState() {
-        return stateRepository.findAll().stream().map(stateMapper::stateToStateDto).collect(Collectors.toList());
+        return stateRepository.findAll().stream().map(StateMapper.INSTANCE::stateToStateDto).collect(Collectors.toList());
     }
 
     @Override
     public Optional getStateById(int id) {
-        return stateRepository.findById(id).map(stateMapper::stateToStateDto);
+        return stateRepository.findById(id).map(StateMapper.INSTANCE::stateToStateDto);
     }
 }
