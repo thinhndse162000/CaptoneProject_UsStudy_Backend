@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,19 +28,19 @@ import java.util.List;
 @Tag(name = "Account-API")
 public class AccountApi {
 
-    private final CustomerService service;
+    private final CustomerService customerService;
     private final ConsultantService consultantService;
     private final StaffService staffService;
     private final JwtTokenProvider tokenProvider;
     private final EmailService emailService;
     private final AdminAccountConfig adminAccountConfig;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @Autowired
     public AccountApi(CustomerService customerService, ConsultantService consultantService, StaffService staffService, JwtTokenProvider tokenProvider, EmailService emailService, AdminAccountConfig adminAccountConfig) {
-        this.service = customerService;
+        this.customerService = customerService;
         this.consultantService = consultantService;
         this.staffService = staffService;
         this.tokenProvider = tokenProvider;
@@ -56,7 +55,7 @@ public class AccountApi {
         && request.getPassword().equals(adminAccountConfig.getADMIN_PASSWORD()))
             return ResponseEntity.ok(tokenProvider.generateTokenAdmin(adminAccountConfig));
 
-        Customer customer = service.getCustomerByEmail(request.getEmail());
+        Customer customer = customerService.getCustomerByEmail(request.getEmail());
         Consultant consultant = consultantService.getConsultantByEmail(request.getEmail());
         Staff staff=staffService.getStaffByEmail(request.getEmail());
 
@@ -73,7 +72,7 @@ public class AccountApi {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupRequest sigupRequest) {
         try {
-            service.CustomerRegistedAccount(sigupRequest);
+            customerService.CustomerRegistedAccount(sigupRequest);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         catch (Exception ex){
@@ -88,7 +87,7 @@ public class AccountApi {
 
     @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllAccountCustomer() {
-        return ResponseEntity.ok(service.getAllCustomer());
+        return ResponseEntity.ok(customerService.getAllCustomer());
     }
 
 //    @GetMapping("/consultant")
@@ -105,7 +104,7 @@ public class AccountApi {
     }
     @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getCustomerById(id));
+        return ResponseEntity.ok(customerService.getCustomerById(id));
     }
     @GetMapping("/consultant/{id}")
     public ResponseEntity<ConsultantDto> getConsultantById(@PathVariable Integer id) {
@@ -115,9 +114,9 @@ public class AccountApi {
     @PutMapping("/customer/{id}")
     @Operation(summary = "Update a customer", description = "Return updated customer")
     public ResponseEntity<?> putCustomer(@PathVariable Integer id,
-                                         @RequestBody CustomerDto customerDto) {
-        customerDto.setCustomerId(id);
-        return ResponseEntity.ok(service.updateCustomer(customerDto));
+                                         @RequestBody CustomerRequest customerRequest) {
+        customerRequest.setCustomerId(id);
+        return ResponseEntity.ok(customerService.updateCustomer(customerRequest,id));
     }
     @PutMapping("/consultant/{id}")
     @Operation(summary = "Update a consultant", description = "Return updated consultant")
@@ -129,7 +128,7 @@ public class AccountApi {
     @GetMapping("/mix")
     public ResponseEntity<List<Object>> getAllAccount() {
         List<Object> accountList = new ArrayList<>();
-        List<CustomerDto> customerList = service.getAllCustomer();
+        List<CustomerDto> customerList = customerService.getAllCustomer();
         List<ConsultantDto> consultantDtoList = consultantService.getAllConsultant();
         accountList.addAll(customerList);
         accountList.addAll(consultantDtoList);

@@ -9,6 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface MajorMapper {
     MajorMapper INSTANCE= Mappers.getMapper(MajorMapper.class);
-    MajorDto majorToMajorDto(Major major);
-    Major majorDtoToMajor(MajorRequest majorRequest);
+    MajorDto toDto(Major major);
+    Major toEntity(MajorRequest majorRequest);
 }

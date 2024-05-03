@@ -25,7 +25,7 @@ public class MajorServiceImpl implements IMajorService {
     @Override
     public List<MajorDto> getAllMajor() {
         return majorRepository.findAllByOrderByMajorIdDesc()
-                .stream().map(MajorMapper.INSTANCE::majorToMajorDto).collect(Collectors.toList());
+                .stream().map(MajorMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -34,15 +34,15 @@ public class MajorServiceImpl implements IMajorService {
             Major major=majorRepository.findById(id)
                     .orElseThrow(() -> new  NullPointerException("Major not found - "+id));
             MergeRequest.mergeIgnoreNullValue(majorRequest,major);
-            return MajorMapper.INSTANCE.majorToMajorDto(majorRepository.save(major));
+            return MajorMapper.INSTANCE.toDto(majorRepository.save(major));
         }
-        return MajorMapper.INSTANCE.majorToMajorDto(
-                majorRepository.save(MajorMapper.INSTANCE.majorDtoToMajor(majorRequest)));
+        return MajorMapper.INSTANCE.toDto(
+                majorRepository.save(MajorMapper.INSTANCE.toEntity(majorRequest)));
     }
 
     @Override
     public Optional<?> findById(int id) {
         return  majorRepository.findById(id)
-                .map(MajorMapper.INSTANCE::majorToMajorDto);
+                .map(MajorMapper.INSTANCE::toDto);
     }
 }

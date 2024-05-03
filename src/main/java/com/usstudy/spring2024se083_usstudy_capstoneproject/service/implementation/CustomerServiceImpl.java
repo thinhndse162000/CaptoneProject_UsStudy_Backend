@@ -1,8 +1,11 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.CustomerRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SignupRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.CustomerDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.CustomerMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,20 +55,22 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     public List<CustomerDto> getAllCustomer() {
         return customerRepository.findAll()
                 .stream()
-                .map(CustomerDto::convert).collect(Collectors.toList());
+                .map(CustomerMapper.INSTANT::toDto).collect(Collectors.toList());
     }
 
     @Override
     public CustomerDto getCustomerById(Integer customerId) {
         return customerRepository.findById(customerId)
-                .map(CustomerDto::convert)
+                .map(CustomerMapper.INSTANT::toDto)
                 .orElseThrow(() -> new NullPointerException("Customer not found - " + customerId));
     }
 
     @Override
-    public CustomerDto updateCustomer(CustomerDto customerDto) {
-        customerRepository.save(CustomerDto.convert(customerDto));
-        return customerDto;
+    public CustomerDto updateCustomer(CustomerRequest customerRequest,Integer id) {
+        Customer customer=customerRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("No Customer id - "+id));
+        MergeRequest.mergeIgnoreNullValue(customerRequest,customer);
+        return CustomerMapper.INSTANT.toDto(customerRepository.save(customer));
     }
 
     @Override

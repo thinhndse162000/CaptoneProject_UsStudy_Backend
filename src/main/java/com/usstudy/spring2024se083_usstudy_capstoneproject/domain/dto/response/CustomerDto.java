@@ -29,10 +29,10 @@ public class CustomerDto implements Serializable {
     private String phone;
     private String img;
 
-    public static CustomerDto convert(Customer customer) {
-        return CustomerMapper.INSTANT.customerToCustomerDto(customer);
-    }
-    public static Customer convert(CustomerDto customerDto) {
-        return CustomerMapper.INSTANT.customerDtoToCustomer(customerDto);
-    }
+//    public static CustomerDto convert(Customer customer) {
+//        return CustomerMapper.INSTANT.toDto(customer);
+//    }
+//    public static Customer convert(CustomerDto customerDto) {
+//        return CustomerMapper.INSTANT.toEntity(customerDto);
+//    }
 }
