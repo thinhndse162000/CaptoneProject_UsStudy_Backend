@@ -25,7 +25,7 @@ public class ConsultantDto {
     private String specialize;
     private String img;
     
-    public static ConsultantDto convert(Consultant consultant) {
-        return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);
-    }
+//    public static ConsultantDto convert(Consultant consultant) {
+//        return ConsultantMapper.INSTANT.consultantToConsultantDto(consultant);
+//    }
 }

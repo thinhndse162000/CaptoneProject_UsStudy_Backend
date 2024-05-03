@@ -41,20 +41,20 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
     public List<ConsultantDto> getAllConsultant() {
         return repository.findAll()
                 .stream()
-                .map(ConsultantDto::convert).collect(Collectors.toList());
+                .map(ConsultantMapper.INSTANT::toDto).collect(Collectors.toList());
     }
 
     @Override
     public List<ConsultantDto> getConsultantFilter(ConsultantFilterRequest request) {
         return repository.getConsultantFilter(request)
-                .stream().map(ConsultantDto::convert)
+                .stream().map(ConsultantMapper.INSTANT::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public ConsultantDto getConsultantById(Integer consultantId) {
         return repository.findById(consultantId)
-                .map(ConsultantDto::convert)
+                .map(ConsultantMapper.INSTANT::toDto)
                 .orElseThrow(() -> new NullPointerException("Consultant not found - " + consultantId));
     }
 
@@ -65,11 +65,11 @@ public class ConsultantServiceImpl implements ConsultantService, UserDetailsServ
                     .orElseThrow(() -> new NullPointerException("Consultant not found - "+id));
             MergeRequest.mergeIgnoreNullValue(consultantRequest,consultant);
             consultant.setSpecialize(String.join(",", consultantRequest.getSpecialize()));
-            return ConsultantMapper.INSTANT.consultantToConsultantDto(
+            return ConsultantMapper.INSTANT.toDto(
                     repository.save(consultant)
             );
         }
-        return ConsultantMapper.INSTANT.consultantToConsultantDto(
+        return ConsultantMapper.INSTANT.toDto(
                 repository.save(ConsultantMapper.INSTANT.toEntity(consultantRequest))
         );
     }

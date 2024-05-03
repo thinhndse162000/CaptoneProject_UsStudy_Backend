@@ -15,7 +15,7 @@ public interface ConsultantMapper {
     ConsultantMapper INSTANT = Mappers.getMapper(ConsultantMapper.class);
 
     @Mapping(target = "userName", source = "username")
-    ConsultantDto consultantToConsultantDto(Consultant consultant);
+    ConsultantDto toDto(Consultant consultant);
 
     @Mapping(target = "userName", source = "userName")
     @Mapping(target = "specialize", source = "specialize", qualifiedByName = "convertListToString")
