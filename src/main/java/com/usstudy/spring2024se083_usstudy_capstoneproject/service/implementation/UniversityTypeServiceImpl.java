@@ -18,16 +18,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UniversityTypeServiceImpl implements IUniversityTypeService {
     private final UniversityTypeRepository universityTypeRepository;
-    private final UniversityTypeMapper universityTypeMapper;
 
     @Override
     public List<UniversityTypeDto> getAllUniversityType() {
         return universityTypeRepository.findAll()
-                .stream().map(universityTypeMapper::universityTypeToUniversityTypeDto).collect(Collectors.toList());
+                .stream().map(UniversityTypeMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Override
     public Optional getUniversityTypeById(int id) {
-        return universityTypeRepository.findById(id).map(universityTypeMapper::universityTypeToUniversityTypeDto);
+        return universityTypeRepository.findById(id).map(UniversityTypeMapper.INSTANCE::toDto);
     }
 }
