@@ -66,8 +66,8 @@ public class NotificationServiceImpl implements NotificationService {
                 .orElseThrow(() -> new NullPointerException("Customer not found - " + request.getCustomerId()));
         Notification notification = new Notification();
         if (request.getConsultantId() != null && request.getRegistrationFormId() != null) {
-            Consultant consultant = consultantRepository.findById(request.getConsultantId())
-                    .orElseThrow(() -> new NullPointerException("consultant not found - " + request.getConsultantId()));
+//            Consultant consultant = consultantRepository.findById(request.getConsultantId())
+//                    .orElseThrow(() -> new NullPointerException("consultant not found - " + request.getConsultantId()));
             RegistrationForm registrationForm = registrationFormRepository.findById(request.getRegistrationFormId())
                     .orElseThrow(() -> new NullPointerException("registrationForm not found - " + request.getRegistrationFormId()));
 

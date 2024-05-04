@@ -21,6 +21,7 @@ import java.sql.Date;
 public class PaymentApi {
     private final VNPayService vnPayService;
     private final PaymentService paymentService;
+    private final Integer MIN_AMOUNT=10000;
     @GetMapping("")
     @Operation(summary = "Get a list of Payments", description = "Return a list of Payments")
     public ResponseEntity<?> getPayment(){
@@ -54,6 +55,8 @@ public class PaymentApi {
                                            @RequestParam("orderInfo") String orderInfo,
                                            @RequestBody PaymentRequest paymentRequest,
                                            HttpServletRequest request){
+        if (amount<MIN_AMOUNT)
+            return ResponseEntity.badRequest().body("Amount must be more than"+MIN_AMOUNT);
         return ResponseEntity.ok(vnPayService.createOrder(amount,orderInfo,request,paymentRequest));
     }
     @PostMapping("/vnpay-ipn-manual")

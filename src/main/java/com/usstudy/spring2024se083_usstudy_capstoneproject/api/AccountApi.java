@@ -137,6 +137,9 @@ public class AccountApi {
 
     @GetMapping("/reset-password")
     public ResponseEntity<?> getEmail(@RequestParam String email) {
+        if (customerService.getCustomerByEmail(email)==null){
+            return ResponseEntity.badRequest().body("No such Email exist");
+        }
         EmailRequest emailRequest = new EmailRequest();
         emailRequest.setRecipient(email);
         emailRequest.setSubject("Reset password");
