@@ -19,11 +19,14 @@ public class JwtTokenProvider {
     private final String JWT_SECRET = "sk12000724fds";
 
     // Time expired of jwt token
-    private final long JWT_EXPIRATION = 604800000L;
+    private final long JWT_EXPIRATION = 30 * 60 * 1000;
+
     public String generateTokenAdmin(AdminAccountConfig adminAccountConfig) {
         Date now = new Date();
-        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
+        Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
         // create string token put in information of customer
+        System.out.println("Current Time: " + now);
+        System.out.println("Expiration Time: " + expiredDate);
         return Jwts.builder()
                 .setSubject("ADMIN TOKEN")
                 .claim("email", adminAccountConfig.getADMIN_EMAIL())
@@ -37,7 +40,7 @@ public class JwtTokenProvider {
     // Create token extract customer information to token
     public String generateToken(Customer customer) {
         Date now = new Date();
-        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
+        Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
         // create string token put in information of customer
         return Jwts.builder()
                 .setSubject(Integer.toString(customer.getCustomerId()))
@@ -49,9 +52,10 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
+
     public String generateTokenStaff(Staff staff) {
         Date now = new Date();
-        Date expiredDate = new Date(now.getMinutes() + JWT_EXPIRATION);
+        Date expiredDate = new Date(now.getTime() + JWT_EXPIRATION);
         // create string token put in information of customer
         return Jwts.builder()
                 .setSubject(Integer.toString(staff.getStaffId()))
