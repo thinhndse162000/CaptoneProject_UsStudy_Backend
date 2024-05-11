@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +41,7 @@ public class ProgramDto {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private University university;
+    private List<ProgramStageDto> programStageDtos;
 
     public static ProgramDto convert(Program program) {
         return ProgramMapper.INSTANCE.programToProgramDto(program);
