@@ -67,6 +67,6 @@ public class UniversityServiceImpl implements IUniversityService {
         List<University> universities = universityRepository.getUniversityByRequest(request);
         return universities
                 .stream()
-                .map(UniversityDto::convert).collect(Collectors.toList());
+                .map(UniversityMapper.INSTANCE::universityToUniversityDto).collect(Collectors.toList());
     }
 }
