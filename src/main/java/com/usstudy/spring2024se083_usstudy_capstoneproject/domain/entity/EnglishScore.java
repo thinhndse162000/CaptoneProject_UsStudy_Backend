@@ -23,6 +23,7 @@ public class EnglishScore {
     private float listening;
     private float writing;
     private float speaking;
+    @Column(name = "file_name")
     private String file;
     @Column(name = "create_date")
     private Date createDate;
