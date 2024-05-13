@@ -63,4 +63,8 @@ public class StudentProfile implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
     @JsonBackReference
     private List<EnglishScore> englishScores;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
+    @JsonBackReference
+    private  List<SchoolProfile> schoolProfiles;
 }
