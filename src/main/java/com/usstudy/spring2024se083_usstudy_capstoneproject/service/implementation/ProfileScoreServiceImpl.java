@@ -48,4 +48,11 @@ public class ProfileScoreServiceImpl implements ProfileScoreService {
                 profileScoreRepository.save(ProfileScoreMapper.INSTANCE.toEntity(profileScoreRequest))
         );
     }
+
+    @Override
+    public void saveListProfileScore(List<ProfileScoreRequest> profileScoreRequests) {
+        for (ProfileScoreRequest request:profileScoreRequests){
+            profileScoreRepository.save(ProfileScoreMapper.INSTANCE.toEntity(request));
+        }
+    }
 }

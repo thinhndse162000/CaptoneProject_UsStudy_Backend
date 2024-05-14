@@ -9,4 +9,5 @@ public interface ProfileScoreService {
     List<ProfileScoreDto> getAll();
     ProfileScoreDto getById(Integer id);
     ProfileScoreDto saveProfileScore(ProfileScoreRequest profileScoreRequest,Integer id);
+    void saveListProfileScore(List<ProfileScoreRequest> profileScoreRequests);
 }

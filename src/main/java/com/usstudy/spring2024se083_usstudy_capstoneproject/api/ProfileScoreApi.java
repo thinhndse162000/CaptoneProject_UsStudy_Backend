@@ -5,8 +5,11 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProfileScoreS
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v3/profile-score")
@@ -28,6 +31,16 @@ public class ProfileScoreApi {
     @PostMapping("")
     public ResponseEntity<?> postProfileScore(@RequestBody ProfileScoreRequest profileScoreRequest){
         return ResponseEntity.ok(profileScoreService.saveProfileScore(profileScoreRequest,null));
+    }
+    @Operation(summary = "Create a Profile Score", description = "Return a Profile Score")
+    @PostMapping("/list-profile-score")
+    public ResponseEntity<?> postListProfileScore(@RequestBody List<ProfileScoreRequest> profileScoreRequest){
+        try {
+            profileScoreService.saveListProfileScore(profileScoreRequest);
+            return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
     @Operation(summary = "Update a Profile Score", description = "Return a Profile Score")
     @PutMapping("/{id}")
