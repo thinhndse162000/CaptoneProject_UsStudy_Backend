@@ -1,6 +1,7 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.SchoolProfile;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,4 +33,5 @@ public class StudentProfileDto {
     private String grade;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<UploadFileDto> fileUploads;
+    private List<SchoolProfileDto> schoolProfileDtos;
 }
