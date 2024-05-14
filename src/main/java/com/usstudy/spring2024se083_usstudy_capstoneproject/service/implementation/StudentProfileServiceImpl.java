@@ -4,10 +4,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.En
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.Customer;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.EnglishScore;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.StudentProfile;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.UploadFile;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.*;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.EnglishScoreMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.StudentProfileMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
@@ -41,7 +38,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void CreateStudentProfile(StudentProfileCreateRequest request) {
+    public StudentProfileDto CreateStudentProfile(StudentProfileCreateRequest request) {
 
         StudentProfile studentProfile = new StudentProfile();
         UploadFile fileUpload = new UploadFile();
@@ -63,7 +60,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setEnglishLevel(request.getEnglishLevel());
         studentProfile.setGrade(request.getGrade());
 
-        studentProfileRepository.save(studentProfile);
+        StudentProfile result= studentProfileRepository.save(studentProfile);
 
         if (!(request.getFileString() == null)) {
             for (String file : request.getFileString()) {
@@ -79,10 +76,11 @@ public class StudentProfileServiceImpl implements StudentProfileService {
             englishScore.setCreateDate(new Date(System.currentTimeMillis()));
             englishScoreRepository.save(englishScore);
         }
+        return StudentProfileMapper.INSTANCE.toDto(result);
     }
 
     @Override
-    public void UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request) {
+    public StudentProfileDto UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request) {
         StudentProfile studentProfile = studentProfileRepository.findById(studentProfileId)
                 .orElseThrow(() -> new NullPointerException("Account not found - " + studentProfileId));
 
@@ -102,7 +100,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         studentProfile.setGrade(request.getGrade());
 
         studentProfile.setCreateDate(new Date(System.currentTimeMillis()));
-        studentProfileRepository.save(studentProfile);
+        StudentProfile result=studentProfileRepository.save(studentProfile);
+        return StudentProfileMapper.INSTANCE.toDto(result);
     }
 
     @Override

@@ -28,8 +28,7 @@ public class StudentProfileApi {
     @Operation(summary = "Create Student Profile ", description = "Customer Create Student Profile")
     @PostMapping("/")
     public ResponseEntity<?> createStudentProfile(@RequestBody StudentProfileCreateRequest studentProfileCreateRequest) {
-        studentProfileService.CreateStudentProfile(studentProfileCreateRequest);
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(studentProfileService.CreateStudentProfile(studentProfileCreateRequest));
     }
 
     @Operation(summary = "Get Student Profile by Id ", description = "Returns student profile by id")
@@ -47,8 +46,7 @@ public class StudentProfileApi {
     @Operation(summary = "Update Student Profile ", description = "Update Student Profile ")
     @PutMapping("{id}")
     public ResponseEntity<?> updateStudentProfile(@PathVariable Integer id, @RequestBody StudentProfileUpdateRequest request) {
-        studentProfileService.UpdateStudentProfile(id, request);
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(studentProfileService.UpdateStudentProfile(id, request));
     }
 
     @GetMapping("/")

@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentProfileService {
-    void CreateStudentProfile(StudentProfileCreateRequest request);
+    StudentProfileDto CreateStudentProfile(StudentProfileCreateRequest request);
 
-    void UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request);
+    StudentProfileDto UpdateStudentProfile(Integer studentProfileId, StudentProfileUpdateRequest request);
 
     Iterable<StudentProfileDto> getAllByCustomerId(Integer customerId);
 
