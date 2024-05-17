@@ -14,24 +14,17 @@ import java.sql.Date;
 @AllArgsConstructor
 @Setter
 @Getter
-public class EnglishScore {
+public class Certificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "english_score_id")
-    private Integer englishScoreId;
-    private float reading;
-    private float listening;
-    private float writing;
-    private float speaking;
+    @Column(name = "certificate_id")
+    private Integer certificateId;
+    @Column(name = "certificate_value")
+    private float certificateValue;
     @Column(name = "file_name")
     private String file;
-    @Column(name = "create_date")
-    private Date createDate;
-    @Column(name = "update_date")
-    private Date updateDate;
-    @Column(name = "date_of_exam")
-    private Date dateOfExam;
-    private Integer status;
+    @Column(name = "issue_date")
+    private Date issueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_profile_id", nullable = false)

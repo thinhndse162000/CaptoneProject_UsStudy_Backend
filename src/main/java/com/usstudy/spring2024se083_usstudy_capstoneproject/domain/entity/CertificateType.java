@@ -23,5 +23,5 @@ public class CertificateType {
     private String certificateName;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "certificateType")
     @JsonBackReference
-    private List<EnglishScore> englishScores;
+    private List<Certificate> certificates;
 }

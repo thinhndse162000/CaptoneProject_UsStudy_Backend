@@ -1,14 +1,11 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.EnglishScoreRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileCreateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.StudentProfileUpdateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.StudentProfileDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.*;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.EnglishScoreMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.StudentProfileMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.CustomerRepository;
-import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.EnglishScoreRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.FileUploadRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.StudentProfileRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.StudentProfileService;
@@ -24,15 +21,13 @@ import java.util.stream.Collectors;
 public class StudentProfileServiceImpl implements StudentProfileService {
 
     private final StudentProfileRepository studentProfileRepository;
-    private final EnglishScoreRepository englishScoreRepository;
 
     private final CustomerRepository customerRepository;
     private final FileUploadRepository fileUploadRepository;
 
     @Autowired
-    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, EnglishScoreRepository englishScoreRepository, CustomerRepository customerRepository, FileUploadRepository fileUploadRepository) {
+    public StudentProfileServiceImpl(StudentProfileRepository studentProfileRepository, CustomerRepository customerRepository, FileUploadRepository fileUploadRepository) {
         this.studentProfileRepository = studentProfileRepository;
-        this.englishScoreRepository = englishScoreRepository;
         this.customerRepository = customerRepository;
         this.fileUploadRepository = fileUploadRepository;
     }
@@ -69,12 +64,6 @@ public class StudentProfileServiceImpl implements StudentProfileService {
                 fileUpload.setFileAttach(file);
                 fileUploadRepository.save(fileUpload);
             }
-        }
-        if (request.getEnglishScoreRequest()!=null){
-            EnglishScore englishScore= EnglishScoreMapper.INSTANCE.toEntity(request.getEnglishScoreRequest());
-            englishScore.setStudentProfile(studentProfile);
-            englishScore.setCreateDate(new Date(System.currentTimeMillis()));
-            englishScoreRepository.save(englishScore);
         }
         return StudentProfileMapper.INSTANCE.toDto(result);
     }

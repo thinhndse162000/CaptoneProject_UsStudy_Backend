@@ -62,7 +62,7 @@ public class StudentProfile implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
     @JsonBackReference
-    private List<EnglishScore> englishScores;
+    private List<Certificate> certificates;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentProfile")
     @JsonBackReference

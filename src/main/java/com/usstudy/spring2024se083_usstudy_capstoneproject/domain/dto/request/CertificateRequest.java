@@ -11,16 +11,11 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnglishScoreRequest {
-    private float reading;
-    private float listening;
-    private float writing;
-    private float speaking;
+public class CertificateRequest {
+    private Integer certificateId;
+    private float certificateValue;
     private String file;
-//    private Date createDate;
-//    private Date updateDate;
-    private Date dateOfExam;
-    private Integer status;
+    private Date issueDate;
 
     private Integer studentProfileId;
     private Integer certificateTypeId;
