@@ -54,4 +54,8 @@ public class ProgramApplication implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programApplication")
     @JsonBackReference
     private List<ApplicationFee> applicationFees;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programApplication")
+    @JsonBackReference
+    private List<Document> documents;
 }
