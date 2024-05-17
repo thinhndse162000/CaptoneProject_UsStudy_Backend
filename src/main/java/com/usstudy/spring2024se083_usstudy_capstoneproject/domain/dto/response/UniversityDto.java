@@ -25,6 +25,7 @@ public class UniversityDto {
     private String slogan;
     private String website;
     private String email;
+    private float admission_rate;
 
 //    public static UniversityDto convert(University university) {
 //        return UniversityMapper.INSTANCE.universityToUniversityDto(university);

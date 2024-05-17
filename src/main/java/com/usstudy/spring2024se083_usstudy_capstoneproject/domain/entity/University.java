@@ -30,6 +30,7 @@ public class University {
     private String slogan;
     private String website;
     private String email;
+    private float admission_rate;
     //FK university type here
 //    @Column(name = "university_type_id")
 //    private Integer universityTypeId;
