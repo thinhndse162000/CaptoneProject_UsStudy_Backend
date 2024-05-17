@@ -25,4 +25,8 @@ public class DocumentType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentType")
     @JsonBackReference
     private List<Document> documents;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentType")
+    @JsonBackReference
+    private List<ProgramDocument> programDocuments;
 }
