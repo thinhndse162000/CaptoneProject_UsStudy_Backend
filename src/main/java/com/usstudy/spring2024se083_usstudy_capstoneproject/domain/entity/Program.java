@@ -88,5 +88,8 @@ public class Program implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
     @JsonBackReference
     private List<ProgramCertificate> programCertificates;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "program")
+    @JsonBackReference
     private List<ProgramDocument> programDocuments;
 }
