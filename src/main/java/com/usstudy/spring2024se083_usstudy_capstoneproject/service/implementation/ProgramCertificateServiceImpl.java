@@ -44,4 +44,9 @@ public class ProgramCertificateServiceImpl implements ProgramCertificateService 
                 .map(ProgramCertificateMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ProgramCertificateDto getById(Integer id) {
+        return ProgramCertificateMapper.INSTANCE.toDto(repository.findById(id).orElseThrow());
+    }
 }

@@ -34,4 +34,9 @@ public class ProgramCertificateApi {
     public ResponseEntity<List<ProgramCertificateDto>> getAllProgramCertificate() {
         return ResponseEntity.ok(service.getAll());
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<ProgramCertificateDto> getProgramCertificateByid(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
 }
