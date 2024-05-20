@@ -32,7 +32,7 @@ public class ProfileScoreApi {
     public ResponseEntity<?> postProfileScore(@RequestBody ProfileScoreRequest profileScoreRequest){
         return ResponseEntity.ok(profileScoreService.saveProfileScore(profileScoreRequest,null));
     }
-    @Operation(summary = "Create a Profile Score", description = "Return a Profile Score")
+    @Operation(summary = "Create a list of Profile Score", description = "")
     @PostMapping("/list-profile-score")
     public ResponseEntity<?> postListProfileScore(@RequestBody List<ProfileScoreRequest> profileScoreRequest){
         try {

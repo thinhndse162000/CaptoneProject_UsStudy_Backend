@@ -78,6 +78,15 @@ public class ProfileScoreServiceImpl implements ProfileScoreService {
     public void saveListProfileScore(List<ProfileScoreRequest> profileScoreRequests) {
         for (ProfileScoreRequest request:profileScoreRequests){
             profileScoreRepository.save(ProfileScoreMapper.INSTANCE.toEntity(request));
+
+            float sumScore=profileScoreRepository.getSumScoreBySchoolProfileId(request.getSchoolProfileId());
+            Integer profileScoreCount= profileScoreRepository.countProfileScoreBySchoolProfileId(request.getSchoolProfileId());
+            //get school profile where == SchoolProfileId and set gpa
+            SchoolProfile schoolProfile=schoolProfileRepository.findById(request.getSchoolProfileId())
+                    .orElseThrow(() -> new NullPointerException("No School Profile id - "+request.getSchoolProfileId()));
+            schoolProfile.setGpa(sumScore/profileScoreCount);
+            //update school profile to database
+            schoolProfileRepository.save(schoolProfile);
         }
     }
 }
