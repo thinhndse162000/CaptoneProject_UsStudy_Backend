@@ -30,7 +30,7 @@ public class SchoolProfile {
     private Date createDate;
     @Column(name = "update_date")
     private Date updateDate;
-    private float gpa;
+    private Float gpa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_profile_id", nullable = false)

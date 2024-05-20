@@ -20,6 +20,6 @@ public class SchoolProfileDto {
     private String img;
     private Date createDate;
     private Date updateDate;
-    private float gpa;
+    private Float gpa;
     private List<ProfileScoreDto> profileScoreDtos;
 }
