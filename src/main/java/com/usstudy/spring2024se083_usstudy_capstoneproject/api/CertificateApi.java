@@ -39,7 +39,7 @@ public class CertificateApi {
         return ResponseEntity.ok(certificateService.saveCertificate(certificateRequest,null));
     }
     @Operation(summary = "Create a list Certificate", description = "")
-    @PostMapping("list-certificate")
+    @PostMapping("/list-certificate")
     public ResponseEntity<?> postListCertificate(@RequestBody List<CertificateRequest> certificateRequests) {
         return ResponseEntity.ok(certificateService.saveListCertificate(certificateRequests));
     }
