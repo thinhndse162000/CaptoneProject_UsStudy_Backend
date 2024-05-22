@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v3/certificates")
 @RequiredArgsConstructor
@@ -31,9 +33,14 @@ public class CertificateApi {
                                             @RequestBody CertificateRequest certificateRequest) {
         return ResponseEntity.ok(certificateService.saveCertificate(certificateRequest,id));
     }
-    @Operation(summary = "Create a Certificate by id", description = "Return new Certificate")
+    @Operation(summary = "Create a Certificate", description = "Return new Certificate")
     @PostMapping("")
     public ResponseEntity<?> postCertificate(@RequestBody CertificateRequest certificateRequest) {
         return ResponseEntity.ok(certificateService.saveCertificate(certificateRequest,null));
+    }
+    @Operation(summary = "Create a list Certificate", description = "")
+    @PostMapping("")
+    public ResponseEntity<?> postListCertificate(@RequestBody List<CertificateRequest> certificateRequests) {
+        return ResponseEntity.ok(certificateService.saveListCertificate(certificateRequests));
     }
 }

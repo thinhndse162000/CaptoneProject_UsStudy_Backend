@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,5 +47,18 @@ public class CertificateServiceImpl implements CertificateService {
         return CertificateMapper.INSTANCE.toDto(
                 certificateRepository.save(CertificateMapper.INSTANCE.toEntity(certificateRequest))
         );
+    }
+
+    @Override
+    public List<CertificateDto> saveListCertificate(List<CertificateRequest> certificateRequests) {
+        List<CertificateDto> result=new ArrayList<>();
+        for (CertificateRequest request : certificateRequests){
+            result.add(
+                    CertificateMapper.INSTANCE.toDto(
+                            certificateRepository.save(CertificateMapper.INSTANCE.toEntity(request))
+                    )
+            );
+        }
+        return result;
     }
 }

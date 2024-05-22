@@ -9,4 +9,5 @@ public interface CertificateService {
     List<CertificateDto> getAll();
     CertificateDto getById(Integer id);
     CertificateDto saveCertificate(CertificateRequest certificateRequest,Integer id);
+    List<CertificateDto> saveListCertificate(List<CertificateRequest> certificateRequests);
 }
