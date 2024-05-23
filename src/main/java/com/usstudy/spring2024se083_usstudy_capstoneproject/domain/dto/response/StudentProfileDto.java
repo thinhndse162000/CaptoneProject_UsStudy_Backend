@@ -34,4 +34,5 @@ public class StudentProfileDto {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<UploadFileDto> fileUploads;
     private List<SchoolProfileDto> schoolProfileDtos;
+    private List<CertificateDto> certificateDtos;
 }
