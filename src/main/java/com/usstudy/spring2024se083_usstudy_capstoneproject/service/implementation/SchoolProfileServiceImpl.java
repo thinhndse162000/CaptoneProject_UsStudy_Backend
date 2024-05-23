@@ -42,4 +42,11 @@ public class SchoolProfileServiceImpl implements SchoolProfileService {
                 schoolProfileRepository.save(schoolProfile)
         );
     }
+
+    @Override
+    public List<SchoolProfileDto> getByStudentProfileId(Integer id) {
+        return schoolProfileRepository.getAllByStudentProfileStudentProfileId(id)
+                .stream().map(SchoolProfileMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
 }

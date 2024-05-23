@@ -24,6 +24,11 @@ public class SchoolProfileApi {
     public ResponseEntity<?> getBySchoolProfileId(@PathVariable Integer id) {
         return ResponseEntity.ok(schoolProfileService.getById(id));
     }
+    @Operation(summary = "Get a list School Profile by Student Profile id", description = "Return a list of School Profile")
+    @GetMapping("/student-profile/{id}")
+    public ResponseEntity<?> getByStudentProfileId(@PathVariable Integer id) {
+        return ResponseEntity.ok(schoolProfileService.getByStudentProfileId(id));
+    }
     @Operation(summary = "Create a School Profile", description = "Return a School Profile")
     @PostMapping("")
     public ResponseEntity<?> postSchoolProfile(@RequestBody SchoolProfileRequest schoolProfileRequest){

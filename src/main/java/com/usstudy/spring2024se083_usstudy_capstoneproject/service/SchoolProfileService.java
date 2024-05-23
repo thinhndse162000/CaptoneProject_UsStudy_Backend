@@ -10,4 +10,5 @@ public interface SchoolProfileService {
     List<SchoolProfileDto> getAll();
     SchoolProfileDto getById(Integer id);
     SchoolProfileDto saveSchoolProfile(SchoolProfileRequest schoolProfileRequest);
+    List<SchoolProfileDto> getByStudentProfileId(Integer id);
 }
