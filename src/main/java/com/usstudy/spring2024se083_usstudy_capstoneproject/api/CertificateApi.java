@@ -27,6 +27,11 @@ public class CertificateApi {
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(certificateService.getById(id));
     }
+    @Operation(summary = "Get a list of Certificate by Student Profile id", description = "Return a list of Certificate")
+    @GetMapping("student-profile/{id}")
+    public ResponseEntity<?> getByStudentProfileId(@PathVariable Integer id) {
+        return ResponseEntity.ok(certificateService.getByStudentProfileId(id));
+    }
     @Operation(summary = "Update a Certificate by id", description = "Return updated Certificate")
     @PutMapping("/{id}")
     public ResponseEntity<?> putCertificate(@PathVariable Integer id,

@@ -61,4 +61,11 @@ public class CertificateServiceImpl implements CertificateService {
         }
         return result;
     }
+
+    @Override
+    public List<CertificateDto> getByStudentProfileId(Integer id) {
+        return certificateRepository.getAllByStudentProfileStudentProfileId(id)
+                .stream().map(CertificateMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
 }
