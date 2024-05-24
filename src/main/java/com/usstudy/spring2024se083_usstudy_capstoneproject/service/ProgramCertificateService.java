@@ -14,4 +14,5 @@ public interface ProgramCertificateService {
     List<ProgramCertificateDto> getAll();
 
     ProgramCertificateDto getById(Integer id);
+    List<ProgramCertificateDto> getByProgramId(Integer id);
 }

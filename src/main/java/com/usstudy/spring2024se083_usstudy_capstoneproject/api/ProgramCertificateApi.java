@@ -3,6 +3,7 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramCertificateRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramCertificateDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramCertificateService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ProgramCertificateApi {
     @GetMapping("/{id}")
     public ResponseEntity<ProgramCertificateDto> getProgramCertificateByid(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getById(id));
+    }
+    @GetMapping("/program/{id}")
+    @Operation(summary = "Get a list of Program Certificate by Program id", description = "Return a list of Program Certificate")
+    public ResponseEntity<?> getProgramCertificateByProgramId(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getByProgramId(id));
     }
 }
