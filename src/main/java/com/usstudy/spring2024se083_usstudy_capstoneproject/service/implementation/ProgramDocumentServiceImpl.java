@@ -30,4 +30,11 @@ public class ProgramDocumentServiceImpl implements ProgramDocumentService {
                         .orElseThrow(() -> new NullPointerException("No Program Document id - "+id))
         );
     }
+
+    @Override
+    public List<ProgramDocumentDto> getByProgramId(Integer id) {
+        return programDocumentRepository.getAllByProgramProgramId(id)
+                .stream().map(ProgramDocumentMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProgramDocumentService {
     List<ProgramDocumentDto> getAll();
     ProgramDocumentDto getById(Integer id);
+    List<ProgramDocumentDto> getByProgramId(Integer id);
 }
