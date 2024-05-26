@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.google.api.client.util.DateTime;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.DocumentRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.DocumentDto;
@@ -11,6 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,14 +42,15 @@ public class DocumentServiceImpl implements DocumentService {
             Document document=documentRepository.findById(id)
                     .orElseThrow(() -> new NullPointerException("No Document id - "+id));
             MergeRequest.mergeIgnoreNullValue(documentRequest,document);
+            document.setUpdateDate(new Date(System.currentTimeMillis()));
             return DocumentMapper.INSTANCE.toDto(
                     documentRepository.save(document)
             );
         }
+        Document document= DocumentMapper.INSTANCE.toEntity(documentRequest);
+        document.setUpdateDate(new Date(System.currentTimeMillis()));
         return DocumentMapper.INSTANCE.toDto(
-                documentRepository.save(
-                        DocumentMapper.INSTANCE.toEntity(documentRequest)
-                )
+                documentRepository.save(document)
         );
     }
 
