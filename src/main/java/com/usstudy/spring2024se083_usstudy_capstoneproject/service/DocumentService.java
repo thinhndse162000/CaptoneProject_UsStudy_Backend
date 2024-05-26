@@ -9,4 +9,5 @@ public interface DocumentService {
     List<DocumentDto> getAll();
     DocumentDto getById(Integer id);
     DocumentDto saveDocument(DocumentRequest documentRequest,Integer id);
+    List<DocumentDto> getByProgramApplicationId(Integer id);
 }

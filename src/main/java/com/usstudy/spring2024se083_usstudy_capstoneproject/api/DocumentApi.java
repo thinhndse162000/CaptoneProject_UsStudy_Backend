@@ -29,6 +29,11 @@ public class DocumentApi {
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(documentService.getById(id));
     }
+    @Operation(summary = "Get a list of Document by program application id", description = "Return a list of Document")
+    @GetMapping("/program-application/{id}")
+    public ResponseEntity<?> getByProgramApplicationId(@PathVariable Integer id) {
+        return ResponseEntity.ok(documentService.getByProgramApplicationId(id));
+    }
 
     @Operation(summary = "Create New Document", description = "Return a new Document")
     @PostMapping("")

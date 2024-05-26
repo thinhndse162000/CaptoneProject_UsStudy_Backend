@@ -50,4 +50,11 @@ public class DocumentServiceImpl implements DocumentService {
                 )
         );
     }
+
+    @Override
+    public List<DocumentDto> getByProgramApplicationId(Integer id) {
+        return documentRepository.getAllByProgramApplicationProgramApplicationId(id)
+                .stream().map(DocumentMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
 }
