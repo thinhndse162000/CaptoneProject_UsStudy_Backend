@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SemesterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ISemesterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,5 +25,10 @@ public class SemesterApi {
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(semesterService.findSemesterById(id));
+    }
+    @Operation(summary = "Create a semester", description = "Return a Semester")
+    @PostMapping("/semester")
+    public ResponseEntity<?> postSemester(@RequestBody SemesterRequest semesterRequest) {
+        return ResponseEntity.ok(semesterService.saveSemester(semesterRequest));
     }
 }

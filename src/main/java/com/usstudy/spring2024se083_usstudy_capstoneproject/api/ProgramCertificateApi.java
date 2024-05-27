@@ -22,12 +22,12 @@ public class ProgramCertificateApi {
     private final ProgramCertificateService service;
 
     @PostMapping("/program-certificate")
-    public ResponseEntity<ProgramCertificateDto> postProgramCertificate(ProgramCertificateRequest request) {
+    public ResponseEntity<ProgramCertificateDto> postProgramCertificate(@RequestBody ProgramCertificateRequest request) {
         return ResponseEntity.ok(service.createProgramCertificate(request));
     }
     @PostMapping("")
     @Operation(summary = "Create a list of Program Certificate", description = "Return a list of Program Certificate")
-    public ResponseEntity<?> postListProgramCertificate(List<ProgramCertificateRequest> request) {
+    public ResponseEntity<?> postListProgramCertificate(@RequestBody List<ProgramCertificateRequest> request) {
         return ResponseEntity.ok(service.saveListProgramCertificate(request));
     }
 

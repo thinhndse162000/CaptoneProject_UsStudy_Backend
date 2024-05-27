@@ -1,14 +1,14 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramDocumentRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramDocumentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v3/program-documents")
@@ -32,5 +32,10 @@ public class ProgramDocumentApi {
     @GetMapping("/program/{id}")
     public ResponseEntity<?> getByProgramId(@PathVariable Integer id) {
         return ResponseEntity.ok(programDocumentService.getByProgramId(id));
+    }
+    @Operation(summary = "Create a list of Program Documents", description = "Return a list of Program Documents")
+    @PostMapping("")
+    public ResponseEntity<?> postListProgramDocument(@RequestBody List<ProgramDocumentRequest> programDocumentRequests) {
+        return ResponseEntity.ok(programDocumentService.saveListProgramDocument(programDocumentRequests));
     }
 }

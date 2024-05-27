@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.SemesterRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.SemesterDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.SemesterMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.SemesterRepository;
@@ -29,5 +30,14 @@ public class SemesterServiceImpl implements ISemesterService {
     public Optional findSemesterById(int id) {
         return semesterRepository.findById(id)
                 .map(SemesterMapper.INSTANCE::toDto);
+    }
+
+    @Override
+    public SemesterDto saveSemester(SemesterRequest semesterRequest) {
+        return SemesterMapper.INSTANCE.toDto(
+                semesterRepository.save(
+                        SemesterMapper.INSTANCE.toEntity(semesterRequest)
+                )
+        );
     }
 }
