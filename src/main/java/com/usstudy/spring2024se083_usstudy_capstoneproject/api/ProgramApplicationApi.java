@@ -23,6 +23,11 @@ public class ProgramApplicationApi {
     public ResponseEntity<?> getByProgramApplicationId(@PathVariable Integer id) {
         return ResponseEntity.ok(programApplicationService.getById(id));
     }
+    @Operation(summary = "Get a list of Program Application by staff id", description = "Return a list of program application")
+    @GetMapping("/staff/{id}")
+    public ResponseEntity<?> getByStaffId(@PathVariable Integer id) {
+        return ResponseEntity.ok(programApplicationService.getByStaffId(id));
+    }
 
     @Operation(summary = "Get a list of Program Application", description = "Return a list of program application")
     @GetMapping("")

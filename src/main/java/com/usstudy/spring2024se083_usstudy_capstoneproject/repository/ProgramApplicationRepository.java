@@ -14,4 +14,9 @@ public interface ProgramApplicationRepository extends JpaRepository<ProgramAppli
 
     @Query("SELECT pa FROM ProgramApplication pa JOIN pa.studentProfile sp WHERE sp.customer.customerId = :id")
     List<ProgramApplication> getProgramApplicationByCustomerId(Integer id);
+    @Query("SELECT pa FROM ProgramApplication pa JOIN pa.program p " +
+            "JOIN p.university u " +
+            "JOIN u.staff s " +
+            "WHERE u.staff.staffId = :id")
+    List<ProgramApplication> getAllByStaffId(Integer id);
 }

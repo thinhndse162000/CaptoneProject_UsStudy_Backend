@@ -106,4 +106,11 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
                 .map(ProgramApplicationDto::convert)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProgramApplicationDto> getByStaffId(Integer id) {
+        return programApplicationRepository.getAllByStaffId(id)
+                .stream().map(ProgramApplicationMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
+    }
 }
