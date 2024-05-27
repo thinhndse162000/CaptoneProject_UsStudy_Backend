@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProgramCertificateService {
 
     ProgramCertificateDto createProgramCertificate(ProgramCertificateRequest request);
+    List<ProgramCertificateDto> saveListProgramCertificate(List<ProgramCertificateRequest> certificateRequests);
 
     ProgramCertificateDto updateProgramCertificate(ProgramCertificateRequest request, Integer id);
 

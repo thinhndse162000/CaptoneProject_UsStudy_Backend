@@ -21,9 +21,14 @@ public class ProgramCertificateApi {
     @Autowired
     private final ProgramCertificateService service;
 
-    @PostMapping()
+    @PostMapping("/program-certificate")
     public ResponseEntity<ProgramCertificateDto> postProgramCertificate(ProgramCertificateRequest request) {
         return ResponseEntity.ok(service.createProgramCertificate(request));
+    }
+    @PostMapping("")
+    @Operation(summary = "Create a list of Program Certificate", description = "Return a list of Program Certificate")
+    public ResponseEntity<?> postListProgramCertificate(List<ProgramCertificateRequest> request) {
+        return ResponseEntity.ok(service.saveListProgramCertificate(request));
     }
 
     @PutMapping("/{id}")

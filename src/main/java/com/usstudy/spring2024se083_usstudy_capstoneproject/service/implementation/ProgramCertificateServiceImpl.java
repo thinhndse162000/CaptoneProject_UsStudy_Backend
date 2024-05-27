@@ -9,6 +9,7 @@ import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramCer
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramCertificateService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,19 @@ public class ProgramCertificateServiceImpl implements ProgramCertificateService 
         return ProgramCertificateMapper
                 .INSTANCE
                 .toDto(repository.save(ProgramCertificateMapper.INSTANCE.toEntity(request)));
+    }
+
+    @Override
+    public List<ProgramCertificateDto> saveListProgramCertificate(List<ProgramCertificateRequest> certificateRequests) {
+        List<ProgramCertificateDto> result=new ArrayList<>();
+        for (ProgramCertificateRequest request:certificateRequests){
+            result.add(
+                    ProgramCertificateMapper.INSTANCE.toDto(
+                            repository.save(ProgramCertificateMapper.INSTANCE.toEntity(request))
+                    )
+            );
+        }
+        return result;
     }
 
     @Override
