@@ -11,4 +11,5 @@ public interface ProgramFeeService {
     List<ProgramFeeDto> getAll();
     Optional findById(Integer id);
     List<ProgramFeeDto> findByProgramId(Integer programId);
+    List<ProgramFeeDto> saveListProgramFee(List<ProgramFeeRequest> programFeeRequests);
 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v3/program-fees")
 @RequiredArgsConstructor
@@ -30,9 +32,14 @@ public class ProgramFeeApi {
         return ResponseEntity.ok(programFeeService.getAll());
     }
     @Operation(summary = "Create a Program Fee", description = "Return a program fee if success")
-    @PostMapping("")
+    @PostMapping("/program-fee")
     public ResponseEntity<?> postProgramFee(@RequestBody ProgramFeeRequest programFeeRequest) {
         return ResponseEntity.ok(programFeeService.saveProgramFee(programFeeRequest,null));
+    }
+    @Operation(summary = "Create a list of Program Fee", description = "Return a list of program fee if success")
+    @PostMapping("")
+    public ResponseEntity<?> postListProgramFee(@RequestBody List<ProgramFeeRequest> programFeeRequest) {
+        return ResponseEntity.ok(programFeeService.saveListProgramFee(programFeeRequest));
     }
     @Operation(summary = "Update a Program Fee", description = "Return a program fee if success")
     @PutMapping("/{id}")
