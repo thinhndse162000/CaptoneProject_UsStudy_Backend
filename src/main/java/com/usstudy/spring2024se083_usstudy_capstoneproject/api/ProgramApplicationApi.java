@@ -46,7 +46,7 @@ public class ProgramApplicationApi {
                     " return null if the program don't have any program stage")
     @PostMapping("")
     public ResponseEntity<?> postProgramApplication(@RequestBody ProgramApplicationRequest programApplicationRequest) {
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,null, null));
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,null));
     }
 
     @Operation(summary = "Update an existed Program Application",
@@ -55,13 +55,12 @@ public class ProgramApplicationApi {
                     "or when stageNo bigger than that program list ProgramStage size")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramApplication(@PathVariable Integer id,
-                                                   @RequestParam Integer applyStageId,
                                                    @RequestBody ProgramApplicationRequest programApplicationRequest) {
 //        programApplicationRequest.setProgramApplicationId(id);
 //        if (!programApplicationService.getById(id).isEmpty()) {
 //            return ResponseEntity.badRequest().body("No Program Application with id " + id + " found");
 //        }
-        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,id, applyStageId));
+        return ResponseEntity.ok(programApplicationService.saveProgramApplication(programApplicationRequest,id));
     }
 
     @GetMapping("/customer/{id}")
