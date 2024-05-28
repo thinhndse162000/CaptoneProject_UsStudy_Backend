@@ -22,6 +22,7 @@ public class ProgramApplicationDto {
     private Date updateDate;
     private Integer studentProfileId;
     private Integer programId;
+    private Integer status;
     //private Integer applyStageId;
 
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

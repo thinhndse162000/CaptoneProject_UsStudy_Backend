@@ -36,6 +36,7 @@ public class ProgramApplication implements Serializable {
     @JoinColumn(name = "program_id", nullable = false)
     @JsonManagedReference
     private Program program;
+    private Integer status;
 
     //    @Column(name = "apply_stage_id")
 //    private Integer applyStageId;

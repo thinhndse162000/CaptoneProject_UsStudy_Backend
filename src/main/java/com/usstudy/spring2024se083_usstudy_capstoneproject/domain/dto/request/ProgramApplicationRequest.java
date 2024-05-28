@@ -16,5 +16,6 @@ public class ProgramApplicationRequest {
     private Date updateDate;
     private Integer studentProfileId;
     private Integer programId;
+    private Integer status;
     //private Integer applyStageId;
 }

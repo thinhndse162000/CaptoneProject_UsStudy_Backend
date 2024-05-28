@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.configuration.MergeRequest.MergeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramApplicationRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramApplicationDto;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ApplyStage;
@@ -57,22 +58,22 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
         if (programApplicationId!=null){
             ProgramApplication programApplication=programApplicationRepository.findById(programApplicationId)
                     .orElseThrow(() -> new NullPointerException("No Program Application -"+programApplicationId));
-            //get new apply stage
-            ApplyStage applyStage =applyStageRepository.findById(applyStageId)
-                    .orElseThrow(() -> new NullPointerException("No Apply Stage -"+applyStageId));
-            //set status and save old apply stage
-            ApplyStage oldApplyStage=applyStageRepository
-                    .getApplyStageByProgramApplicationProgramApplicationIdAndStatus(programApplication.getProgramApplicationId(),1);
-            oldApplyStage.setStatus(2);
-            oldApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-            oldApplyStage.setProgramApplication(programApplication);
-            applyStageRepository.save(oldApplyStage);
-            //set status and save new apply stage
-            applyStage.setStatus(1);
-            applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
-            applyStage.setProgramApplication(programApplication);
-            applyStageRepository.save(applyStage);
-
+//            //get new apply stage
+//            ApplyStage applyStage =applyStageRepository.findById(applyStageId)
+//                    .orElseThrow(() -> new NullPointerException("No Apply Stage -"+applyStageId));
+//            //set status and save old apply stage
+//            ApplyStage oldApplyStage=applyStageRepository
+//                    .getApplyStageByProgramApplicationProgramApplicationIdAndStatus(programApplication.getProgramApplicationId(),1);
+//            oldApplyStage.setStatus(2);
+//            oldApplyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+//            oldApplyStage.setProgramApplication(programApplication);
+//            applyStageRepository.save(oldApplyStage);
+//            //set status and save new apply stage
+//            applyStage.setStatus(1);
+//            applyStage.setUpdateDate(new Date(System.currentTimeMillis()));
+//            applyStage.setProgramApplication(programApplication);
+//            applyStageRepository.save(applyStage);
+            MergeRequest.mergeIgnoreNullValue(programApplicationRequest,programApplication);
             programApplication.setUpdateDate(new Date(System.currentTimeMillis()));
             return ProgramApplicationMapper.INSTANCE.toDto(
                     //programApplicationRepository.save(programApplication)
@@ -80,6 +81,7 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
             );
         }
         else {
+            programApplicationRequest.setStatus(0);
             ProgramApplication resultProgramApplication=programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest));
             //create and save list apply stage
             for (ProgramStage programStage:programStageList){
