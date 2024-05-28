@@ -28,6 +28,8 @@ public interface ProgramMapper {
     Program toEntity(ProgramRequest programRequest);
     @Named("MapProgramStageDto")
     default List<ProgramStageDto> mapProgramStageDto(List<ProgramStage> programStages){
+        if (programStages==null)
+            return null;
         return programStages.stream().map(ProgramStageMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
