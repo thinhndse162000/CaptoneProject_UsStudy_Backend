@@ -29,7 +29,9 @@ public class NotificationServiceImpl implements NotificationService {
     private final ProgramRepository programRepository;
     private final ApplyStageRepository applyStageRepository;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository, FirebaseMessaging firebaseMessaging, CustomerRepository customerRepository, ConsultantRepository consultantRepository, RegistrationFormRepository registrationFormRepository, ProgramRepository programRepository, ApplyStageRepository applyStageRepository) {
+    private final ProgramApplicationRepository programApplicationRepository;
+
+    public NotificationServiceImpl(NotificationRepository notificationRepository, FirebaseMessaging firebaseMessaging, CustomerRepository customerRepository, ConsultantRepository consultantRepository, RegistrationFormRepository registrationFormRepository, ProgramRepository programRepository, ApplyStageRepository applyStageRepository, ProgramApplicationRepository programApplicationRepository) {
         this.notificationRepository = notificationRepository;
 //        this.firebaseMessaging = firebaseMessaging;
         this.customerRepository = customerRepository;
@@ -37,6 +39,7 @@ public class NotificationServiceImpl implements NotificationService {
         this.registrationFormRepository = registrationFormRepository;
         this.programRepository = programRepository;
         this.applyStageRepository = applyStageRepository;
+        this.programApplicationRepository = programApplicationRepository;
     }
 
 
@@ -98,6 +101,16 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setCustomer(customer);
             notification.setTitle("Ứng Tuyển Hồ Sơ Thành Công");
             notification.setContent("Bạn vừa nộp hồ sơ vào " + program.getNameProgram() + " Thành công");
+            notificationRepository.save(notification);
+        } else if (request.getProgramApplicationId() != null) {
+            ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
+                    .orElseThrow(() -> new NullPointerException("Program application not found - " + request.getProgramApplicationId()));
+
+            notification.setNotificationId(0);
+            notification.setDate(new Date(System.currentTimeMillis()));
+            notification.setCustomer(customer);
+            notification.setTitle("Bạn đã cập nhập hồ sơ");
+            notification.setContent("Bạn vừa cập nhập " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
         }
         return notification;

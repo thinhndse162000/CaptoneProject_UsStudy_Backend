@@ -16,4 +16,5 @@ public class NotificationCreateRequest {
     private Integer registrationFormId;
     private Integer programId;
     private Integer applyStageId;
+    private Integer programApplicationId;
 }
