@@ -1,8 +1,13 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.service.implementation;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramStageProgramFeeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramStageRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.response.ProgramStageDto;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramFee;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.ProgramStage;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramFeeMapper;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.utils.ProgramStageMapper;
+import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramFeeRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.repository.ProgramStageRepository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramStageService;
 import jakarta.transaction.Transactional;
@@ -19,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProgramStageServiceImpl implements ProgramStageService {
     private final ProgramStageRepository programStageRepository;
+    private final ProgramFeeRepository programFeeRepository;
 
     @Override
     public Optional findByProgramStageId(Integer id) {
@@ -64,6 +70,33 @@ public class ProgramStageServiceImpl implements ProgramStageService {
             result.add(ProgramStageMapper.INSTANCE.toDto(
                     programStageRepository.save(ProgramStageMapper.INSTANCE.toEntity(programStageRequest))
             ));
+        }
+        return result;
+    }
+
+    @Override
+    public List<ProgramStageDto> saveListProgramStageFee(List<ProgramStageProgramFeeRequest> requestList) {
+        List<ProgramStageDto> result=new ArrayList<>();
+        for (ProgramStageProgramFeeRequest request:requestList){
+            if (request.getProgramFeeRequest()!=null){
+                //save programFee
+                ProgramFee programFee= ProgramFeeMapper.INSTANCE.toEntity(request.getProgramFeeRequest());
+                ProgramFee resultFee=programFeeRepository.save(programFee);
+                //Set programFeeId
+                ProgramStage programStage=ProgramStageMapper.INSTANCE.toEntity(request.getProgramStageRequest());
+                programStage.setProgramFeeId(resultFee.getProgramFeeId());
+                //save program stage
+                result.add(ProgramStageMapper.INSTANCE.toDto(
+                        programStageRepository.save(programStage)
+                ));
+            }
+            else {
+                ProgramStage programStage=ProgramStageMapper.INSTANCE.toEntity(request.getProgramStageRequest());
+                //save program stage
+                result.add(ProgramStageMapper.INSTANCE.toDto(
+                        programStageRepository.save(programStage)
+                ));
+            }
         }
         return result;
     }

@@ -1,5 +1,6 @@
 package com.usstudy.spring2024se083_usstudy_capstoneproject.api;
 
+import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramStageProgramFeeRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.dto.request.ProgramStageRequest;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.service.ProgramStageService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,5 +38,10 @@ public class ProgramStageApi {
     @PostMapping("")
     public ResponseEntity<?> postProgramStageList(@RequestBody List<ProgramStageRequest> programStageRequest) {
         return ResponseEntity.ok(programStageService.saveListProgram(programStageRequest));
+    }
+    @Operation(summary = "Create a list of new program stage and program fee", description = "Return new list program stage if success")
+    @PostMapping("/fee")
+    public ResponseEntity<?> postProgramStageFeeList(@RequestBody List<ProgramStageProgramFeeRequest> requestList) {
+        return ResponseEntity.ok(programStageService.saveListProgramStageFee(requestList));
     }
 }

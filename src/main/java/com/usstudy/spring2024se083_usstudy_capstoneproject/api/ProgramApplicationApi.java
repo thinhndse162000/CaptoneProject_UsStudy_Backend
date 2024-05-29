@@ -50,9 +50,7 @@ public class ProgramApplicationApi {
     }
 
     @Operation(summary = "Update an existed Program Application",
-            description = "Return a program application if success and create new apply stage in database, " +
-                    "return null if the program don't have any program stage " +
-                    "or when stageNo bigger than that program list ProgramStage size")
+            description = "Return a program application if success")
     @PutMapping("/{id}")
     public ResponseEntity<?> putProgramApplication(@PathVariable Integer id,
                                                    @RequestBody ProgramApplicationRequest programApplicationRequest) {
