@@ -13,4 +13,5 @@ public class DocumentRequest {
     private String file;
     private Integer programApplicationId;
     private Integer documentTypeId;
+    private Integer status;
 }

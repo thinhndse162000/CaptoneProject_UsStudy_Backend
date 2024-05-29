@@ -24,6 +24,7 @@ public class Document {
     private String file;
     @Column(name = "update_date")
     private Date updateDate;
+    private Integer status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_application_id", nullable = false)

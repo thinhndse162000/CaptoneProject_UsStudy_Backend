@@ -18,4 +18,5 @@ public class DocumentDto {
     private Integer programApplicationId;
     private DocumentTypeDto documentTypeDto;
     private Date updateDate;
+    private Integer status;
 }
