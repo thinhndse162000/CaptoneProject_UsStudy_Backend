@@ -71,7 +71,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
 
     @Override
     public List<RegistrationFormDto> getAll() {
-        return registrationFormRepository.findAll()
+        return registrationFormRepository.getAllByCreateDate()
                 .stream().map(RegistrationFormMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }

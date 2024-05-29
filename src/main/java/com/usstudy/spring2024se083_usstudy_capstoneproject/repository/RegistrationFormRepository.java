@@ -16,4 +16,7 @@ public interface RegistrationFormRepository extends JpaRepository<RegistrationFo
 
     @Query("select sp from RegistrationForm sp where sp.consultant.consultantId = :consultantId")
     List<RegistrationForm> findByConsultantId(Integer consultantId);
+    @Query("Select rf from RegistrationForm rf " +
+            "ORDER BY rf.createDate DESC")
+    List<RegistrationForm> getAllByCreateDate();
 }

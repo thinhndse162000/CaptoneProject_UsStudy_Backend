@@ -35,7 +35,7 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
 
     @Override
     public List<ProgramApplicationDto> getAllFilter() {
-        return programApplicationRepository.findAll()
+        return programApplicationRepository.getAllByUpdateDate()
                 .stream().map(ProgramApplicationMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
@@ -82,7 +82,9 @@ public class ProgramApplicationServiceImpl implements ProgramApplicationService 
         }
         else {
             programApplicationRequest.setStatus(0);
-            ProgramApplication resultProgramApplication=programApplicationRepository.save(ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest));
+            ProgramApplication programApplication=ProgramApplicationMapper.INSTANCE.toEntity(programApplicationRequest);
+            programApplication.setUpdateDate(new Date(System.currentTimeMillis()));
+            ProgramApplication resultProgramApplication=programApplicationRepository.save(programApplication);
             //create and save list apply stage
             for (ProgramStage programStage:programStageList){
                 ApplyStage applyStage =new ApplyStage();
