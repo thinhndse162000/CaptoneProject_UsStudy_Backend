@@ -110,7 +110,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Bạn đã cập nhập hồ sơ");
-            notification.setContent("Bạn vừa cập nhập hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notification.setContent("Bạn vừa cập nhập " + request.getTypeName() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
         }
         return notification;

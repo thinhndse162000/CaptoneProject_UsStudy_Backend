@@ -17,4 +17,5 @@ public class NotificationCreateRequest {
     private Integer programId;
     private Integer applyStageId;
     private Integer programApplicationId;
+    private Integer typeName;
 }
