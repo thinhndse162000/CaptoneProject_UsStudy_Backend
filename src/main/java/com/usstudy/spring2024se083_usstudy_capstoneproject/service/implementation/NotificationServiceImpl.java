@@ -115,7 +115,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Bạn đã cập nhập hồ sơ");
-            notification.setContent("Bạn vừa cập nhập " + type.getTypeName() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notification.setContent("Bạn vừa cập nhập " + type.getTypeName() + " hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
         } else if (request.getProgramApplicationId() != null && request.getPaymentId() != null) {
             ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
@@ -127,7 +127,7 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Bạn đã tạo giao dịch thành công");
-            notification.setContent("Bạn vừa giao dịch " + payment.getPaymentId() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notification.setContent("Bạn vừa giao dịch " + payment.getPaymentId() + " hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
         }
         return notification;
