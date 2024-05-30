@@ -17,6 +17,6 @@ public class NotificationCreateRequest {
     private Integer programId;
     private Integer applyStageId;
     private Integer programApplicationId;
-    private String typeName;
-    private String feeType;
+    private Integer docTypeId;
+    private Integer paymentId;
 }

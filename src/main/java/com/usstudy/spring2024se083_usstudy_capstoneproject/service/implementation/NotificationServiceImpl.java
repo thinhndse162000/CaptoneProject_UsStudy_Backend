@@ -28,10 +28,11 @@ public class NotificationServiceImpl implements NotificationService {
     private final RegistrationFormRepository registrationFormRepository;
     private final ProgramRepository programRepository;
     private final ApplyStageRepository applyStageRepository;
-
     private final ProgramApplicationRepository programApplicationRepository;
+    private final DocumentTypeRepository documentRepository;
+    private final PaymentRepository paymentRepository;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository, FirebaseMessaging firebaseMessaging, CustomerRepository customerRepository, ConsultantRepository consultantRepository, RegistrationFormRepository registrationFormRepository, ProgramRepository programRepository, ApplyStageRepository applyStageRepository, ProgramApplicationRepository programApplicationRepository) {
+    public NotificationServiceImpl(NotificationRepository notificationRepository, FirebaseMessaging firebaseMessaging, CustomerRepository customerRepository, ConsultantRepository consultantRepository, RegistrationFormRepository registrationFormRepository, ProgramRepository programRepository, ApplyStageRepository applyStageRepository, ProgramApplicationRepository programApplicationRepository, DocumentTypeRepository documentRepository, PaymentRepository paymentRepository) {
         this.notificationRepository = notificationRepository;
 //        this.firebaseMessaging = firebaseMessaging;
         this.customerRepository = customerRepository;
@@ -40,6 +41,8 @@ public class NotificationServiceImpl implements NotificationService {
         this.programRepository = programRepository;
         this.applyStageRepository = applyStageRepository;
         this.programApplicationRepository = programApplicationRepository;
+        this.documentRepository = documentRepository;
+        this.paymentRepository = paymentRepository;
     }
 
 
@@ -102,25 +105,29 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setTitle("Ứng Tuyển Hồ Sơ Thành Công");
             notification.setContent("Bạn vừa nộp hồ sơ vào " + program.getNameProgram() + " Thành công");
             notificationRepository.save(notification);
-        } else if (request.getProgramApplicationId() != null && request.getTypeName() != null) {
+        } else if (request.getProgramApplicationId() != null && request.getDocTypeId() != null) {
             ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
                     .orElseThrow(() -> new NullPointerException("Program application not found - " + request.getProgramApplicationId()));
+            DocumentType type = documentRepository.findById(request.getDocTypeId())
+                    .orElseThrow(() -> new NullPointerException("Document not found - " + request.getProgramApplicationId()));
 
             notification.setNotificationId(0);
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Bạn đã cập nhập hồ sơ");
-            notification.setContent("Bạn vừa cập nhập " + request.getTypeName() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notification.setContent("Bạn vừa cập nhập " + type.getTypeName() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
-        } else if (request.getProgramApplicationId() != null && request.getFeeType() != null) {
+        } else if (request.getProgramApplicationId() != null && request.getPaymentId() != null) {
             ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
                     .orElseThrow(() -> new NullPointerException("Program application not found - " + request.getProgramApplicationId()));
+            Payment payment = paymentRepository.findById(request.getPaymentId())
+                    .orElseThrow(() -> new NullPointerException("Payment not found - " + request.getProgramApplicationId()));
 
             notification.setNotificationId(0);
             notification.setDate(new Date(System.currentTimeMillis()));
             notification.setCustomer(customer);
             notification.setTitle("Bạn đã tạo giao dịch thành công");
-            notification.setContent("Bạn vừa giao dịch " + request.getFeeType() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notification.setContent("Bạn vừa giao dịch " + payment.getPaymentId() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
         }
         return notification;
