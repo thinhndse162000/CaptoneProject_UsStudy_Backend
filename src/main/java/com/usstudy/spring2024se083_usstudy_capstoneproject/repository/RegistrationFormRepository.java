@@ -3,7 +3,6 @@ package com.usstudy.spring2024se083_usstudy_capstoneproject.repository;
 import com.usstudy.spring2024se083_usstudy_capstoneproject.domain.entity.RegistrationForm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,7 +15,8 @@ public interface RegistrationFormRepository extends JpaRepository<RegistrationFo
 
     @Query("select sp from RegistrationForm sp where sp.consultant.consultantId = :consultantId")
     List<RegistrationForm> findByConsultantId(Integer consultantId);
+
     @Query("Select rf from RegistrationForm rf " +
-            "ORDER BY rf.createDate DESC")
+            "ORDER BY rf.createDate DESC, rf.registrationFormId DESC")
     List<RegistrationForm> getAllByCreateDate();
 }
