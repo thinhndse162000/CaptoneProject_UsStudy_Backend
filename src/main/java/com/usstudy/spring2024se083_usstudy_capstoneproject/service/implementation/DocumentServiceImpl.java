@@ -49,6 +49,7 @@ public class DocumentServiceImpl implements DocumentService {
         }
         Document document= DocumentMapper.INSTANCE.toEntity(documentRequest);
         document.setUpdateDate(new Date(System.currentTimeMillis()));
+        document.setStatus(1);
         return DocumentMapper.INSTANCE.toDto(
                 documentRepository.save(document)
         );
