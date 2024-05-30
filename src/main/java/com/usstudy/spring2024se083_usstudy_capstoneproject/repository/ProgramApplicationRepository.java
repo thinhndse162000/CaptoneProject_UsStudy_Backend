@@ -10,6 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface ProgramApplicationRepository extends JpaRepository<ProgramApplication, Integer> {
+    @Query("SELECT pa FROM ProgramApplication pa " +
+            "WHERE pa.studentProfile.studentProfileId = :id " +
+            "ORDER BY pa.updateDate DESC")
     List<ProgramApplication> findByStudentProfileStudentProfileId(Integer id);
 
     @Query("SELECT pa FROM ProgramApplication pa JOIN pa.studentProfile sp WHERE sp.customer.customerId = :id")
