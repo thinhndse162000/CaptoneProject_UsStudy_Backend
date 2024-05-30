@@ -105,10 +105,10 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setTitle("Ứng Tuyển Hồ Sơ Thành Công");
             notification.setContent("Bạn vừa nộp hồ sơ vào " + program.getNameProgram() + " Thành công");
             notificationRepository.save(notification);
-        } else if (request.getProgramApplicationId() != null && request.getDocTypeId() != null) {
+        } else if (request.getProgramApplicationId() != null && request.getDocumentTypeId() != null) {
             ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
                     .orElseThrow(() -> new NullPointerException("Program application not found - " + request.getProgramApplicationId()));
-            DocumentType type = documentRepository.findById(request.getDocTypeId())
+            DocumentType type = documentRepository.findById(request.getDocumentTypeId())
                     .orElseThrow(() -> new NullPointerException("Document not found - " + request.getProgramApplicationId()));
 
             notification.setNotificationId(0);
