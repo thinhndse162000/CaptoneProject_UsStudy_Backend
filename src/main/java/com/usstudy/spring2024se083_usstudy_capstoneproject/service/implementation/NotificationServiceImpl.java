@@ -112,6 +112,16 @@ public class NotificationServiceImpl implements NotificationService {
             notification.setTitle("Bạn đã cập nhập hồ sơ");
             notification.setContent("Bạn vừa cập nhập " + request.getTypeName() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
             notificationRepository.save(notification);
+        } else if (request.getProgramApplicationId() != null && request.getFeeType() != null) {
+            ProgramApplication programApplication = programApplicationRepository.findById(request.getProgramApplicationId())
+                    .orElseThrow(() -> new NullPointerException("Program application not found - " + request.getProgramApplicationId()));
+
+            notification.setNotificationId(0);
+            notification.setDate(new Date(System.currentTimeMillis()));
+            notification.setCustomer(customer);
+            notification.setTitle("Bạn đã tạo giao dịch thành công");
+            notification.setContent("Bạn vừa giao dịch " + request.getFeeType() + "hồ sơ " + programApplication.getProgramApplicationId() + " Thành công");
+            notificationRepository.save(notification);
         }
         return notification;
 
