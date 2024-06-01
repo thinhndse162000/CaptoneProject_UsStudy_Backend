@@ -20,7 +20,8 @@ public interface ProgramApplicationRepository extends JpaRepository<ProgramAppli
     @Query("SELECT pa FROM ProgramApplication pa JOIN pa.program p " +
             "JOIN p.university u " +
             "JOIN u.staff s " +
-            "WHERE u.staff.staffId = :id")
+            "WHERE u.staff.staffId = :id " +
+            "ORDER BY pa.updateDate DESC")
     List<ProgramApplication> getAllByStaffId(Integer id);
 
     @Query("SELECT pa FROM ProgramApplication pa " +
